@@ -1,0 +1,194 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Uczen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Klasa
+        </dt>
+
+        <dd>
+            @Model.uczen.Klasa.nazwa
+        </dd>
+
+        <dt>
+            Imie rodzica
+        </dt>
+
+        <dd>
+            @Model.uczen.Rodzic.imie
+        </dd>
+
+        <dt>
+            Imie
+        </dt>
+
+        <dd>
+            @Model.uczen.imie
+        </dd>
+
+        <dt>
+            Nazwisko
+        </dt>
+
+        <dd>
+            @Model.uczen.nazwisko
+        </dd>
+
+        <dt>
+            Login
+        </dt>
+
+        <dd>
+            @Model.uczen.login
+        </dd>
+
+        <dt>
+            Haslo
+        </dt>
+
+        <dd>
+            @Model.uczen.login
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+</p>
+
+<h2>Oceny</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Nauczyciel
+        </th>
+        <th>
+            Wartosc
+        </th>
+        <th>
+            Waga
+        </th>
+        <th>
+            data
+        </th>
+        <th>
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.oceny)
+    {
+        <tr>
+            <td>
+                @item.Nauczyciel.imie
+            </td>
+            <td>
+                @item.ocena
+            </td>
+            <td>
+                @item.waga
+            </td>
+            <td>
+                @item.data
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<h2>Spoznienia</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Godzina
+        </th>
+        <th>
+            Dzien
+        </th>
+        <th>
+            Data
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.spoznienia)
+    {
+        <tr>
+            <td>
+                @item.Lekcja.godzina
+            </td>
+            <td>
+                @item.Lekcja.dzien
+            </td>
+            <td>
+                @item.date
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+
+<h2>Nieobecnosci</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Godzina
+        </th>
+        <th>
+            Dzien
+        </th>
+        <th>
+            Data
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.nieobecnosci)
+    {
+        <tr>
+            <td>
+                @item.Lekcja.godzina
+            </td>
+            <td>
+                @item.Lekcja.dzien
+            </td>
+            <td>
+                @item.date
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+
