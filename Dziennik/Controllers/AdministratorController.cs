@@ -15,6 +15,7 @@ namespace Dziennik.Controllers
     {
         private Context db = new Context();
 
+        // GET: Administratoro;jghv
         //Siemka
         public ActionResult Index()
         {
