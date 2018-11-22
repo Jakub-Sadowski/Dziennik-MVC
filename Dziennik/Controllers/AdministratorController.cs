@@ -15,7 +15,7 @@ namespace Dziennik.Controllers
     {
         private Context db = new Context();
 
-        // GET: Administrator
+        //Siemka
         public ActionResult Index()
         {
             return View(db.Administratorzy.ToList());
