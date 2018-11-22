@@ -24,9 +24,19 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Informacje", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+
+                    @if (Session["Status"] == "Admin")
+                    {
+
+                    <li>@Html.ActionLink("Administratorzy", "Administratorzy", "Administrator")</li>
+                    <li>@Html.ActionLink("Nauczyciele", "Nauczyciele", "Administrator")</li>
+                    <li>@Html.ActionLink("Uczniowie", "Uczniowie", "Administrator")</li>
+                    <li>@Html.ActionLink("Rodzicie", "Rodzice", "Administrator")</li>
+                    <li>@Html.ActionLink("Klasy", "Klasy", "Administrator")</li>
+                    <li>@Html.ActionLink("Przedmioty", "Przedmioty", "Administrator")</li>
+                    <li>@Html.ActionLink("Lekcje", "Lekcje", "Administrator")</li>
+                    }
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["UserName"] == null)
