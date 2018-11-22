@@ -9,7 +9,7 @@ namespace Dziennik.DAL
 
         public Context() : base("Context")
         {
-            Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Dziennik.Migrations.Configuration>());
 
         }
 
@@ -48,6 +48,7 @@ namespace Dziennik.DAL
                        .HasOptional(s => s.Klasa)
                        .WithMany()
                        .HasForeignKey(s => s.KlasaID);
+
         }
     }
 }

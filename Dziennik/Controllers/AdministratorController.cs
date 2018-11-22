@@ -20,7 +20,7 @@ namespace Dziennik.Controllers
         {
             return View(db.Administratorzy.ToList());
         }
-
+        
         // GET: Administrator/Details/5
         public ActionResult Details(int? id)
         {

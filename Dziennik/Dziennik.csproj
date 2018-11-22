@@ -170,6 +170,18 @@
     <Compile Include="Migrations\201811141532126_abc.Designer.cs">
       <DependentUpon>201811141532126_abc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811151309010_acv.cs" />
+    <Compile Include="Migrations\201811151309010_acv.Designer.cs">
+      <DependentUpon>201811151309010_acv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811151318498_asd.cs" />
+    <Compile Include="Migrations\201811151318498_asd.Designer.cs">
+      <DependentUpon>201811151318498_asd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811202323294_asa.cs" />
+    <Compile Include="Migrations\201811202323294_asa.Designer.cs">
+      <DependentUpon>201811202323294_asa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Klasa.cs" />
@@ -262,11 +274,10 @@
     <Content Include="Views\Nauczyciel\Details.cshtml" />
     <Content Include="Views\Nauczyciel\Edit.cshtml" />
     <Content Include="Views\Nauczyciel\Index.cshtml" />
-    <Content Include="Views\Log\Create.cshtml" />
-    <Content Include="Views\Log\Delete.cshtml" />
-    <Content Include="Views\Log\Details.cshtml" />
-    <Content Include="Views\Log\Edit.cshtml" />
-    <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\Log\Login.cshtml" />
+    <Content Include="Views\Log\Zalogowany.cshtml" />
+    <Content Include="Views\Log\Wyloguj.cshtml" />
+    <Content Include="Views\Log\Gdy_zalogowany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -287,6 +298,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811141532126_abc.resx">
       <DependentUpon>201811141532126_abc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811151309010_acv.resx">
+      <DependentUpon>201811151309010_acv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811151318498_asd.resx">
+      <DependentUpon>201811151318498_asd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811202323294_asa.resx">
+      <DependentUpon>201811202323294_asa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

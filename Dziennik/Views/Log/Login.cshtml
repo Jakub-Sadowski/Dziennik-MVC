@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Loguj";
+}
+
+<h2>Logowanie</h2>
+
+@using (Html.BeginForm("Login", "Log", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h4>Zaloguj się</h4>
+        <hr />
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <p style="color:red">
+                @ViewBag.Message
+            </p>
+        }
+        <div class="form-group">
+
+            <label class="control-label col-md-1"> Login </label>
+            <div class="col-md-10">
+                <input name="login" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1"> Hasło </label>
+            <div class="col-md-10">
+                <input type="password" name="password" class="form-control">
+            </div>
+        </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Loguj" class="btn btn-default" />
+        </div>
+        </div>
+    </div>
+}
+
