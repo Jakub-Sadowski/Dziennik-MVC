@@ -150,6 +150,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionAttrs\RedirectIfNotAdmin.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
+    <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
     <Compile Include="DAL\Context.cs" />
@@ -278,6 +280,16 @@
     <Content Include="Views\Log\Zalogowany.cshtml" />
     <Content Include="Views\Log\Wyloguj.cshtml" />
     <Content Include="Views\Log\Gdy_zalogowany.cshtml" />
+    <Content Include="Views\Przedmiots\Create.cshtml" />
+    <Content Include="Views\Przedmiots\Delete.cshtml" />
+    <Content Include="Views\Przedmiots\Details.cshtml" />
+    <Content Include="Views\Przedmiots\Edit.cshtml" />
+    <Content Include="Views\Przedmiots\Index.cshtml" />
+    <Content Include="Views\Przedmiot\Create.cshtml" />
+    <Content Include="Views\Przedmiot\Delete.cshtml" />
+    <Content Include="Views\Przedmiot\Details.cshtml" />
+    <Content Include="Views\Przedmiot\Edit.cshtml" />
+    <Content Include="Views\Przedmiot\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
