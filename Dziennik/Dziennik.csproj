@@ -158,6 +158,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
+    <Compile Include="Controllers\UczenController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="DAL\Initializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,6 +183,10 @@
     <Compile Include="Migrations\201811271056029_1234.cs" />
     <Compile Include="Migrations\201811271056029_1234.Designer.cs">
       <DependentUpon>201811271056029_1234.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811271936058_InitialUczenValidation.cs" />
+    <Compile Include="Migrations\201811271936058_InitialUczenValidation.Designer.cs">
+      <DependentUpon>201811271936058_InitialUczenValidation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -255,6 +260,11 @@
     <Content Include="Views\Przedmiot\Details.cshtml" />
     <Content Include="Views\Przedmiot\Edit.cshtml" />
     <Content Include="Views\Przedmiot\Index.cshtml" />
+    <Content Include="Views\Uczen\Create.cshtml" />
+    <Content Include="Views\Uczen\Delete.cshtml" />
+    <Content Include="Views\Uczen\Details.cshtml" />
+    <Content Include="Views\Uczen\Edit.cshtml" />
+    <Content Include="Views\Uczen\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -287,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811271056029_1234.resx">
       <DependentUpon>201811271056029_1234.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271936058_InitialUczenValidation.resx">
+      <DependentUpon>201811271936058_InitialUczenValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dziennik.Models
 {
@@ -10,9 +8,16 @@ namespace Dziennik.Models
     {
         public int ID { get; set; }
         
+        [Required]
         public string imie { get; set; }
+
+        [Required]
         public string nazwisko { get; set; }
+
+        [Required]
         public string login { get; set; }
+
+        [Required]
         public string haslo { get; set; }
 
         public int? KlasaID { get; set; }
@@ -26,6 +31,14 @@ namespace Dziennik.Models
 
         public virtual Klasa Klasa { get; set; }
         public virtual Rodzic Rodzic { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return imie + " " + nazwisko;
+            }
+        }
 
 
     }
