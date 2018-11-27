@@ -6,13 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Dziennik.ActionAttrs;
 using Dziennik.DAL;
 using Dziennik.Models;
 
 namespace Dziennik.Controllers
 {
-    [RedirectIfNotAdmin]
     public class AdministratorController : Controller
     {
         private Context db = new Context();

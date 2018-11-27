@@ -255,10 +255,6 @@
     <Content Include="Views\Przedmiot\Details.cshtml" />
     <Content Include="Views\Przedmiot\Edit.cshtml" />
     <Content Include="Views\Przedmiot\Index.cshtml" />
-    <Content Include="Views\Log\gdy_zalogowany.cshtml" />
-    <Content Include="Views\Log\Login.cshtml" />
-    <Content Include="Views\Log\Wyloguj.cshtml" />
-    <Content Include="Views\Log\Zalogowany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
