@@ -28,13 +28,13 @@
                     @if (Session["Status"] == "Admin")
                     {
 
-                    <li>@Html.ActionLink("Administratorzy", "Administratorzy", "Administrator")</li>
-                    <li>@Html.ActionLink("Nauczyciele", "Nauczyciele", "Administrator")</li>
-                    <li>@Html.ActionLink("Uczniowie", "Uczniowie", "Administrator")</li>
-                    <li>@Html.ActionLink("Rodzicie", "Rodzice", "Administrator")</li>
-                    <li>@Html.ActionLink("Klasy", "Klasy", "Administrator")</li>
-                    <li>@Html.ActionLink("Przedmioty", "Przedmioty", "Administrator")</li>
-                    <li>@Html.ActionLink("Lekcje", "Lekcje", "Administrator")</li>
+                    <li>@Html.ActionLink("Administratorzy", "Index", "Administrator")</li>
+                    <li>@Html.ActionLink("Nauczyciele", "Index", "Nauczyciel")</li>
+                    <li>@Html.ActionLink("Uczniowie", "Index", "Uczen")</li>
+                    <li>@Html.ActionLink("Rodzicie", "Index", "Rodzic")</li>
+                    <li>@Html.ActionLink("Klasy", "Index", "Klasa")</li>
+                    <li>@Html.ActionLink("Przedmioty", "Index", "Przedmiot")</li>
+                    <li>@Html.ActionLink("Lekcje", "Index", "Lekcja")</li>
                     }
 
                 </ul>

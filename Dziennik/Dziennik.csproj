@@ -182,6 +182,10 @@
     <Compile Include="Migrations\201811202323294_asa.Designer.cs">
       <DependentUpon>201811202323294_asa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811271056029_1234.cs" />
+    <Compile Include="Migrations\201811271056029_1234.Designer.cs">
+      <DependentUpon>201811271056029_1234.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Klasa.cs" />
@@ -307,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811202323294_asa.resx">
       <DependentUpon>201811202323294_asa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271056029_1234.resx">
+      <DependentUpon>201811271056029_1234.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

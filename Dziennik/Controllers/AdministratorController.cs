@@ -17,9 +17,16 @@ namespace Dziennik.Controllers
 
         // GET: Administratoro;jghv
         //Siemka
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
-            return View(db.Administratorzy.ToList());
+            var admini = from s in db.Administratorzy
+                           select s;
+            if (!String.IsNullOrEmpty(search))
+            {
+                admini = admini.Where(s => (s.imie+" "+s.nazwisko).Contains(search));
+            }
+            admini = admini.OrderByDescending(s => s.nazwisko);
+            return View(admini.ToList());
         }
         
         // GET: Administrator/Details/5
@@ -50,12 +57,21 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
         {
+            List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
+            if(admin.Count != 0)
+            {
+                ModelState.AddModelError("", "Podany login istnieje w bazie.");
+            }
+            else  
+
             if (ModelState.IsValid)
             {
                 db.Administratorzy.Add(administrator);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+
 
             return View(administrator);
         }
@@ -82,6 +98,12 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
         {
+            List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
+            if (admin.Count != 0)
+            {
+                ModelState.AddModelError("", "Podany login istnieje w bazie.");
+            }
+            else
             if (ModelState.IsValid)
             {
                 db.Entry(administrator).State = EntityState.Modified;
