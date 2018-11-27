@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Dziennik.ActionAttrs;
+using Dziennik.DAL;
+using Dziennik.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Dziennik.DAL;
-using Dziennik.Models;
 
 namespace Dziennik.Controllers
 {
+    [RedirectIfNotAdmin]
     public class AdministratorController : Controller
     {
         private Context db = new Context();
