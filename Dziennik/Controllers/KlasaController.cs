@@ -22,7 +22,6 @@ namespace Dziennik.Controllers
         public ActionResult Index()
         {
             var klasy = db.Klasy.Include(k => k.Wychowawca);
-
             return View(klasy.ToList());
         }
 
@@ -44,7 +43,7 @@ namespace Dziennik.Controllers
         // GET: Klasa/Create
         public ActionResult Create()
         {
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie");
+            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie");
             return View();
         }
 
@@ -53,8 +52,16 @@ namespace Dziennik.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KlasaID,NauczycielID,nazwa,level")] Klasa klasa)
+        public ActionResult Create([Bind(Include = "KlasaID,nazwa,level,WychowawcaID")] Klasa klasa)
         {
+
+
+            List<Klasa> klaska = db.Klasy.Where(a => a.nazwa == klasa.nazwa).ToList();
+            if (klaska.Count != 0)
+            {
+                ModelState.AddModelError("", "Podana klasa istnieje w bazie.");
+            }
+            else
             if (ModelState.IsValid)
             {
                 db.Klasy.Add(klasa);
@@ -62,7 +69,7 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
+            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
             return View(klasa);
         }
 
@@ -78,7 +85,7 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
+            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
             return View(klasa);
         }
 
@@ -87,7 +94,7 @@ namespace Dziennik.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "KlasaID,NauczycielID,nazwa,level")] Klasa klasa)
+        public ActionResult Edit([Bind(Include = "KlasaID,nazwa,level,WychowawcaID")] Klasa klasa)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +102,7 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
+            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
             return View(klasa);
         }
 
