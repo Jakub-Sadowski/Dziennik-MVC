@@ -14,8 +14,7 @@ namespace Dziennik.Models
         [Key]
         [ForeignKey("Przedmiot")]
         public int? PrzedmiotID { get; set; }
-        [NotMapped]
-        public FileStream plik { get; set; }
+        [Required] public string plikSciezka { get; set; }
 
         public virtual Przedmiot Przedmiot { get; set; }
         

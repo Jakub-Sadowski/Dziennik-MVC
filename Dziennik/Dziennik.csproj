@@ -164,29 +164,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811141532126_abc.cs" />
-    <Compile Include="Migrations\201811141532126_abc.Designer.cs">
-      <DependentUpon>201811141532126_abc.cs</DependentUpon>
+    <Compile Include="Migrations\201811291608450_asd.cs" />
+    <Compile Include="Migrations\201811291608450_asd.Designer.cs">
+      <DependentUpon>201811291608450_asd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811151309010_acv.cs" />
-    <Compile Include="Migrations\201811151309010_acv.Designer.cs">
-      <DependentUpon>201811151309010_acv.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811151318498_asd.cs" />
-    <Compile Include="Migrations\201811151318498_asd.Designer.cs">
-      <DependentUpon>201811151318498_asd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811202323294_asa.cs" />
-    <Compile Include="Migrations\201811202323294_asa.Designer.cs">
-      <DependentUpon>201811202323294_asa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811271056029_1234.cs" />
-    <Compile Include="Migrations\201811271056029_1234.Designer.cs">
-      <DependentUpon>201811271056029_1234.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811271936058_InitialUczenValidation.cs" />
-    <Compile Include="Migrations\201811271936058_InitialUczenValidation.Designer.cs">
-      <DependentUpon>201811271936058_InitialUczenValidation.cs</DependentUpon>
+    <Compile Include="Migrations\201811291616314_addReqs.cs" />
+    <Compile Include="Migrations\201811291616314_addReqs.Designer.cs">
+      <DependentUpon>201811291616314_addReqs.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -198,7 +182,6 @@
     <Compile Include="Models\Ogloszenie_dla_rodzicow.cs" />
     <Compile Include="Models\Plik.cs" />
     <Compile Include="Models\Profil.cs" />
-    <Compile Include="Models\PrzedmiotKlasaNauczyciel.cs" />
     <Compile Include="Models\Testy_ucznia.cs" />
     <Compile Include="Models\Tresc_ksztalcenia.cs" />
     <Compile Include="Models\Lekcja.cs" />
@@ -236,7 +219,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -283,23 +268,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811141532126_abc.resx">
-      <DependentUpon>201811141532126_abc.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811291608450_asd.resx">
+      <DependentUpon>201811291608450_asd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811151309010_acv.resx">
-      <DependentUpon>201811151309010_acv.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811151318498_asd.resx">
-      <DependentUpon>201811151318498_asd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811202323294_asa.resx">
-      <DependentUpon>201811202323294_asa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811271056029_1234.resx">
-      <DependentUpon>201811271056029_1234.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811271936058_InitialUczenValidation.resx">
-      <DependentUpon>201811271936058_InitialUczenValidation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811291616314_addReqs.resx">
+      <DependentUpon>201811291616314_addReqs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

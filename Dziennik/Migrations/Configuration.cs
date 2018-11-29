@@ -19,23 +19,22 @@ namespace Dziennik.Migrations
         {
             var klasy = new List<Klasa>
             {
-            new Klasa{nazwa = "A", level = klasa.kl1},
-            new Klasa{nazwa = "B", level = klasa.kl2},
-            new Klasa{nazwa = "C", level = klasa.kl3},
+            new Klasa{KlasaID = 1, nazwa = "A", level = klasa.kl1},
+            new Klasa{KlasaID = 2, nazwa = "B", level = klasa.kl2},
+            new Klasa{KlasaID = 3, nazwa = "C", level = klasa.kl3},
 
             };
             klasy.ForEach(s => context.Klasy.Add(s));
             context.SaveChanges();
             var nauczyciele = new List<Nauczyciel>
             {
-             new Nauczyciel{imie = "Janusz", nazwisko = "Tracz", login = "kucharz97", haslo="1234",KlasaID =1},
-             new Nauczyciel{imie = "Wies³aw", nazwisko = "Kozak", login = "kucharz98", haslo="1234",KlasaID =2},
-             new Nauczyciel{imie = "Wiktor", nazwisko = "Jakowluk", login = "kucharz9", haslo="1234",KlasaID =3},
+             new Nauczyciel{imie = "Janusz", nazwisko = "Tracz", login = "kucharz97", haslo="1234", WychowywaneKlasy = klasy.Where(k => k.KlasaID == 1).ToList()},
+             new Nauczyciel{imie = "Wies³aw", nazwisko = "Kozak", login = "kucharz98", haslo="1234", WychowywaneKlasy = klasy.Where(k => k.KlasaID == 2).ToList()},
+             new Nauczyciel{imie = "Wiktor", nazwisko = "Jakowluk", login = "kucharz9", haslo="1234", WychowywaneKlasy = klasy.Where(k => k.KlasaID == 3).ToList() },
             };
             nauczyciele.ForEach(s => context.Nauczyciele.Add(s));
             context.SaveChanges();
 
-          
 
             var lekcje = new List<Lekcja>
             {
