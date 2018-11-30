@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dziennik.Models
@@ -11,12 +10,6 @@ namespace Dziennik.Models
         
         [Required]
         public string imie { get; set; }
-
-        [DisplayName("Imię rodzica")]
-        public string rodzicImie { get; set; }
-
-        [DisplayName("Nazwisko rodzica")]
-        public string rodzicNazwisko { get; set; }
 
         [Required]
         public string nazwisko { get; set; }
