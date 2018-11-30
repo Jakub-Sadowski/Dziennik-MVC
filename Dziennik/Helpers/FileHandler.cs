@@ -35,7 +35,7 @@ namespace Dziennik.Helpers
         public static string removeGuid(string fileName)
         {
             var parts = fileName.Split('_');
-            if (parts.Length != 2)
+            if (parts.Length < 2)
                 throw new ArgumentException();
             return parts[1];
         }
