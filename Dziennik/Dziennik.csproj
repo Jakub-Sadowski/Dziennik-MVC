@@ -165,6 +165,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FileHandler.cs" />
     <Compile Include="Migrations\201811291608450_asd.cs" />
     <Compile Include="Migrations\201811291608450_asd.Designer.cs">
       <DependentUpon>201811291608450_asd.cs</DependentUpon>

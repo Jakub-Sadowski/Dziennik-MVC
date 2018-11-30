@@ -17,7 +17,13 @@ namespace Dziennik.Models
         [Required] public string plikSciezka { get; set; }
 
         public virtual Przedmiot Przedmiot { get; set; }
-        
+
+        public Tresc_ksztalcenia() {}
+        public Tresc_ksztalcenia(int? przedmiotID, string sciezka)
+        {
+            PrzedmiotID = przedmiotID;
+            plikSciezka = sciezka;
+        }
 
     }
 
