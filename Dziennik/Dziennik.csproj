@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201811271936058_InitialUczenValidation.Designer.cs">
       <DependentUpon>201811271936058_InitialUczenValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811291825541_ImieRodzica.cs" />
+    <Compile Include="Migrations\201811291825541_ImieRodzica.Designer.cs">
+      <DependentUpon>201811291825541_ImieRodzica.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Klasa.cs" />
@@ -300,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811271936058_InitialUczenValidation.resx">
       <DependentUpon>201811271936058_InitialUczenValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811291825541_ImieRodzica.resx">
+      <DependentUpon>201811291825541_ImieRodzica.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -19,10 +19,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Klasa.nazwa)
+            @Html.DisplayNameFor(model => model.Klasa)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rodzic.imie)
+            @Html.DisplayNameFor(model => model.ImieRodzica)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.imie)
@@ -43,6 +43,7 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Klasa.level)
                 @Html.DisplayFor(modelItem => item.Klasa.nazwa)
             </td>
             <td>
