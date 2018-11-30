@@ -59,17 +59,18 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Rodzic rodzic)
         {
+            List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
+            if (rodzice.Count != 0)
+            {
+                ModelState.AddModelError("", "Podany login istnieje w bazie.");
+            }
             if (ModelState.IsValid)
             {
                 db.Rodzice.Add(rodzic);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
-            if (rodzice.Count != 0)
-            {
-                ModelState.AddModelError("", "Podany login istnieje w bazie.");
-            }
+            
 
             return View(rodzic);
         }
@@ -96,17 +97,18 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo")] Rodzic rodzic)
         {
+            List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
+            if (rodzice.Count != 0)
+            {
+                ModelState.AddModelError("", "Podany login istnieje w bazie.");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(rodzic).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
-            if (rodzice.Count != 0)
-            {
-                ModelState.AddModelError("", "Podany login istnieje w bazie.");
-            }
+            
             return View(rodzic);
         }
 
