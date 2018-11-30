@@ -7,13 +7,13 @@ namespace Dziennik.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class acv : IMigrationMetadata
+    public sealed partial class kaskad : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(acv));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(kaskad));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811151309010_acv"; }
+            get { return "201811301725236_kaskad"; }
         }
         
         string IMigrationMetadata.Source

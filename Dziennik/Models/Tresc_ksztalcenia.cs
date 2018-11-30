@@ -14,11 +14,16 @@ namespace Dziennik.Models
         [Key]
         [ForeignKey("Przedmiot")]
         public int? PrzedmiotID { get; set; }
-        [NotMapped]
-        public FileStream plik { get; set; }
+        [Required] public string plikSciezka { get; set; }
 
         public virtual Przedmiot Przedmiot { get; set; }
-        
+
+        public Tresc_ksztalcenia() {}
+        public Tresc_ksztalcenia(int? przedmiotID, string sciezka)
+        {
+            PrzedmiotID = przedmiotID;
+            plikSciezka = sciezka;
+        }
 
     }
 

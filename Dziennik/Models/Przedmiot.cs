@@ -15,10 +15,9 @@ namespace Dziennik.Models
 
     {
         public int? ID { get; set; }
-        public string nazwa { get; set; }
-        public kl level { get; set; }
+        [Required] public string nazwa { get; set; }
+        [Required] public kl level { get; set; }
 
-        public virtual ICollection<PrzedmiotKlasaNauczyciel> Link { get; set; }
         public virtual ICollection<Ocena> Oceny { get; set; }
         public virtual ICollection<Lekcja> Lekcje { get; set; }
         public virtual ICollection<Plik> Pliki { get; set; }

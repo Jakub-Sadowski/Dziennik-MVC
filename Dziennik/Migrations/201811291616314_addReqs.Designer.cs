@@ -7,13 +7,13 @@ namespace Dziennik.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class asd : IMigrationMetadata
+    public sealed partial class addReqs : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(asd));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addReqs));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811151318498_asd"; }
+            get { return "201811291616314_addReqs"; }
         }
         
         string IMigrationMetadata.Source

@@ -10,32 +10,120 @@
     <h4>Przedmiot</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ID)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.ID)</dt>
+        <dd>@Html.DisplayFor(model => model.ID)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ID)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.nazwa)</dt>
+        <dd>@Html.DisplayFor(model => model.nazwa)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nazwa)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.level)</dt>
+        <dd>@Html.DisplayFor(model => model.level)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nazwa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.level)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.level)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Tresc_ksztalcenia.plikSciezka)</dt>
+        <dd>@Html.DisplayFor(model => model.Tresc_ksztalcenia.plikSciezka)</dd>
 
     </dl>
 </div>
+
+<h2>Testy</h2>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Testy.FirstOrDefault().ID)</th>
+        <th>@Html.DisplayNameFor(model => model.Testy.FirstOrDefault().Nauczyciel.FullName)</th>
+        <th>@Html.DisplayNameFor(model => model.Testy.FirstOrDefault().Klasa.Name)</th>
+
+        <th>Akcje</th>
+    </tr>
+
+    @foreach (var item in Model.Testy)
+    {
+        <tr>
+            <td>@Html.DisplayFor(model => item.ID)</td>
+            <td>@Html.DisplayFor(model => item.Nauczyciel.FullName)</td>
+            <td>@Html.DisplayFor(model => item.Klasa.Name)</td>
+            <th>@Html.DisplayNameFor(model => model.Lekcje.FirstOrDefault().Nauczyciel.FullName)</th>
+            <th>@Html.DisplayNameFor(model => model.Lekcje.FirstOrDefault().Klasa.Name)</th>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Test", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", "Test", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", "Test", new { id = item.ID })
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<h2>Lekcje</h2>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Lekcje.FirstOrDefault().ID)</th>
+        <th>@Html.DisplayNameFor(model => model.Lekcje.FirstOrDefault().dzien)</th>
+        <th>@Html.DisplayNameFor(model => model.Lekcje.FirstOrDefault().godzina)</th>
+
+        <th>Akcje</th>
+    </tr>
+
+    @foreach (var item in Model.Lekcje)
+    {
+        <tr>
+            <td>@Html.DisplayFor(model => item.ID)</td>
+            <td>@Html.DisplayFor(model => item.dzien)</td>
+            <td>@Html.DisplayFor(model => item.godzina)</td>
+            <td>@Html.DisplayFor(model => item.Nauczyciel.FullName)</td>
+            <td>@Html.DisplayFor(model => item.Klasa.Name)</td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Lekcja", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", "Lekcja", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", "Lekcja", new { id = item.ID })
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<h2>Oceny</h2>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Oceny.FirstOrDefault().ID)</th>
+        <th>@Html.DisplayNameFor(model => model.Oceny.FirstOrDefault().ocena)</th>
+        <th>@Html.DisplayNameFor(model => model.Oceny.FirstOrDefault().waga)</th>
+        <th>@Html.DisplayNameFor(model => model.Oceny.FirstOrDefault().data)</th>
+        <th>@Html.DisplayNameFor(model => model.Oceny.FirstOrDefault().tresc)</th>
+        <th>@Html.DisplayNameFor(model => model.Oceny.FirstOrDefault().Uczen.FullName)</th>
+        <th>@Html.DisplayNameFor(model => model.Oceny.FirstOrDefault().Nauczyciel.FullName)</th>
+
+        <th>Akcje</th>
+    </tr>
+
+    @foreach (var item in Model.Oceny)
+    {
+    <tr>
+        <th>@Html.DisplayNameFor(model => item.ID)</th>
+        <th>@Html.DisplayNameFor(model => item.ocena)</th>
+        <th>@Html.DisplayNameFor(model => item.waga)</th>
+        <th>@Html.DisplayNameFor(model => item.data)</th>
+        <th>@Html.DisplayNameFor(model => item.tresc)</th>
+        <th>@Html.DisplayNameFor(model => item.Uczen.FullName)</th>
+        <th>@Html.DisplayNameFor(model => item.Nauczyciel.FullName)</th>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", "Ocena", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", "Ocena", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", "Ocena", new { id = item.ID })
+        </td>
+
+    </tr>
+    }
+
+</table>
+
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

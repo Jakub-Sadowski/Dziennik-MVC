@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Dziennik.Models.Klasa>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Wychowawca.imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.level)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wychowawca.imie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.level)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.KlasaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.KlasaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.KlasaID })
+        </td>
+    </tr>
+}
+
+</table>
