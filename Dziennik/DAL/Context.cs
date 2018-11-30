@@ -45,6 +45,7 @@ namespace Dziennik.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            
             modelBuilder.Entity<Uczen>()
            .HasOptional(o => o.Klasa)
            .WithMany(m => m.Uczniowie)
@@ -160,13 +161,14 @@ namespace Dziennik.DAL
          .HasForeignKey(k => k.RodzicID)
          .WillCascadeOnDelete(true);
 
-                               modelBuilder.Entity<Uczen>()
-         .HasOptional(o => o.Rodzic)
-         .WithMany(m => m.Uczniowie)
-         .HasForeignKey(k => k.RodzicID)
-         .WillCascadeOnDelete(false);
+              modelBuilder.Entity<Uczen>()
+.HasOptional(o => o.Rodzic)
+.WithMany(m => m.Uczniowie)
+.HasForeignKey(k => k.RodzicID)
+.WillCascadeOnDelete(true);
+         
 
-                                  modelBuilder.Entity<Testy_ucznia>()
+            modelBuilder.Entity<Testy_ucznia>()
          .HasOptional(o => o.Test)
          .WithMany(m => m.Testy)
          .HasForeignKey(k => k.TestID)
@@ -204,7 +206,7 @@ namespace Dziennik.DAL
          .HasForeignKey(k => k.UczenID)
          .WillCascadeOnDelete(true);
 
-                                                  modelBuilder.Entity<Testy_ucznia>()
+          modelBuilder.Entity<Testy_ucznia>()
          .HasOptional(o => o.Uczen)
          .WithMany(m => m.Testy)
          .HasForeignKey(k => k.UczenID)

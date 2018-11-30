@@ -43,6 +43,7 @@ namespace Dziennik.Controllers
             obj.spoznienia = db.Spoznienia.Include(s => s.Lekcja).Where(s => s.UczenID == id);
             obj.nieobecnosci = db.Nieobecnosci.Include(s => s.Lekcja).Where(s => s.UczenID == id);
             obj.testy = db.Testy_ucznia.Where(s => s.UczenID == id);
+            
 
             return View(obj);
         }
@@ -51,7 +52,7 @@ namespace Dziennik.Controllers
         public ActionResult Create()
         {
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
-            ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "imie");
+            ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "FullName");
             return View();
         }
 
@@ -76,7 +77,7 @@ namespace Dziennik.Controllers
             }
 
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", uczen.KlasaID);
-            ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "imie", uczen.RodzicID);
+            ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "FullName", uczen.RodzicID);
             return View(uczen);
         }
 
@@ -93,7 +94,7 @@ namespace Dziennik.Controllers
                 return HttpNotFound();
             }
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", uczen.KlasaID);
-            ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "imie", uczen.RodzicID);
+            ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "FullName", uczen.RodzicID);
             return View(uczen);
         }
 
@@ -117,7 +118,7 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", uczen.KlasaID);
-            ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "imie", uczen.RodzicID);
+            ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "FullName", uczen.RodzicID);
             return View(uczen);
         }
 
