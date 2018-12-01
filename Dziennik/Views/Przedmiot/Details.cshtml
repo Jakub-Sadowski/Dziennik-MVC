@@ -20,7 +20,8 @@
         <dd>@Html.DisplayFor(model => model.level)</dd>
 
         <dt>@Html.DisplayNameFor(model => model.Tresc_ksztalcenia.plikSciezka)</dt>
-        <dd>@Html.DisplayFor(model => model.Tresc_ksztalcenia.plikSciezka)</dd>
+        <dd>@Html.ActionLink(Html.DisplayFor(model => model.Tresc_ksztalcenia.plikSciezka).ToString(), "DownloadTrescKsztalcenia",new { id = Model.ID })
+        </dd>
 
     </dl>
 </div>

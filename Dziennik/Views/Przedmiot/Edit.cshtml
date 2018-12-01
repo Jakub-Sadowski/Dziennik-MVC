@@ -33,6 +33,7 @@
     </div>
 
     <div class="form-group">
+        @Html.ActionLink(Html.DisplayFor(model => model.Tresc_ksztalcenia.plikSciezka).ToString(), "DownloadTrescKsztalcenia", new { id = Model.ID })
         @Html.Label("Zastąp treść kształcenia", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <input type="file" name="fileUpload" />
