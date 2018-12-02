@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Dziennik.Models.Rodzic>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<h2>Rodzice</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Szukaj osobę: @Html.TextBox("search")
+        <input type="submit" value="Szukaj" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>login</th>
+        <th>hasło</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.haslo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
