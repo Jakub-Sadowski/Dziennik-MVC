@@ -1,10 +1,11 @@
-﻿@model IEnumerable<Dziennik.Models.Przedmiot>
+﻿@model IEnumerable<Dziennik.Models.Rodzic>
 
 @{
     ViewBag.Title = "Index";
+
 }
 
-<h2>Index</h2>
+<h2>Rodzice</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,36 +13,33 @@
 @using (Html.BeginForm())
 {
     <p>
-        Szukaj po nazwie: @Html.TextBox("search")
+        Szukaj osobę: @Html.TextBox("search")
         <input type="submit" value="Szukaj" />
     </p>
 }
-
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nazwa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.level)
-        </th>
-        <th></th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>login</th>
+        <th>hasło</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.ID)
+                @Html.DisplayFor(modelItem => item.imie)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nazwa)
+                @Html.DisplayFor(modelItem => item.nazwisko)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.level)
+                @Html.DisplayFor(modelItem => item.login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.haslo)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

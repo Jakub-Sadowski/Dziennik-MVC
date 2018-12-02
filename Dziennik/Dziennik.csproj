@@ -51,10 +51,22 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.0.101\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Primitives.4.3.0\lib\net45\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -159,12 +171,14 @@
     <Compile Include="Controllers\KlasaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
+    <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="DAL\Initializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FileHandler.cs" />
     <Compile Include="Migrations\201811291608450_asd.cs" />
     <Compile Include="Migrations\201811291608450_asd.Designer.cs">
       <DependentUpon>201811291608450_asd.cs</DependentUpon>
@@ -172,6 +186,14 @@
     <Compile Include="Migrations\201811291616314_addReqs.cs" />
     <Compile Include="Migrations\201811291616314_addReqs.Designer.cs">
       <DependentUpon>201811291616314_addReqs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811302038430_rodzice.cs" />
+    <Compile Include="Migrations\201811302038430_rodzice.Designer.cs">
+      <DependentUpon>201811302038430_rodzice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811301844068_qwes.cs" />
+    <Compile Include="Migrations\201811301844068_qwes.Designer.cs">
+      <DependentUpon>201811301844068_qwes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -256,6 +278,11 @@
     <Content Include="Views\Klasa\Details.cshtml" />
     <Content Include="Views\Klasa\Edit.cshtml" />
     <Content Include="Views\Klasa\Index.cshtml" />
+    <Content Include="Views\Rodzic\Create.cshtml" />
+    <Content Include="Views\Rodzic\Delete.cshtml" />
+    <Content Include="Views\Rodzic\Details.cshtml" />
+    <Content Include="Views\Rodzic\Edit.cshtml" />
+    <Content Include="Views\Rodzic\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -269,7 +296,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
@@ -279,6 +308,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811291616314_addReqs.resx">
       <DependentUpon>201811291616314_addReqs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811302038430_rodzice.resx">
+      <DependentUpon>201811302038430_rodzice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811301844068_qwes.resx">
+      <DependentUpon>201811301844068_qwes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
