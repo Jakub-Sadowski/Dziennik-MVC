@@ -59,7 +59,7 @@ namespace Dziennik.Controllers
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
         {
             List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
-            if(admin.Count != 0)
+            if (admin.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
             }

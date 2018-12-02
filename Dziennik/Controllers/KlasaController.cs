@@ -57,17 +57,23 @@ namespace Dziennik.Controllers
 
 
             List<Klasa> klaska = db.Klasy.Where(a => a.nazwa == klasa.nazwa).ToList();
+            List<Klasa> klaska1 = db.Klasy.Where(a => a.level == klasa.level).ToList();
             if (klaska.Count != 0)
             {
                 ModelState.AddModelError("", "Podana klasa istnieje w bazie.");
             }
-            else
-            if (ModelState.IsValid)
-            {
-                db.Klasy.Add(klasa);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            else {
+
+               
+
+                    if (ModelState.IsValid)
+                    {
+                        db.Klasy.Add(klasa);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+            
 
             ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
             return View(klasa);
@@ -96,11 +102,19 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "KlasaID,nazwa,level,WychowawcaID")] Klasa klasa)
         {
-            if (ModelState.IsValid)
+            List<Klasa> klaska = db.Klasy.Where(a => a.nazwa == klasa.nazwa).ToList();
+            if (klaska.Count != 0)
             {
-                db.Entry(klasa).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Podana klasa istnieje w bazie.");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(klasa).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
             return View(klasa);
