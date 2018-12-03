@@ -26,6 +26,10 @@ namespace Dziennik.Controllers
             {
                 przedmioty = przedmioty.Where(p => p.nazwa == nazwa);
             }
+			foreach(var p in przedmioty)
+			{
+				p.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(p.Tresc_ksztalcenia.plikSciezka);
+			}
             return View(przedmioty.ToList());
         }
 
