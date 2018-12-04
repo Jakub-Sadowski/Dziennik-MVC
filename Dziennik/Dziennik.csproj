@@ -169,7 +169,9 @@
     <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlasaController.cs" />
+    <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\NauczycielController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
@@ -283,6 +285,26 @@
     <Content Include="Views\Rodzic\Details.cshtml" />
     <Content Include="Views\Rodzic\Edit.cshtml" />
     <Content Include="Views\Rodzic\Index.cshtml" />
+    <Content Include="Views\Lekcjas\Create.cshtml" />
+    <Content Include="Views\Lekcjas\Delete.cshtml" />
+    <Content Include="Views\Lekcjas\Details.cshtml" />
+    <Content Include="Views\Lekcjas\Edit.cshtml" />
+    <Content Include="Views\Lekcjas\Index.cshtml" />
+    <Content Include="Views\Nauczyciels\Create.cshtml" />
+    <Content Include="Views\Nauczyciels\Delete.cshtml" />
+    <Content Include="Views\Nauczyciels\Details.cshtml" />
+    <Content Include="Views\Nauczyciels\Edit.cshtml" />
+    <Content Include="Views\Nauczyciels\Index.cshtml" />
+    <Content Include="Views\Nauczyciel\Create.cshtml" />
+    <Content Include="Views\Nauczyciel\Delete.cshtml" />
+    <Content Include="Views\Nauczyciel\Details.cshtml" />
+    <Content Include="Views\Nauczyciel\Edit.cshtml" />
+    <Content Include="Views\Nauczyciel\Index.cshtml" />
+    <Content Include="Views\Lekcja\Create.cshtml" />
+    <Content Include="Views\Lekcja\Delete.cshtml" />
+    <Content Include="Views\Lekcja\Details.cshtml" />
+    <Content Include="Views\Lekcja\Edit.cshtml" />
+    <Content Include="Views\Lekcja\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
