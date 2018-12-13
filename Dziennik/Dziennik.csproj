@@ -181,21 +181,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHandler.cs" />
-    <Compile Include="Migrations\201811291608450_asd.cs" />
-    <Compile Include="Migrations\201811291608450_asd.Designer.cs">
-      <DependentUpon>201811291608450_asd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811291616314_addReqs.cs" />
-    <Compile Include="Migrations\201811291616314_addReqs.Designer.cs">
-      <DependentUpon>201811291616314_addReqs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811302038430_rodzice.cs" />
-    <Compile Include="Migrations\201811302038430_rodzice.Designer.cs">
-      <DependentUpon>201811302038430_rodzice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811301844068_qwes.cs" />
-    <Compile Include="Migrations\201811301844068_qwes.Designer.cs">
-      <DependentUpon>201811301844068_qwes.cs</DependentUpon>
+    <Compile Include="Migrations\201812131643147_xyz.cs" />
+    <Compile Include="Migrations\201812131643147_xyz.Designer.cs">
+      <DependentUpon>201812131643147_xyz.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -325,17 +313,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811291608450_asd.resx">
-      <DependentUpon>201811291608450_asd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811291616314_addReqs.resx">
-      <DependentUpon>201811291616314_addReqs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811302038430_rodzice.resx">
-      <DependentUpon>201811302038430_rodzice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811301844068_qwes.resx">
-      <DependentUpon>201811301844068_qwes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812131643147_xyz.resx">
+      <DependentUpon>201812131643147_xyz.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
