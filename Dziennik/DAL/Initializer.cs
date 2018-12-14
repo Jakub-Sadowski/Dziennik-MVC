@@ -19,7 +19,11 @@ namespace Dziennik.DAL
             new Uczen{imie = "Kamil", nazwisko = "Jarmoc", login = "elkamilaszczy", haslo="1234" },
             new Uczen{imie = "Marcin", nazwisko = "Krasucki", login = "rafonix", haslo="1234" },
             };
-
+            var rodzice = new List<Rodzic>
+            {
+                new Rodzic{imie="Rodzic",nazwisko="Rodzic",login="rodzic",haslo="rodzic"}
+            };
+            rodzice.ForEach(s => context.Rodzice.Add(s));
             uczniowie.ForEach(s => context.Uczniowie.Add(s));
             context.SaveChanges();
         }
