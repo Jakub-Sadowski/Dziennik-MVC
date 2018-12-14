@@ -34,10 +34,12 @@ namespace Dziennik.Helpers
 
         public static string removeGuid(string fileName)
         {
-            var parts = fileName.Split('_');
-            if (parts.Length < 2)
+            var start = fileName.IndexOf('_');
+            if (start == -1)
                 throw new ArgumentException();
-            return parts[1];
+            start++;
+            var name = fileName.Substring(start, fileName.Length - start);
+            return name;
         }
     }
 }

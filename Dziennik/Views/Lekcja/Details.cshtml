@@ -1,0 +1,59 @@
+﻿@model Dziennik.Models.Lekcja
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Lekcja</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Klasa.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Klasa.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nauczyciel.imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nauczyciel.imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Przedmiot.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Przedmiot.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.godzina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.godzina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dzien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dzien)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

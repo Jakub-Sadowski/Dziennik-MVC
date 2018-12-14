@@ -26,6 +26,10 @@ namespace Dziennik.Controllers
             {
                 przedmioty = przedmioty.Where(p => p.nazwa == nazwa);
             }
+			foreach(var p in przedmioty)
+			{
+				p.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(p.Tresc_ksztalcenia.plikSciezka);
+			}
             return View(przedmioty.ToList());
         }
 
@@ -92,6 +96,7 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
+            przedmiot.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(przedmiot.Tresc_ksztalcenia.plikSciezka);
             return View(przedmiot);
         }
 
@@ -151,6 +156,18 @@ namespace Dziennik.Controllers
 
             FileHandler.deleteFile(tk.plikSciezka);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult DownloadTrescKsztalcenia(int? id)
+        {
+            var tk = db.Tresci_ksztalcenia.Find(id);
+            if (tk == null)
+                throw new ArgumentException();
+            var path = tk.plikSciezka;
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path);
+            string fileName = FileHandler.getFileName(path);
+            var mime = MimeMapping.GetMimeMapping(fileName);
+            return File(fileBytes, mime, fileName);
         }
 
         protected override void Dispose(bool disposing)
