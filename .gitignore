@@ -12,6 +12,7 @@
 *.userprefs
 *.csproj
 *.csproj.user
+/bin
 
 
 # Build results

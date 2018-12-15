@@ -125,6 +125,31 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
+           
+             var nieobecnosci = db.Nieobecnosci.Where(s => s.LekcjaID == id);
+            foreach(var a in nieobecnosci)
+            {
+                a.LekcjaID = null;
+                db.Entry(a).State = EntityState.Modified;
+                
+                
+
+            }
+            db.SaveChanges();
+
+            var spoznienie = db.Spoznienia.Where(s => s.LekcjaID == id);
+            foreach (var a in spoznienie)
+            {
+                a.LekcjaID = null;
+                db.Entry(a).State = EntityState.Modified;
+
+
+
+            }
+            db.SaveChanges();
+
+
             Lekcja lekcja = db.Lekcja.Find(id);
             db.Lekcja.Remove(lekcja);
             db.SaveChanges();
