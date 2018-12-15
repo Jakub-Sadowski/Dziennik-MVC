@@ -136,7 +136,6 @@ namespace Dziennik.Controllers
 			if (Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
-			Lekcja lekcja = db.Lekcja.Find(id);
 
 			var nieobecnosci = db.Nieobecnosci.Where(s => s.LekcjaID == id);
             foreach(var a in nieobecnosci)
