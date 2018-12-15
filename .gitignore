@@ -3,13 +3,14 @@
 
 # User-specific files
 *.suo
+*.user
 *.userosscache
 *.sln.docstates
 /Dziennik/Migrations/
 *.csproj.docstates
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+*.csproj.user
 /bin
 
 

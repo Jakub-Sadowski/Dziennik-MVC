@@ -158,6 +158,34 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult Oceny(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var oceny = from s in db.Oceny
+                          select s;
+            oceny = oceny.Where(s => s.UczenID==id);
+                                      
+            if (oceny == null)
+            {
+                return HttpNotFound();
+            }
+            return View(oceny);
+        }
+        [HttpPost, ActionName("Oceny")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Oceny(int id)
+        {
+            var oceny = from s in db.Oceny
+                        select s;
+            oceny = oceny.Where(s => s.UczenID==id);
+            oceny = oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
+            //var oceny = db.Oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot).Include(o => o.Uczen).Where(s => s.UczenID == id);
+            return View(oceny.ToList());
+        }
 
         protected override void Dispose(bool disposing)
         {
