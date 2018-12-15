@@ -160,7 +160,7 @@ namespace Dziennik.Controllers
         }
         public ActionResult Oceny(int? id)
         {
-            if (Session["Status"] != "Admin")
+            if (Session["Status"] == "Uczeń")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -186,7 +186,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Oceny(int id)
         {
-            if (Session["Status"] != "Admin")
+            if (Session["Status"] == "Uczeń")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
