@@ -12,15 +12,16 @@ using System.Web.Mvc;
 
 namespace Dziennik.Controllers
 {
-    [RedirectIfNotAdmin]
     public class UczenController : Controller
     {
         private Context db = new Context();
 
-        // GET: Uczen
         public ActionResult Index(string search)
         {
-            var uczniowie = from s in db.Uczniowie
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			var uczniowie = from s in db.Uczniowie
                          select s;
             if (!String.IsNullOrEmpty(search))
             {
@@ -30,10 +31,12 @@ namespace Dziennik.Controllers
             return View(uczniowie.ToList());
         }
 
-        // GET: Uczen/Details/5
         public ActionResult Details(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -48,22 +51,24 @@ namespace Dziennik.Controllers
             return View(obj);
         }
 
-        // GET: Uczen/Create
         public ActionResult Create()
-        {
-            ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
             ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "FullName");
             return View();
         }
 
-        // POST: Uczen/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
-        {
-            List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
             if (uczeniowie.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
@@ -81,10 +86,12 @@ namespace Dziennik.Controllers
             return View(uczen);
         }
 
-        // GET: Uczen/Edit/5
         public ActionResult Edit(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -98,14 +105,14 @@ namespace Dziennik.Controllers
             return View(uczen);
         }
 
-        // POST: Uczen/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
-        {
-            List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
             if (uczeniowie.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
@@ -122,10 +129,12 @@ namespace Dziennik.Controllers
             return View(uczen);
         }
 
-        // GET: Uczen/Delete/5
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -137,12 +146,14 @@ namespace Dziennik.Controllers
             return View(uczen);
         }
 
-        // POST: Uczen/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {
-            Uczen uczen = db.Uczniowie.Find(id);
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			Uczen uczen = db.Uczniowie.Find(id);
             db.Uczniowie.Remove(uczen);
             db.SaveChanges();
             return RedirectToAction("Index");

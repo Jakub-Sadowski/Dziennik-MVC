@@ -12,14 +12,15 @@ using Dziennik.Models;
 
 namespace Dziennik.Controllers
 {
-    [RedirectIfNotAdmin]
     public class RodzicController : Controller
     {
         private Context db = new Context();
 
-        // GET: Rodzic
         public ActionResult Index(string search)
         {
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
             var rodzice = from s in db.Rodzice
                             select s;
             if (!String.IsNullOrEmpty(search))
@@ -31,10 +32,12 @@ namespace Dziennik.Controllers
             return View(rodzice.ToList());
         }
 
-        // GET: Rodzic/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -46,20 +49,22 @@ namespace Dziennik.Controllers
             return View(rodzic);
         }
 
-        // GET: Rodzic/Create
         public ActionResult Create()
         {
-            return View();
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			return View();
         }
 
-        // POST: Rodzic/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Rodzic rodzic)
         {
-            List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
             if (rodzice.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
@@ -75,10 +80,12 @@ namespace Dziennik.Controllers
             return View(rodzic);
         }
 
-        // GET: Rodzic/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -90,14 +97,14 @@ namespace Dziennik.Controllers
             return View(rodzic);
         }
 
-        // POST: Rodzic/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo")] Rodzic rodzic)
         {
-            List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
             if (rodzice.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
@@ -112,10 +119,12 @@ namespace Dziennik.Controllers
             return View(rodzic);
         }
 
-        // GET: Rodzic/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -127,12 +136,14 @@ namespace Dziennik.Controllers
             return View(rodzic);
         }
 
-        // POST: Rodzic/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Rodzic rodzic = db.Rodzice.Find(id);
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			Rodzic rodzic = db.Rodzice.Find(id);
             db.Rodzice.Remove(rodzic);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -146,5 +157,6 @@ namespace Dziennik.Controllers
             }
             base.Dispose(disposing);
         }
+		
     }
 }
