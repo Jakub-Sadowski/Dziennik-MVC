@@ -9,7 +9,6 @@ namespace Dziennik.DAL
 
         public Context() : base("Context")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Dziennik.Migrations.Configuration>());
 
         }
 

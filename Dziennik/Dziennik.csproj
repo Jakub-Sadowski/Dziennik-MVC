@@ -172,7 +172,6 @@
     <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
-    <Compile Include="Controllers\OcenaController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
@@ -182,9 +181,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHandler.cs" />
-    <Compile Include="Migrations\201812131643147_xyz.cs" />
-    <Compile Include="Migrations\201812131643147_xyz.Designer.cs">
-      <DependentUpon>201812131643147_xyz.cs</DependentUpon>
+    <Compile Include="Migrations\201812151655160_abc.cs" />
+    <Compile Include="Migrations\201812151655160_abc.Designer.cs">
+      <DependentUpon>201812151655160_abc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812151713102_aaa.cs" />
+    <Compile Include="Migrations\201812151713102_aaa.Designer.cs">
+      <DependentUpon>201812151713102_aaa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -295,11 +298,9 @@
     <Content Include="Views\Lekcja\Edit.cshtml" />
     <Content Include="Views\Lekcja\Index.cshtml" />
     <Content Include="Views\Uczen\Oceny.cshtml" />
-    <Content Include="Views\Ocena\Create.cshtml" />
-    <Content Include="Views\Ocena\Delete.cshtml" />
-    <Content Include="Views\Ocena\Details.cshtml" />
-    <Content Include="Views\Ocena\Edit.cshtml" />
-    <Content Include="Views\Ocena\Index.cshtml" />
+    <Content Include="Views\Uczen\Przedmioty.cshtml" />
+    <Content Include="Views\Uczen\TestyZPrzedmiotu.cshtml" />
+    <Content Include="Views\Uczen\Pytanie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -320,8 +321,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812131643147_xyz.resx">
-      <DependentUpon>201812131643147_xyz.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812151655160_abc.resx">
+      <DependentUpon>201812151655160_abc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812151713102_aaa.resx">
+      <DependentUpon>201812151713102_aaa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
