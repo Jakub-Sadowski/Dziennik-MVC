@@ -160,6 +160,12 @@ namespace Dziennik.Controllers
         }
         public ActionResult Oceny(int? id)
         {
+            if (Session["Status"] != "Admin")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                 id = Convert.ToInt32(ide);
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -173,18 +179,32 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(oceny);
         }
         [HttpPost, ActionName("Oceny")]
         [ValidateAntiForgeryToken]
         public ActionResult Oceny(int id)
         {
-            var oceny = from s in db.Oceny
-                        select s;
-            oceny = oceny.Where(s => s.UczenID==id);
-            oceny = oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
-            //var oceny = db.Oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot).Include(o => o.Uczen).Where(s => s.UczenID == id);
-            return View(oceny.ToList());
+            if (Session["Status"] != "Admin")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                int id1 = Convert.ToInt32(ide);
+                var oceny = from s in db.Oceny
+                            select s;
+                oceny = oceny.Where(s => s.UczenID == id1);
+                oceny = oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
+                return View(oceny.ToList());
+            }
+            else
+            {
+                var oceny = from s in db.Oceny
+                            select s;
+                oceny = oceny.Where(s => s.UczenID == id);
+                oceny = oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
+                return View(oceny.ToList());
+            }
         }
 
         protected override void Dispose(bool disposing)
