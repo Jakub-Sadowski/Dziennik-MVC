@@ -172,6 +172,7 @@
     <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
+    <Compile Include="Controllers\OcenaController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
@@ -294,6 +295,11 @@
     <Content Include="Views\Lekcja\Edit.cshtml" />
     <Content Include="Views\Lekcja\Index.cshtml" />
     <Content Include="Views\Uczen\Oceny.cshtml" />
+    <Content Include="Views\Ocena\Create.cshtml" />
+    <Content Include="Views\Ocena\Delete.cshtml" />
+    <Content Include="Views\Ocena\Details.cshtml" />
+    <Content Include="Views\Ocena\Edit.cshtml" />
+    <Content Include="Views\Ocena\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
