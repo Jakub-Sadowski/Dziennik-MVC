@@ -160,7 +160,7 @@ namespace Dziennik.Controllers
             }
             db.SaveChanges();
 
-			Lekcja lekcja = db.Lekcja.Find(id);
+			//Lekcja lekcja = db.Lekcja.Find(id);
             db.Lekcja.Remove(lekcja);
             db.SaveChanges();
             return RedirectToAction("Index");
