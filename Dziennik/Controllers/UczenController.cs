@@ -1,5 +1,6 @@
 ﻿using Dziennik.ActionAttrs;
 using Dziennik.DAL;
+using Dziennik.Helpers;
 using Dziennik.Models;
 using System;
 using System.Collections.Generic;
@@ -187,7 +188,53 @@ namespace Dziennik.Controllers
             return View(oceny.ToList());
         }
 
-        protected override void Dispose(bool disposing)
+		public ActionResult Przedmioty()
+		{
+			if (Session["Status"] != "Uczeń")
+				return RedirectToAction("Index", "Home");
+
+			var userId = Convert.ToInt32(Session["UserID"]);
+			var klasa = db.Klasy
+				.Include(k => k.Uczniowie)
+				.Where(k => k.Uczniowie.Any(u => u.ID == userId))
+				.SingleOrDefault();
+
+			var przedmioty = db.Lekcja
+				.Where(l => l.KlasaID == klasa.KlasaID)
+				.Include(l => l.Przedmiot)
+				.Include("Przedmiot.Tresc_ksztalcenia")
+				.Select(l => l.Przedmiot).ToList();
+			foreach(var p in przedmioty)
+			{
+				p.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(p.Tresc_ksztalcenia.plikSciezka);
+			}
+
+			return View(przedmioty);
+		}
+
+		public ActionResult TestyZPrzedmiotu(int? id)
+		{
+			if (Session["Status"] != "Uczeń")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			var userId = Convert.ToInt32(Session["UserID"]);
+			var klasa = db.Klasy
+				.Include(k => k.Uczniowie)
+				.Where(k => k.Uczniowie.Any(u => u.ID == userId))
+				.SingleOrDefault();
+
+			var testy = db.Testy
+				.Where(l => l.KlasaID == klasa.KlasaID && l.PrzedmiotID == id);
+
+			return View(testy.ToList());
+		}
+
+		protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

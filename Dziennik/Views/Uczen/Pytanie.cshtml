@@ -1,0 +1,19 @@
+﻿@model Dziennik.Models.Pytanie
+
+@{
+	ViewBag.Title = "Pytanie";
+}
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	<ul>
+		<li>@Html.DisplayNameFor(model => model.tresc)</li>
+		<li>@Html.RadioButtonFor(m => m.odp, Model.odpowiedz1)</li>
+		<li>@Html.RadioButtonFor(m => m.odp, Model.odpowiedz2)</li>
+		<li>@Html.RadioButtonFor(m => m.odp, Model.odpowiedz3)</li>
+		<li>@Html.RadioButtonFor(m => m.odp, Model.odpowiedz4)</li>
+
+	</ul>
+	<input type="submit" value="Create" class="btn btn-default" />
+}
