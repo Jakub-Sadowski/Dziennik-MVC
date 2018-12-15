@@ -13,14 +13,16 @@ using Dziennik.Models;
 
 namespace Dziennik.Controllers
 {
-    [RedirectIfNotAdmin]
     public class PrzedmiotController : Controller
     {
         private Context db = new Context();
 
         public ActionResult Index(string nazwa)
         {
-            string databaseName = db.Database.Connection.Database;
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			string databaseName = db.Database.Connection.Database;
             var przedmioty = db.Przedmioty.Include(p => p.Tresc_ksztalcenia);
             if (!String.IsNullOrEmpty(nazwa))
             {
@@ -35,7 +37,10 @@ namespace Dziennik.Controllers
 
         public ActionResult Details(int? id)
         {
-            if (id == null)
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -62,7 +67,10 @@ namespace Dziennik.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Tresc_ksztalcenia = new SelectList(db.Tresci_ksztalcenia, "PrzedmiotID", "PrzedmiotID");
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			ViewBag.Tresc_ksztalcenia = new SelectList(db.Tresci_ksztalcenia, "PrzedmiotID", "PrzedmiotID");
             return View();
         }
 
@@ -70,7 +78,10 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,nazwa,level")] Przedmiot przedmiot, HttpPostedFileBase fileUpload)
         {
-            if (ModelState.IsValid)
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (ModelState.IsValid)
             {
                 var sciezka = FileHandler.saveFile(fileUpload);
                 var tk = new Tresc_ksztalcenia(przedmiot.ID, sciezka);
@@ -87,7 +98,10 @@ namespace Dziennik.Controllers
 
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -104,7 +118,10 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,nazwa,level")] Przedmiot przedmiot, HttpPostedFileBase fileUpload)
         {
-            if (ModelState.IsValid)
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (ModelState.IsValid)
             {
                 Tresc_ksztalcenia oldTk = null;
                 string sciezka = null;
@@ -132,7 +149,10 @@ namespace Dziennik.Controllers
 
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -148,7 +168,10 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Przedmiot przedmiot = db.Przedmioty.Find(id);
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			Przedmiot przedmiot = db.Przedmioty.Find(id);
             var tk = db.Tresci_ksztalcenia.Find(przedmiot.ID);
             db.Przedmioty.Remove(przedmiot);
             db.Tresci_ksztalcenia.Remove(tk);
@@ -160,7 +183,10 @@ namespace Dziennik.Controllers
 
         public ActionResult DownloadTrescKsztalcenia(int? id)
         {
-            var tk = db.Tresci_ksztalcenia.Find(id);
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			var tk = db.Tresci_ksztalcenia.Find(id);
             if (tk == null)
                 throw new ArgumentException();
             var path = tk.plikSciezka;
