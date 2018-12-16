@@ -11,16 +11,16 @@ using System.Web.Mvc;
 
 namespace Dziennik.Controllers
 {
-    [RedirectIfNotAdmin]
     public class AdministratorController : Controller
     {
         private Context db = new Context();
 
-        // GET: Administratoro;jghv
-        //Siemka
         public ActionResult Index(string search)
-        {
-            var admini = from s in db.Administratorzy
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			var admini = from s in db.Administratorzy
                            select s;
             if (!String.IsNullOrEmpty(search))
             {
@@ -30,10 +30,12 @@ namespace Dziennik.Controllers
             return View(admini.ToList());
         }
         
-        // GET: Administrator/Details/5
         public ActionResult Details(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -45,21 +47,23 @@ namespace Dziennik.Controllers
             return View(administrator);
         }
 
-        // GET: Administrator/Create
         public ActionResult Create()
-        {
-            return View();
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			return View();
         }
 
-        // POST: Administrator/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
-        {
-            List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
-            if (admin.Count != 0)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
+            if(admin.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
             }
@@ -77,10 +81,12 @@ namespace Dziennik.Controllers
             return View(administrator);
         }
 
-        // GET: Administrator/Edit/5
         public ActionResult Edit(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -92,14 +98,14 @@ namespace Dziennik.Controllers
             return View(administrator);
         }
 
-        // POST: Administrator/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
-        {
-            List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
             if (admin.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
@@ -114,10 +120,12 @@ namespace Dziennik.Controllers
             return View(administrator);
         }
 
-        // GET: Administrator/Delete/5
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -129,12 +137,14 @@ namespace Dziennik.Controllers
             return View(administrator);
         }
 
-        // POST: Administrator/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {
-            Administrator administrator = db.Administratorzy.Find(id);
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			Administrator administrator = db.Administratorzy.Find(id);
             db.Administratorzy.Remove(administrator);
             db.SaveChanges();
             return RedirectToAction("Index");

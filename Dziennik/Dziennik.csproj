@@ -169,7 +169,9 @@
     <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlasaController.cs" />
+    <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\NauczycielController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
@@ -179,21 +181,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHandler.cs" />
-    <Compile Include="Migrations\201811291608450_asd.cs" />
-    <Compile Include="Migrations\201811291608450_asd.Designer.cs">
-      <DependentUpon>201811291608450_asd.cs</DependentUpon>
+    <Compile Include="Migrations\201812160915074_filePath.cs" />
+    <Compile Include="Migrations\201812160915074_filePath.Designer.cs">
+      <DependentUpon>201812160915074_filePath.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811291616314_addReqs.cs" />
-    <Compile Include="Migrations\201811291616314_addReqs.Designer.cs">
-      <DependentUpon>201811291616314_addReqs.cs</DependentUpon>
+    <Compile Include="Migrations\201812161421251_ads.cs" />
+    <Compile Include="Migrations\201812161421251_ads.Designer.cs">
+      <DependentUpon>201812161421251_ads.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811302038430_rodzice.cs" />
-    <Compile Include="Migrations\201811302038430_rodzice.Designer.cs">
-      <DependentUpon>201811302038430_rodzice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811301844068_qwes.cs" />
-    <Compile Include="Migrations\201811301844068_qwes.Designer.cs">
-      <DependentUpon>201811301844068_qwes.cs</DependentUpon>
+    <Compile Include="Migrations\201812161426220_ads1.cs" />
+    <Compile Include="Migrations\201812161426220_ads1.Designer.cs">
+      <DependentUpon>201812161426220_ads1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -283,6 +281,33 @@
     <Content Include="Views\Rodzic\Details.cshtml" />
     <Content Include="Views\Rodzic\Edit.cshtml" />
     <Content Include="Views\Rodzic\Index.cshtml" />
+    <Content Include="Views\Lekcjas\Create.cshtml" />
+    <Content Include="Views\Lekcjas\Delete.cshtml" />
+    <Content Include="Views\Lekcjas\Details.cshtml" />
+    <Content Include="Views\Lekcjas\Edit.cshtml" />
+    <Content Include="Views\Lekcjas\Index.cshtml" />
+    <Content Include="Views\Nauczyciels\Create.cshtml" />
+    <Content Include="Views\Nauczyciels\Delete.cshtml" />
+    <Content Include="Views\Nauczyciels\Details.cshtml" />
+    <Content Include="Views\Nauczyciels\Edit.cshtml" />
+    <Content Include="Views\Nauczyciels\Index.cshtml" />
+    <Content Include="Views\Nauczyciel\Create.cshtml" />
+    <Content Include="Views\Nauczyciel\Delete.cshtml" />
+    <Content Include="Views\Nauczyciel\Details.cshtml" />
+    <Content Include="Views\Nauczyciel\Edit.cshtml" />
+    <Content Include="Views\Nauczyciel\Index.cshtml" />
+    <Content Include="Views\Lekcja\Create.cshtml" />
+    <Content Include="Views\Lekcja\Delete.cshtml" />
+    <Content Include="Views\Lekcja\Details.cshtml" />
+    <Content Include="Views\Lekcja\Edit.cshtml" />
+    <Content Include="Views\Lekcja\Index.cshtml" />
+    <Content Include="Views\Uczen\Oceny.cshtml" />
+    <Content Include="Views\Uczen\Przedmioty.cshtml" />
+    <Content Include="Views\Uczen\SzczegolyPrzedmiotu.cshtml" />
+    <Content Include="Views\Uczen\Pytanie.cshtml" />
+    <Content Include="Views\Uczen\TworzenieOceny.cshtml" />
+    <Content Include="Views\Uczen\EdytowanieOceny.cshtml" />
+    <Content Include="Views\Uczen\UsuwanieOceny.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -303,17 +328,14 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811291608450_asd.resx">
-      <DependentUpon>201811291608450_asd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812160915074_filePath.resx">
+      <DependentUpon>201812160915074_filePath.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811291616314_addReqs.resx">
-      <DependentUpon>201811291616314_addReqs.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812161421251_ads.resx">
+      <DependentUpon>201812161421251_ads.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811302038430_rodzice.resx">
-      <DependentUpon>201811302038430_rodzice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811301844068_qwes.resx">
-      <DependentUpon>201811301844068_qwes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812161426220_ads1.resx">
+      <DependentUpon>201812161426220_ads1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

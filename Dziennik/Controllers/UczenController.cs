@@ -1,5 +1,6 @@
 ﻿using Dziennik.ActionAttrs;
 using Dziennik.DAL;
+using Dziennik.Helpers;
 using Dziennik.Models;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,16 @@ using System.Web.Mvc;
 
 namespace Dziennik.Controllers
 {
-    [RedirectIfNotAdmin]
     public class UczenController : Controller
     {
         private Context db = new Context();
 
-        // GET: Uczen
         public ActionResult Index(string search)
         {
-            var uczniowie = from s in db.Uczniowie
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			var uczniowie = from s in db.Uczniowie
                          select s;
             if (!String.IsNullOrEmpty(search))
             {
@@ -30,10 +32,12 @@ namespace Dziennik.Controllers
             return View(uczniowie.ToList());
         }
 
-        // GET: Uczen/Details/5
         public ActionResult Details(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -48,22 +52,24 @@ namespace Dziennik.Controllers
             return View(obj);
         }
 
-        // GET: Uczen/Create
         public ActionResult Create()
-        {
-            ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
             ViewBag.RodzicID = new SelectList(db.Rodzice, "ID", "FullName");
             return View();
         }
 
-        // POST: Uczen/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
-        {
-            List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
             if (uczeniowie.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
@@ -81,10 +87,12 @@ namespace Dziennik.Controllers
             return View(uczen);
         }
 
-        // GET: Uczen/Edit/5
         public ActionResult Edit(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -98,14 +106,14 @@ namespace Dziennik.Controllers
             return View(uczen);
         }
 
-        // POST: Uczen/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
-        {
-            List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
             if (uczeniowie.Count != 0)
             {
                 ModelState.AddModelError("", "Podany login istnieje w bazie.");
@@ -122,10 +130,12 @@ namespace Dziennik.Controllers
             return View(uczen);
         }
 
-        // GET: Uczen/Delete/5
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -137,18 +147,225 @@ namespace Dziennik.Controllers
             return View(uczen);
         }
 
-        // POST: Uczen/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {
-            Uczen uczen = db.Uczniowie.Find(id);
+		{
+			if (Session["Status"] != "Admin")
+				return RedirectToAction("Index", "Home");
+
+			Uczen uczen = db.Uczniowie.Find(id);
             db.Uczniowie.Remove(uczen);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult Oceny(int? id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                 id = Convert.ToInt32(ide);
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var oceny = from s in db.Oceny
+                          select s;
+            oceny = oceny.Where(s => s.UczenID==id);
+                                      
+            if (oceny == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(oceny);
+        }
+        [HttpPost, ActionName("Oceny")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Oceny(int id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                int id1 = Convert.ToInt32(ide);
+                var oceny = from s in db.Oceny
+                            select s;
+                oceny = oceny.Where(s => s.UczenID == id1);
+                oceny = oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
+                return View(oceny.ToList());
+            }
+            else
+            {
+                var oceny = from s in db.Oceny
+                            select s;
+                oceny = oceny.Where(s => s.UczenID == id);
+                oceny = oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
+                return View(oceny.ToList());
+            }
+        }
 
-        protected override void Dispose(bool disposing)
+		public ActionResult Przedmioty()
+		{
+			if (Session["Status"] != "Uczeń")
+				return RedirectToAction("Index", "Home");
+
+			var userId = Convert.ToInt32(Session["UserID"]);
+			var klasa = db.Klasy
+				.Include(k => k.Uczniowie)
+				.Where(k => k.Uczniowie.Any(u => u.ID == userId))
+				.SingleOrDefault();
+
+			var przedmioty = db.Lekcja
+				.Where(l => l.KlasaID == klasa.KlasaID)
+				.Include(l => l.Przedmiot)
+				.Include("Przedmiot.Tresc_ksztalcenia")
+				.Select(l => l.Przedmiot).ToList();
+			foreach(var p in przedmioty)
+			{
+				p.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(p.Tresc_ksztalcenia.plikSciezka);
+			}
+
+			return View(przedmioty);
+		}
+
+		public ActionResult SzczegolyPrzedmiotu(int? id)
+		{
+			if (Session["Status"] != "Uczeń")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			var userId = Convert.ToInt32(Session["UserID"]);
+			var klasa = db.Klasy
+				.Include(k => k.Uczniowie)
+				.Where(k => k.Uczniowie.Any(u => u.ID == userId))
+				.SingleOrDefault();
+
+			var przedmiot = db.Przedmioty
+				.Where(p => p.ID == id)
+				.Include(p => p.Testy)
+				.Include(p => p.Pliki)
+				.Where(p => p.Testy.Where(
+					t => t.KlasaID == klasa.KlasaID)
+					.Any())
+				.SingleOrDefault()
+				;
+
+			return View(przedmiot);
+		}
+
+        public ActionResult TworzenieOceny()
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName");
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa");
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
+            return View();
+        }
+
+        // POST: Ocena/Create
+        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
+        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TworzenieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                db.Oceny.Add(ocena);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName", ocena.NauczycielID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
+            return View(ocena);
+        }
+
+        // GET: Ocena/Edit/5
+        public ActionResult EdytowanieOceny(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ocena ocena = db.Oceny.Find(id);
+            if (ocena == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName", ocena.NauczycielID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
+            return View(ocena);
+        }
+
+        // POST: Ocena/Edit/5
+        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
+        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EdytowanieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                db.Entry(ocena).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName", ocena.NauczycielID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
+            return View(ocena);
+        }
+
+        // GET: Ocena/Delete/5
+        public ActionResult UsuwanieOceny(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ocena ocena = db.Oceny.Find(id);
+            if (ocena == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ocena);
+        }
+
+        // POST: Ocena/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UsuwanieOcenyPotwierdzone(int id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            Ocena ocena = db.Oceny.Find(id);
+            db.Oceny.Remove(ocena);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+    protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

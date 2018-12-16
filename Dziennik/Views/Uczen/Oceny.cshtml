@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Dziennik.Models.Ocena>
+
+@{
+    ViewBag.Title = "Oceny";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Oceny</h2>
+
+<p>
+    @Html.ActionLink("Create New", "TworzenieOceny")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nauczyciel
+        </th>
+        <th>
+            Przedmiot
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ocena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.waga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data)
+        </th>
+        <th>
+            Opis
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Przedmiot.nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ocena)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.waga)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tresc)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EdytowanieOceny", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "UsuwanieOceny", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

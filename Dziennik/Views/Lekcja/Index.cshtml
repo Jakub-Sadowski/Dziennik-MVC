@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Dziennik.Models.Lekcja>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Klasa.nazwa) klasy
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nauczyciel.imie) i 
+            @Html.DisplayNameFor(model => model.Nauczyciel.nazwisko) nauczyciela 
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Przedmiot.nazwa) przedmiotu
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.godzina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dzien)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Klasa.nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nauczyciel.imie)
+            @Html.DisplayFor(modelItem => item.Nauczyciel.nazwisko)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Przedmiot.nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.godzina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dzien)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
