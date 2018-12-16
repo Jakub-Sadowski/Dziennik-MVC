@@ -260,6 +260,158 @@ namespace Dziennik.Controllers
 
 			return View(przedmiot);
 		}
+
+        public ActionResult TworzenieOceny()
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName");
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa");
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
+            return View();
+        }
+
+        // POST: Ocena/Create
+        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
+        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TworzenieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                db.Oceny.Add(ocena);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName", ocena.NauczycielID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
+            return View(ocena);
+        }
+
+        // GET: Ocena/Edit/5
+        public ActionResult EdytowanieOceny(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ocena ocena = db.Oceny.Find(id);
+            if (ocena == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName", ocena.NauczycielID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
+            return View(ocena);
+        }
+
+        // POST: Ocena/Edit/5
+        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
+        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EdytowanieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                db.Entry(ocena).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName", ocena.NauczycielID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
+            return View(ocena);
+        }
+
+        // GET: Ocena/Delete/5
+        public ActionResult UsuwanieOceny(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ocena ocena = db.Oceny.Find(id);
+            if (ocena == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ocena);
+        }
+
+        // POST: Ocena/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UsuwanieOcenyPotwierdzone(int id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            Ocena ocena = db.Oceny.Find(id);
+            db.Oceny.Remove(ocena);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Absencja(int? id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                id = Convert.ToInt32(ide);
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var nieobecn = from s in db.Nieobecnosci
+                        select s;
+            nieobecn = nieobecn.Where(s => s.UczenID == id);
+
+            if (nieobecn == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(nieobecn);
+        }
+        [HttpPost, ActionName("Oceny")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Absencja(int id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                int id1 = Convert.ToInt32(ide);
+                var nieobecn = from s in db.Nieobecnosci
+                            select s;
+                nieobecn = nieobecn.Where(s => s.UczenID == id1);
+                
+                return View(nieobecn.ToList());
+            }
+            else
+            {
+                var nieobecn = from s in db.Oceny
+                            select s;
+                nieobecn = nieobecn.Where(s => s.UczenID == id);
+                nieobecn = nieobecn.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
+                return View(nieobecn.ToList());
+            }
+        }
+
         
         public ActionResult Test(int? id)
         {

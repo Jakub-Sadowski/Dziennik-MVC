@@ -13,7 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Wychowawca.imie)
+            @Html.DisplayNameFor(model => model.Wychowawca.imie) wychowawcy
+            
+        </th>
+        <th>@Html.DisplayNameFor(model => model.Wychowawca.nazwisko) wychowawcy
         </th>
         <th>
             @Html.DisplayNameFor(model => model.nazwa)
@@ -28,6 +31,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Wychowawca.imie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wychowawca.nazwisko)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.nazwa)
