@@ -23,7 +23,7 @@
 			<td>@Html.DisplayFor(modelItem => item.level)</td>
 			<td>@Html.ActionLink(Html.DisplayFor(model => item.Tresc_ksztalcenia.plikSciezka).ToString(), "DownloadTrescKsztalcenia", "Przedmiot", new { id = item.ID }, null)</td>
 			<td>
-				@Html.ActionLink("Testy", "TestyZPrzedmiotu", new { id = item.ID }) |
+				@Html.ActionLink("Szczegoly", "SzczegolyPrzedmiotu", new { id = item.ID }) 
 			</td>
 		</tr>
 	}

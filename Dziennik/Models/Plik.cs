@@ -10,9 +10,8 @@ namespace Dziennik.Models
     public class Plik
     {
         public int ID { get; set; }
-        [NotMapped]
-        public FileStream plik { get; set; }
-        public DateTime data { get; set; }
+        public string FilePath { get; set; }
+        public DateTime DataDodania { get; set; }
 
         public int? PrzedmiotID { get; set; }
         public int? KlasaID { get; set; }

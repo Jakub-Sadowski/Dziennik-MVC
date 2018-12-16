@@ -295,7 +295,7 @@
     <Content Include="Views\Lekcja\Index.cshtml" />
     <Content Include="Views\Uczen\Oceny.cshtml" />
     <Content Include="Views\Uczen\Przedmioty.cshtml" />
-    <Content Include="Views\Uczen\TestyZPrzedmiotu.cshtml" />
+    <Content Include="Views\Uczen\SzczegolyPrzedmiotu.cshtml" />
     <Content Include="Views\Uczen\Pytanie.cshtml" />
   </ItemGroup>
   <ItemGroup>
