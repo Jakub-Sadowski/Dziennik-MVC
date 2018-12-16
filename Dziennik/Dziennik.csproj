@@ -185,6 +185,14 @@
     <Compile Include="Migrations\201812160915074_filePath.Designer.cs">
       <DependentUpon>201812160915074_filePath.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812161421251_ads.cs" />
+    <Compile Include="Migrations\201812161421251_ads.Designer.cs">
+      <DependentUpon>201812161421251_ads.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812161426220_ads1.cs" />
+    <Compile Include="Migrations\201812161426220_ads1.Designer.cs">
+      <DependentUpon>201812161426220_ads1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Klasa.cs" />
@@ -297,6 +305,9 @@
     <Content Include="Views\Uczen\Przedmioty.cshtml" />
     <Content Include="Views\Uczen\SzczegolyPrzedmiotu.cshtml" />
     <Content Include="Views\Uczen\Pytanie.cshtml" />
+    <Content Include="Views\Uczen\TworzenieOceny.cshtml" />
+    <Content Include="Views\Uczen\EdytowanieOceny.cshtml" />
+    <Content Include="Views\Uczen\UsuwanieOceny.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +330,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201812160915074_filePath.resx">
       <DependentUpon>201812160915074_filePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812161421251_ads.resx">
+      <DependentUpon>201812161421251_ads.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812161426220_ads1.resx">
+      <DependentUpon>201812161426220_ads1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
