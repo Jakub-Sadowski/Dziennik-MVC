@@ -363,9 +363,56 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult Absencja(int? id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                id = Convert.ToInt32(ide);
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
+            var nieobecn = from s in db.Nieobecnosci
+                        select s;
+            nieobecn = nieobecn.Where(s => s.UczenID == id);
 
-    protected override void Dispose(bool disposing)
+            if (nieobecn == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(nieobecn);
+        }
+        [HttpPost, ActionName("Oceny")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Absencja(int id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                int id1 = Convert.ToInt32(ide);
+                var nieobecn = from s in db.Nieobecnosci
+                            select s;
+                nieobecn = nieobecn.Where(s => s.UczenID == id1);
+                
+                return View(nieobecn.ToList());
+            }
+            else
+            {
+                var nieobecn = from s in db.Oceny
+                            select s;
+                nieobecn = nieobecn.Where(s => s.UczenID == id);
+                nieobecn = nieobecn.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
+                return View(nieobecn.ToList());
+            }
+        }
+
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
