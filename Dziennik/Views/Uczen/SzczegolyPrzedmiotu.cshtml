@@ -1,0 +1,51 @@
+﻿@model Dziennik.Models.Przedmiot
+
+@{
+	ViewBag.Title = "Testy";
+}
+
+<h2>Testy</h2>
+
+<table class="table">
+	<tr>
+		<th>@Html.DisplayNameFor(model => model.Testy.SingleOrDefault().ID)</th>
+		<th>@Html.DisplayNameFor(model => model.Testy.SingleOrDefault().czas_trwania)</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model.Testy)
+	{
+		<tr>
+			<td>@Html.DisplayFor(modelItem => item.ID)</td>
+			<td>@Html.DisplayFor(modelItem => item.czas_trwania)</td>
+			<td>
+				@Html.ActionLink("Zacznij", "Test", new { id = item.ID }) |
+			</td>
+		</tr>
+	}
+
+</table>
+
+<h2>Pliki</h2>
+
+<table class="table">
+	<tr>
+		<th>@Html.DisplayNameFor(model => model.Pliki.SingleOrDefault().ID)</th>
+		<th>@Html.DisplayNameFor(model => model.Pliki.SingleOrDefault().FilePath)</th>
+		<th>@Html.DisplayNameFor(model => model.Pliki.SingleOrDefault().DataDodania)</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model.Pliki)
+	{
+		<tr>
+			<td>@Html.DisplayFor(modelItem => item.ID)</td>
+			<td>@Html.DisplayFor(modelItem => item.FilePath)</td>
+			<td>@Html.DisplayFor(modelItem => item.DataDodania)</td>
+			<td>
+				@Html.ActionLink("Pobierz", "Pobierz", "Plik", new { id = item.ID }, null) 
+			</td>
+		</tr>
+	}
+
+</table>

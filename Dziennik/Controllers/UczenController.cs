@@ -232,7 +232,7 @@ namespace Dziennik.Controllers
 			return View(przedmioty);
 		}
 
-		public ActionResult TestyZPrzedmiotu(int? id)
+		public ActionResult SzczegolyPrzedmiotu(int? id)
 		{
 			if (Session["Status"] != "Uczeń")
 				return RedirectToAction("Index", "Home");
@@ -248,10 +248,17 @@ namespace Dziennik.Controllers
 				.Where(k => k.Uczniowie.Any(u => u.ID == userId))
 				.SingleOrDefault();
 
-			var testy = db.Testy
-				.Where(l => l.KlasaID == klasa.KlasaID && l.PrzedmiotID == id);
+			var przedmiot = db.Przedmioty
+				.Where(p => p.ID == id)
+				.Include(p => p.Testy)
+				.Include(p => p.Pliki)
+				.Where(p => p.Testy.Where(
+					t => t.KlasaID == klasa.KlasaID)
+					.Any())
+				.SingleOrDefault()
+				;
 
-			return View(testy.ToList());
+			return View(przedmiot);
 		}
 
 		protected override void Dispose(bool disposing)
