@@ -1,11 +1,8 @@
 namespace Dziennik.Migrations
 {
-    using Dziennik.Models;
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Diagnostics;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Dziennik.DAL.Context>
@@ -17,8 +14,10 @@ namespace Dziennik.Migrations
 
         protected override void Seed(Dziennik.DAL.Context context)
         {
-     
+            //  This method will be called after migrating to the latest version.
 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data.
         }
     }
 }

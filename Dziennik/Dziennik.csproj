@@ -181,9 +181,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHandler.cs" />
-    <Compile Include="Migrations\201812131643147_xyz.cs" />
-    <Compile Include="Migrations\201812131643147_xyz.Designer.cs">
-      <DependentUpon>201812131643147_xyz.cs</DependentUpon>
+    <Compile Include="Migrations\201812151655160_abc.cs" />
+    <Compile Include="Migrations\201812151655160_abc.Designer.cs">
+      <DependentUpon>201812151655160_abc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812151713102_aaa.cs" />
+    <Compile Include="Migrations\201812151713102_aaa.Designer.cs">
+      <DependentUpon>201812151713102_aaa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -317,8 +321,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812131643147_xyz.resx">
-      <DependentUpon>201812131643147_xyz.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812151655160_abc.resx">
+      <DependentUpon>201812151655160_abc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812151713102_aaa.resx">
+      <DependentUpon>201812151713102_aaa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
