@@ -172,6 +172,7 @@
     <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
+    <Compile Include="Controllers\OcenaController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
@@ -185,6 +186,14 @@
     <Compile Include="Migrations\201812160915074_filePath.Designer.cs">
       <DependentUpon>201812160915074_filePath.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812161424351_abc.cs" />
+    <Compile Include="Migrations\201812161424351_abc.Designer.cs">
+      <DependentUpon>201812161424351_abc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812161638115_aaaaaa.cs" />
+    <Compile Include="Migrations\201812161638115_aaaaaa.Designer.cs">
+      <DependentUpon>201812161638115_aaaaaa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Klasa.cs" />
@@ -195,6 +204,7 @@
     <Compile Include="Models\Ogloszenie_dla_rodzicow.cs" />
     <Compile Include="Models\Plik.cs" />
     <Compile Include="Models\Profil.cs" />
+    <Compile Include="Models\Test.cs" />
     <Compile Include="Models\Testy_ucznia.cs" />
     <Compile Include="Models\Tresc_ksztalcenia.cs" />
     <Compile Include="Models\Lekcja.cs" />
@@ -202,7 +212,6 @@
     <Compile Include="Models\Pytanie.cs" />
     <Compile Include="Models\Rodzic.cs" />
     <Compile Include="Models\Spoznienie.cs" />
-    <Compile Include="Models\Test.cs" />
     <Compile Include="Models\Uczen.cs" />
     <Compile Include="Models\Uwaga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -297,6 +306,7 @@
     <Content Include="Views\Uczen\Przedmioty.cshtml" />
     <Content Include="Views\Uczen\SzczegolyPrzedmiotu.cshtml" />
     <Content Include="Views\Uczen\Pytanie.cshtml" />
+    <Content Include="Views\Uczen\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +329,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201812160915074_filePath.resx">
       <DependentUpon>201812160915074_filePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812161424351_abc.resx">
+      <DependentUpon>201812161424351_abc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812161638115_aaaaaa.resx">
+      <DependentUpon>201812161638115_aaaaaa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

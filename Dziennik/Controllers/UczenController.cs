@@ -260,8 +260,107 @@ namespace Dziennik.Controllers
 
 			return View(przedmiot);
 		}
+        
+        public ActionResult Test(int? id)
+        {
+           if (Session["Status"] != "Uczeń")
+              return RedirectToAction("Index", "Home");
 
-		protected override void Dispose(bool disposing)
+            if (id == null)
+            {
+              return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }/*
+
+            if((Int32)Session["test_count"] == 0) { 
+            var pytania = db.Pytania.Where(s => s.TestID == id);
+
+            Session["test_count"] = id.ToString();
+            */
+            
+
+            if(Session["test"] != "start")
+            {
+                var pytania = db.Pytania.Where(s => s.TestID == id).ToArray();
+                Session["test"] = "start";
+                
+
+                return RedirectToAction("Pytanie","Uczen", new { id = pytania[0].ID});
+
+                
+               
+                
+           
+
+
+            }
+
+
+            return View();
+
+   
+
+
+
+        }
+
+        public ActionResult Pytanie(int? id,string set)
+        {
+            if (Session["Status"] != "Uczeń" && Session["test"] != "start")
+                return RedirectToAction("Index", "Home");
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Pytanie pytanie = db.Pytania.Find(id);
+            var pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID);
+            foreach (Pytanie z in pytania)
+            {
+                if (z.ID < id)
+                    ViewBag.back = z.ID;
+                if (z.ID > id)
+                {
+                    ViewBag.next = z.ID;
+                    break;
+                }
+
+            }
+
+            return View(pytanie);
+        }
+
+        [HttpPost, ActionName("Pytanie")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Pytani(int id,string dec)
+        {
+
+            Pytanie pytanie = db.Pytania.Find(id);
+            ViewBag.ans = "zle";
+            switch (dec){
+                case "1":
+                    if (pytanie.odp ==odp.odp1)
+                        ViewBag.ans = "ok";
+                    break;
+                case "2":
+                    if (pytanie.odp == odp.odp2)
+                        ViewBag.ans = "ok";
+                    break;
+                case "3":
+                    if (pytanie.odp == odp.odp3)
+                        ViewBag.ans = "ok";
+                    break;
+                case "4":
+                    if (pytanie.odp == odp.odp4)
+                        ViewBag.ans = "ok";
+                    break;
+
+            }
+            
+            return View();
+        }
+
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

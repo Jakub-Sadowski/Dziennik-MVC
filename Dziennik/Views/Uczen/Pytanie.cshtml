@@ -1,19 +1,64 @@
 ﻿@model Dziennik.Models.Pytanie
 
-@{
-	ViewBag.Title = "Pytanie";
-}
+
 
 @using (Html.BeginForm())
 {
-	@Html.AntiForgeryToken()
-	<ul>
-		<li>@Html.DisplayNameFor(model => model.tresc)</li>
-		<li>@Html.RadioButtonFor(m => m.odp, Model.odpowiedz1)</li>
-		<li>@Html.RadioButtonFor(m => m.odp, Model.odpowiedz2)</li>
-		<li>@Html.RadioButtonFor(m => m.odp, Model.odpowiedz3)</li>
-		<li>@Html.RadioButtonFor(m => m.odp, Model.odpowiedz4)</li>
+    @Html.AntiForgeryToken()
+    <br />
+    <b>@Html.DisplayFor(model => model.tresc)</b>
+    <br />
+    <ul>
+        <li>
+            @Html.RadioButton("dec", "1")
+            @Html.DisplayFor(model => Model.odpowiedz1)
+        </li>
+        <li>
+            @Html.RadioButton("dec", "2")
+            @Html.DisplayFor(model => Model.odpowiedz2)
+        </li>
+        <li>
+            @Html.RadioButton("dec", "3")
+            @Html.DisplayFor(model => Model.odpowiedz3)
+        </li>
+        <li>
+            @Html.RadioButton("dec", "4")
+            @Html.DisplayFor(model => Model.odpowiedz4)
 
-	</ul>
-	<input type="submit" value="Create" class="btn btn-default" />
+
+        </li>
+
+    </ul>
+    <br />
+    <br />
+    <input type="submit" value="Zapisz test" class="btn btn-default" />
+
+
 }
+        <br /
+        <div class="btn-group" role="group" aria-label="Basic example">
+            @if (ViewBag.back != null)
+            {
+
+                <input type="submit" value="Wróć" class="btn btn-default" onclick="location.href='@Url.Action("Pytanie", "Uczen",new {id = ViewBag.back })'" />
+
+
+            }
+            else
+            {
+                <input type="submit" value="Wróć" class="btn btn-default" disabled />
+            }
+
+            @if (ViewBag.next != null)
+            {
+
+                <input type="submit" value="Dalej" class="btn btn-default" onclick="location.href='@Url.Action("Pytanie", "Uczen",new {id = ViewBag.next })'" />
+
+
+            }
+            else
+            {
+                <input type="submit" value="Dalej" class="btn btn-default" disabled />
+            }
+
+        </div>
