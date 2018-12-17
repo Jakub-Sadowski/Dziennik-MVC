@@ -605,6 +605,22 @@ namespace Dziennik.Controllers
             return RedirectToAction("Index");
         }
 
+        private IEnumerable<Nieobecnosc> GetNieobecnosciModel(int id)
+        {
+            var nieobecn = from s in db.Nieobecnosci
+                           select s;
+            nieobecn = nieobecn.Where(s => s.UczenID == id);
+            return nieobecn.AsEnumerable();
+        }
+
+        private IEnumerable<Spoznienie> GetSpoznieniaModel(int id)
+        {
+            var spoznienia = from s in db.Spoznienia
+                             select s;
+            spoznienia = spoznienia.Where(s => s.UczenID == id);
+            return spoznienia.AsEnumerable();
+        }
+
         public ActionResult Test(int? id)
         {
             if (Session["Status"] != "Uczeń")
@@ -760,21 +776,7 @@ namespace Dziennik.Controllers
             return View(pytanie_next);
         }
 
-        private IEnumerable<Nieobecnosc> GetNieobecnosciModel(int id)
-        {
-            var nieobecn = from s in db.Nieobecnosci
-                           select s;
-            nieobecn = nieobecn.Where(s => s.UczenID == id);
-            return nieobecn.AsEnumerable();
-        }
-
-        private IEnumerable<Spoznienie> GetSpoznieniaModel(int id)
-        {
-            var spoznienia = from s in db.Spoznienia
-                             select s;
-            spoznienia = spoznienia.Where(s => s.UczenID == id);
-            return spoznienia.AsEnumerable();
-        }
+        
 
         protected override void Dispose(bool disposing)
         {
