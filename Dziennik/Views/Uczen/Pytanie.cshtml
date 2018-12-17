@@ -12,19 +12,56 @@
     <br />
     <ul>
         <li>
-            @Html.RadioButton("dec", "1")
+            @if (ViewBag.cache == 1)
+            {
+                @Html.RadioButton("dec", "1",true)
+
+            }
+            else
+            {
+                @Html.RadioButton("dec", "1")
+            }
             @Html.DisplayFor(model => Model.odpowiedz1)
         </li>
         <li>
-            @Html.RadioButton("dec", "2")
+            @if (ViewBag.cache == 2)
+            {
+
+                @Html.RadioButton("dec", "2", true)
+
+            }
+            else
+            {
+
+                @Html.RadioButton("dec", "2")
+            }
             @Html.DisplayFor(model => Model.odpowiedz2)
         </li>
         <li>
-            @Html.RadioButton("dec", "3")
+            @if (ViewBag.cache == 3)
+            {
+                @Html.RadioButton("dec", "3", true)
+            }
+            else
+            {
+                @Html.RadioButton("dec", "3")
+
+            }
             @Html.DisplayFor(model => Model.odpowiedz3)
         </li>
         <li>
-            @Html.RadioButton("dec", "4")
+            @if (ViewBag.cache == 4)
+            {
+
+
+                @Html.RadioButton("dec", "4", true)
+
+            }
+
+            else
+            {
+                @Html.RadioButton("dec", "4")
+            }
             @Html.DisplayFor(model => Model.odpowiedz4)
 
 
