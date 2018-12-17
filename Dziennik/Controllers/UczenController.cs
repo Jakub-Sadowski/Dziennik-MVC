@@ -467,7 +467,7 @@ namespace Dziennik.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EdytowanieNieobecnosci([Bind(Include = "ID,UczenID,LekcjaID, date")] Nieobecnosc nieobecnosc)
+        public ActionResult EdytowanieNieobecnosci([Bind(Include = "ID,UczenID,LekcjaID, date, Status")] Nieobecnosc nieobecnosc)
         {
             if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");

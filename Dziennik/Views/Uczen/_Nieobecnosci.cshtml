@@ -15,26 +15,32 @@
         <th>
             @Html.DisplayNameFor(model => model.date)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UczenID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LekcjaID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.date)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EdytowanieNieobecnosci", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "UsuwanieNieobecnosci", new { id = item.ID })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UczenID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LekcjaID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EdytowanieNieobecnosci", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "UsuwanieNieobecnosci", new { id = item.ID })
+        </td>
+    </tr>
     }
 
 </table>
