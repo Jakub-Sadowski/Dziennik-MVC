@@ -11,7 +11,7 @@ using System.Net;
 using System.Web.Mvc;
 
 namespace Dziennik.Controllers
-{
+{//
     public class UczenController : Controller
     {
         private Context db = new Context();
@@ -528,6 +528,8 @@ namespace Dziennik.Controllers
                 var pytania = db.Pytania.Where(s => s.TestID == id).ToArray();
                 Session["test"] = "start";
                 Session["iter"] = pytania[0].ID;
+                int[] cache = new int[pytania.Count()];
+                Session["cache"] = cache;
 
                 return RedirectToAction("Pytanie", "Uczen");
 
@@ -574,32 +576,39 @@ namespace Dziennik.Controllers
 
         [HttpPost, ActionName("Pytanie")]
         [ValidateAntiForgeryToken]
-        public ActionResult Pytani(string button)
+        public ActionResult Pytani(string button,string dec)
         {
             ViewBag.back = true;
             ViewBag.next = true;
 
             Pytanie pytanie = db.Pytania.Find(Session["iter"]);
-            /*ViewBag.ans = "zle";
+            
+            var pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID).ToList();
+            int[] cache = (int[])Session["cache"];
+            int x = 0;
+            foreach (Pytanie a in pytania)
+            {
+                x++;
+                if (a.ID == (int)Session["iter"])
+                    break;
+            }
             switch (dec)
             {
                 case "1":
-                    if (pytanie.odp == odp.odp1)
-                        ViewBag.ans = "ok";
+                    cache[x-1] = 1;
                     break;
                 case "2":
-                    if (pytanie.odp == odp.odp2)
-                        ViewBag.ans = "ok";
+                    cache[x-1] = 2;
                     break;
                 case "3":
-                    if (pytanie.odp == odp.odp3)
-                        ViewBag.ans = "ok";
+                    cache[x-1] = 3;
                     break;
                 case "4":
-                    if (pytanie.odp == odp.odp4)
-                        ViewBag.ans = "ok";
-                    break;*/
-            var pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID).ToList();
+                    cache[x-1] = 4;
+                    break;
+                
+            }
+            Session["cache"] = cache;
 
             switch (button) {
 
@@ -647,7 +656,7 @@ namespace Dziennik.Controllers
             //
             Pytanie pytanie_next = db.Pytania.Find(Session["iter"]);
             pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID).ToList();
-            int x = 0;
+            x = 0;
             foreach(Pytanie a in pytania)
             {
                 x++;
@@ -655,8 +664,10 @@ namespace Dziennik.Controllers
                     break;
             }
             ViewBag.title = "Pytanie " + x + " z " + pytania.Count();
+            cache = (int[])Session["cache"];
+            ViewBag.cache = cache[x-1];
 
-
+            ModelState.Clear();
 
             return View(pytanie_next);
         }
