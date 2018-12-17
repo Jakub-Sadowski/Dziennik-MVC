@@ -5,5 +5,9 @@
 }
 
 <h2>Wynik</h2>
-@ViewBag.wynik / @ViewBag.max
+<h3>@ViewBag.wynik / @ViewBag.max</h3>
+<h2>Ocena</h2>
+<h3>@ViewBag.ocena</h3>
+@Html.ActionLink("Powrót", "Przedmioty", new { id = Session["UserID"] })
+
 

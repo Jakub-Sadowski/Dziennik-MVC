@@ -197,6 +197,10 @@
     <Compile Include="Migrations\201812171703396_WynikTestuUcznia.Designer.cs">
       <DependentUpon>201812171703396_WynikTestuUcznia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812172115459_aaa.cs" />
+    <Compile Include="Migrations\201812172115459_aaa.Designer.cs">
+      <DependentUpon>201812172115459_aaa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Klasa.cs" />
@@ -319,6 +323,7 @@
     <Content Include="Views\Uczen\UsuwanieNieobecnosci.cshtml" />
     <Content Include="Views\Uczen\DodawanieNieobecnosci.cshtml" />
     <Content Include="Views\Uczen\Wynik.cshtml" />
+    <Content Include="Views\Uczen\IstniejacyTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -350,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812171703396_WynikTestuUcznia.resx">
       <DependentUpon>201812171703396_WynikTestuUcznia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812172115459_aaa.resx">
+      <DependentUpon>201812172115459_aaa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

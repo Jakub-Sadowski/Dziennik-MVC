@@ -9,7 +9,7 @@ namespace Dziennik.Models
     public class Ocena
     {
         public int ID { get; set; }
-        public int ocena { get; set; }
+        public double ocena { get; set; }
         public int waga { get; set; }
         public DateTime data { get; set; }
         public string tresc { get; set; }

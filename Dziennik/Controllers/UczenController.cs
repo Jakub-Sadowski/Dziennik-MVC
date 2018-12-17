@@ -505,6 +505,10 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult IstniejacyTest() {
+
+            return View();
+        }
 
         public ActionResult Test(int? id)
         {
@@ -515,6 +519,18 @@ namespace Dziennik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var user = Session["UserID"];
+            string ide = user.ToString();
+           int id_ucznia = Convert.ToInt32(ide);
+            var testy = db.Testy_ucznia.Where(s => s.UczenID == id_ucznia).Where(s=>s.TestID == id);
+           
+                if(testy.Count() != 0)
+                    return RedirectToAction("IstniejacyTest", "Uczen");
+
+            
+
+
+
 
             if (Session["test"] != "start")
             {
@@ -604,7 +620,7 @@ namespace Dziennik.Controllers
                         }
                     }
                     break;
-
+                    //
                 case "Wróć":
                     pytania.Reverse();
                     foreach (Pytanie a in pytania)
@@ -658,14 +674,54 @@ namespace Dziennik.Controllers
 				return RedirectToAction("Index", "Home");
 			ViewBag.wynik = Session["wynik"];
 			ViewBag.max = (int)Session["max"];
-			int testID = (int)Session["testID"];
+            int testID = (int)Session["testID"];
 			int userID = Convert.ToInt32((string)Session["UserID"]);
 			int wynik = (int)Session["wynik"];
-			db.Testy_ucznia.Add(new Testy_ucznia
+            float wynik_f = (float)wynik;
+            int max = (int)Session["max"];
+            float max_f = (float)max;
+            double oc = 0;
+            
+            
+            float procent = wynik_f / max_f;
+            if (procent <= 0.27)
+                oc = 1;
+            if (procent > 0.27 && procent <= 0.44)
+                oc = 2;
+            if (procent > 0.44 && procent <= 0.5)
+                oc = 2.5;
+            if (procent > 0.5 && procent <= 0.65)
+                oc = 3;
+            if (procent > 0.65 && procent <= 0.71)
+                oc = 3.5;
+            if (procent > 0.71 && procent <= 0.8)
+                oc = 4;
+            if (procent > 0.8 && procent <= 0.85)
+                oc = 4.5;
+            if (procent > 0.85 && procent <= 0.9)
+                oc = 5;
+            if (procent > 0.9 && procent <= 0.95)
+                oc = 5.5;
+            if (procent > 0.95 && procent <= 1)
+                oc = 6;
+            Test test = db.Testy.Find(Session["testID"]);
+            db.Oceny.Add(new Ocena
+            {
+                ocena = oc,
+                waga = 1,
+                data = DateTime.Now,
+                NauczycielID = test.NauczycielID,
+                PrzedmiotID = test.PrzedmiotID,
+                UczenID = userID,
+                tresc = "test"
+            });
+            db.SaveChanges();
+
+            db.Testy_ucznia.Add(new Testy_ucznia
 			{
 				TestID = testID,
 				UczenID = userID,
-				Wynik = wynik
+				Wynik = (int)wynik
 			});
 			db.SaveChanges();
 			Session["test"] = null;
@@ -673,7 +729,8 @@ namespace Dziennik.Controllers
 			Session["max"] = null;
 			Session["iter"] = null;
 			Session["cache"] = null;
-			return View();
+            ViewBag.ocena = oc;
+            return View();
 		}
 
 		protected override void Dispose(bool disposing)
