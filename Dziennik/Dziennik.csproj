@@ -193,7 +193,12 @@
     <Compile Include="Migrations\201812161426220_ads1.Designer.cs">
       <DependentUpon>201812161426220_ads1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812171613418_asd.cs" />
+    <Compile Include="Migrations\201812171613418_asd.Designer.cs">
+      <DependentUpon>201812171613418_asd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Klasa.cs" />
     <Compile Include="Models\Nauczyciel.cs" />
@@ -314,6 +319,11 @@
     <Content Include="Views\Uczen\EdytowanieNieobecnosci.cshtml" />
     <Content Include="Views\Uczen\UsuwanieNieobecnosci.cshtml" />
     <Content Include="Views\Uczen\DodawanieNieobecnosci.cshtml" />
+    <Content Include="Views\Uczen\_Nieobecnosci.cshtml" />
+    <Content Include="Views\Uczen\_Spoznienia.cshtml" />
+    <Content Include="Views\Uczen\EdytowanieSpoznienia.cshtml" />
+    <Content Include="Views\Uczen\DodawanieSpoznienia.cshtml" />
+    <Content Include="Views\Uczen\UsuwanieSpoznienia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -342,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812161426220_ads1.resx">
       <DependentUpon>201812161426220_ads1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812171613418_asd.resx">
+      <DependentUpon>201812171613418_asd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

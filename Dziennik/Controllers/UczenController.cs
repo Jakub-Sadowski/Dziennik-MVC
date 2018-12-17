@@ -362,6 +362,7 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult Absencja(int? id)
         {
             if (Session["Status"] == "Uczeń")
@@ -375,41 +376,44 @@ namespace Dziennik.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var nieobecn = from s in db.Nieobecnosci
-                        select s;
-            nieobecn = nieobecn.Where(s => s.UczenID == id);
+            var model = new Absencja();
 
-            if (nieobecn == null)
-            {
-                return HttpNotFound();
-            }
+            model.Nieobecnosci = GetNieobecnosciModel(id.Value);
+            model.Spoznienia = GetSpoznieniaModel(id.Value);
 
-            return View(nieobecn);
+            return View(model);
         }
         [HttpPost, ActionName("Absencja")]
         [ValidateAntiForgeryToken]
         public ActionResult Absencja(int id)
         {
+            Absencja model = new Absencja();
+
             if (Session["Status"] == "Uczeń")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
-                int id1 = Convert.ToInt32(ide);
-                var nieobecn = from s in db.Nieobecnosci
-                            select s;
-                nieobecn = nieobecn.Where(s => s.UczenID == id1);
-                
-                return View(nieobecn.ToList());
+                int id1 = Convert.ToInt32(ide);                
+
+                model.Nieobecnosci = GetNieobecnosciModel(id1);
+                model.Spoznienia = GetSpoznieniaModel(id1);
+
+                return View(model);
             }
             else
             {
-                var nieobecn = from s in db.Oceny
-                            select s;
-                nieobecn = nieobecn.Where(s => s.UczenID == id);
-                nieobecn = nieobecn.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
-                return View(nieobecn.ToList());
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                int id1 = Convert.ToInt32(ide);
+
+                model.Nieobecnosci = GetNieobecnosciModel(id1);
+                model.Spoznienia = GetSpoznieniaModel(id1);
+
+                return View(model);
             }
         }
+
+        
 
         public ActionResult DodawanieNieobecnosci()
         {
@@ -494,7 +498,7 @@ namespace Dziennik.Controllers
             return View(nieobecnosc);
         }
         
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UsuwanieNieobecnosciPotwierdzenie(int id)
         {
@@ -502,6 +506,101 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index", "Home");
             Nieobecnosc nieobecnosc= db.Nieobecnosci.Find(id);
             db.Nieobecnosci.Remove(nieobecnosc);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DodawanieSpoznienia()
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID");
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
+            return View();
+        }
+
+        // POST: Ocena/Create
+        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
+        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DodawanieSpoznienia([Bind(Include = "ID,UczenID,LekcjaID, date")] Spoznienie spoznienie)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                db.Spoznienia.Add(spoznienie);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", spoznienie.LekcjaID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", spoznienie.UczenID);
+            return View(spoznienie);
+        }
+
+        // GET: Ocena/Edit/5
+        public ActionResult EdytowanieSpoznienia(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Spoznienie spoznienie = db.Spoznienia.Find(id);
+            if (spoznienie == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", spoznienie.LekcjaID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", spoznienie.UczenID);
+            return View(spoznienie);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EdytowanieSpoznienia([Bind(Include = "ID,UczenID,LekcjaID, date")] Spoznienie spoznienie)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                db.Entry(spoznienie).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", spoznienie.LekcjaID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", spoznienie.UczenID);
+            return View(spoznienie);
+        }
+
+        public ActionResult UsuwanieSpoznienia(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Spoznienie spoznienie = db.Spoznienia.Find(id);
+            if (spoznienie == null)
+            {
+                return HttpNotFound();
+            }
+            return View(spoznienie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UsuwaniSpoznieniaPotwierdzenie(int id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            Spoznienie spoznienie = db.Spoznienia.Find(id);
+            db.Spoznienia.Remove(spoznienie);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -659,6 +758,22 @@ namespace Dziennik.Controllers
 
 
             return View(pytanie_next);
+        }
+
+        private IEnumerable<Nieobecnosc> GetNieobecnosciModel(int id)
+        {
+            var nieobecn = from s in db.Nieobecnosci
+                           select s;
+            nieobecn = nieobecn.Where(s => s.UczenID == id);
+            return nieobecn.AsEnumerable();
+        }
+
+        private IEnumerable<Spoznienie> GetSpoznieniaModel(int id)
+        {
+            var spoznienia = from s in db.Spoznienia
+                             select s;
+            spoznienia = spoznienia.Where(s => s.UczenID == id);
+            return spoznienia.AsEnumerable();
         }
 
         protected override void Dispose(bool disposing)
