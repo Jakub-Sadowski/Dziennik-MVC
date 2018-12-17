@@ -7,7 +7,10 @@ namespace Dziennik.Models
 {
     public enum odp
     {
-        odp1,odp2,odp3,odp4
+        odp1 = 1,
+		odp2 = 2,
+		odp3 = 3,
+		odp4 = 4
     }
 
     public class Pytanie

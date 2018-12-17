@@ -514,40 +514,21 @@ namespace Dziennik.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }/*
-
-            if((Int32)Session["test_count"] == 0) { 
-            var pytania = db.Pytania.Where(s => s.TestID == id);
-
-            Session["test_count"] = id.ToString();
-            */
-
+            }
 
             if (Session["test"] != "start")
             {
                 var pytania = db.Pytania.Where(s => s.TestID == id).ToArray();
                 Session["test"] = "start";
+                Session["testID"] = id;
                 Session["iter"] = pytania[0].ID;
                 int[] cache = new int[pytania.Count()];
                 Session["cache"] = cache;
 
                 return RedirectToAction("Pytanie", "Uczen");
-
-
-
-
-
-
-
             }
 
-
             return View();
-
-
-
-
-
         }
 
         public ActionResult Pytanie()
@@ -568,7 +549,6 @@ namespace Dziennik.Controllers
                 ViewBag.back = false;
             if (pytania[pytania.Count()-1].ID == pytanie.ID)
                 ViewBag.next = false;
-
 
             ViewBag.title = "Pytanie 1 z " + pytania.Count();
             return View(pytanie);
@@ -619,18 +599,10 @@ namespace Dziennik.Controllers
                         {
                             Session["iter"] = a.ID;
                             if(pytania[pytania.Count()-1].ID == a.ID)
-                            
                                 ViewBag.next = false;
-                                
-
-                            
-
                             break;
                         }
-
                     }
-
-
                     break;
 
                 case "Wróć":
@@ -641,19 +613,27 @@ namespace Dziennik.Controllers
                         {
                             Session["iter"] = a.ID;
                             if (pytania[pytania.Count() - 1].ID == a.ID)
-
                                 ViewBag.back = false;
-                           
-
                             break;
                         }
-
                     }
-
-
                     break;
-            }
-            //
+
+				case "Zapisz test":
+					int wynik = 0;
+					int max = 0;
+					for(int i = 0;i<cache.Length;i++)
+					{
+						max += pytania[i].punktacja;
+						if (cache[i] == (int)pytania[i].odp)
+							wynik += pytania[i].punktacja;
+					}
+
+					Session["wynik"] = wynik;
+					Session["max"] = max;
+					return RedirectToAction("Wynik");
+			}
+            
             Pytanie pytanie_next = db.Pytania.Find(Session["iter"]);
             pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID).ToList();
             x = 0;
@@ -672,7 +652,31 @@ namespace Dziennik.Controllers
             return View(pytanie_next);
         }
 
-        protected override void Dispose(bool disposing)
+		public ActionResult Wynik()
+		{
+			if (Session["Status"] != "Uczeń" && Session["test"] != "start")
+				return RedirectToAction("Index", "Home");
+			ViewBag.wynik = Session["wynik"];
+			ViewBag.max = (int)Session["max"];
+			int testID = (int)Session["testID"];
+			int userID = Convert.ToInt32((string)Session["UserID"]);
+			int wynik = (int)Session["wynik"];
+			db.Testy_ucznia.Add(new Testy_ucznia
+			{
+				TestID = testID,
+				UczenID = userID,
+				Wynik = wynik
+			});
+			db.SaveChanges();
+			Session["test"] = null;
+			Session["wynik"] = null;
+			Session["max"] = null;
+			Session["iter"] = null;
+			Session["cache"] = null;
+			return View();
+		}
+
+		protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
