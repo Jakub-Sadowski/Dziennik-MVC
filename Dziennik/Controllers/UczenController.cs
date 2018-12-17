@@ -1,5 +1,4 @@
-﻿using Dziennik.ActionAttrs;
-using Dziennik.DAL;
+﻿using Dziennik.DAL;
 using Dziennik.Helpers;
 using Dziennik.Models;
 using System;
@@ -387,7 +386,7 @@ namespace Dziennik.Controllers
 
             return View(nieobecn);
         }
-        [HttpPost, ActionName("Oceny")]
+        [HttpPost, ActionName("Absencja")]
         [ValidateAntiForgeryToken]
         public ActionResult Absencja(int id)
         {
@@ -410,6 +409,101 @@ namespace Dziennik.Controllers
                 nieobecn = nieobecn.Include(o => o.Nauczyciel).Include(o => o.Przedmiot);
                 return View(nieobecn.ToList());
             }
+        }
+
+        public ActionResult DodawanieNieobecnosci()
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID");
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
+            return View();
+        }
+
+        // POST: Ocena/Create
+        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
+        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DodawanieNieobecnosci([Bind(Include = "ID,UczenID,LekcjaID, date")] Nieobecnosc nieobecnosc)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                db.Nieobecnosci.Add(nieobecnosc);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", nieobecnosc.LekcjaID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", nieobecnosc.UczenID);
+            return View(nieobecnosc);
+        }
+
+        // GET: Ocena/Edit/5
+        public ActionResult EdytowanieNieobecnosci(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Nieobecnosc nieobecnosc = db.Nieobecnosci.Find(id);
+            if (nieobecnosc == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", nieobecnosc.LekcjaID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", nieobecnosc.UczenID);
+            return View(nieobecnosc);
+        }
+
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EdytowanieNieobecnosci([Bind(Include = "ID,UczenID,LekcjaID, date")] Nieobecnosc nieobecnosc)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                db.Entry(nieobecnosc).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", nieobecnosc.LekcjaID);           
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", nieobecnosc.UczenID);
+            return View(nieobecnosc);
+        }
+        
+        public ActionResult UsuwanieNieobecnosci(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Nieobecnosc nieobecnosc = db.Nieobecnosci.Find(id);
+            if (nieobecnosc == null)
+            {
+                return HttpNotFound();
+            }
+            return View(nieobecnosc);
+        }
+        
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UsuwanieNieobecnosciPotwierdzenie(int id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            Nieobecnosc nieobecnosc= db.Nieobecnosci.Find(id);
+            db.Nieobecnosci.Remove(nieobecnosc);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

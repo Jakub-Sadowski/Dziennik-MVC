@@ -311,6 +311,9 @@
     <Content Include="Views\Uczen\EdytowanieOceny.cshtml" />
     <Content Include="Views\Uczen\UsuwanieOceny.cshtml" />
     <Content Include="Views\Uczen\Absencja.cshtml" />
+    <Content Include="Views\Uczen\EdytowanieNieobecnosci.cshtml" />
+    <Content Include="Views\Uczen\UsuwanieNieobecnosci.cshtml" />
+    <Content Include="Views\Uczen\DodawanieNieobecnosci.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
