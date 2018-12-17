@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Dziennik.Models.Nieobecnosc>
+
+<p>
+    @Html.ActionLink("Create New", "DodawanieNieobecnosci")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UczenID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LekcjaID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UczenID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LekcjaID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EdytowanieNieobecnosci", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "UsuwanieNieobecnosci", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
