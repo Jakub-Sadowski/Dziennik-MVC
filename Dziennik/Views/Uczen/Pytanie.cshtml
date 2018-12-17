@@ -1,6 +1,8 @@
 ﻿@model Dziennik.Models.Pytanie
 
 
+<h2>@ViewBag.title</h2>
+
 
 @using (Html.BeginForm())
 {
@@ -31,34 +33,38 @@
     </ul>
     <br />
     <br />
-    <input type="submit" value="Zapisz test" class="btn btn-default" />
 
 
+
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+
+        @if (ViewBag.back)
+        {
+
+            <input type="submit" value="Wróć" class="btn btn-default" name="button" />
+        }
+        else
+        {
+            <input type="submit" value="Wróć" class="btn btn-default" name="button" disabled />
+
+
+        }
+
+
+
+        <input type="submit" value="Zapisz test" class="btn btn-default" name="button" />
+
+        @if (ViewBag.next)
+        {
+            <input type="submit" value="Dalej" class="btn btn-default" name="button" />
+        }
+        else
+        {
+            <input type="submit" value="Dalej" class="btn btn-default" name="button" disabled />
+        }
+
+
+
+    </div>
 }
-        <br /
-        <div class="btn-group" role="group" aria-label="Basic example">
-            @if (ViewBag.back != null)
-            {
-
-                <input type="submit" value="Wróć" class="btn btn-default" onclick="location.href='@Url.Action("Pytanie", "Uczen",new {id = ViewBag.back })'" />
-
-
-            }
-            else
-            {
-                <input type="submit" value="Wróć" class="btn btn-default" disabled />
-            }
-
-            @if (ViewBag.next != null)
-            {
-
-                <input type="submit" value="Dalej" class="btn btn-default" onclick="location.href='@Url.Action("Pytanie", "Uczen",new {id = ViewBag.next })'" />
-
-
-            }
-            else
-            {
-                <input type="submit" value="Dalej" class="btn btn-default" disabled />
-            }
-
-        </div>

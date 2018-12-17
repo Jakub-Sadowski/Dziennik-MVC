@@ -527,9 +527,9 @@ namespace Dziennik.Controllers
             {
                 var pytania = db.Pytania.Where(s => s.TestID == id).ToArray();
                 Session["test"] = "start";
+                Session["iter"] = pytania[0].ID;
 
-
-                return RedirectToAction("Pytanie", "Uczen", new { id = pytania[0].ID });
+                return RedirectToAction("Pytanie", "Uczen");
 
 
 
@@ -548,40 +548,39 @@ namespace Dziennik.Controllers
 
         }
 
-        public ActionResult Pytanie(int? id, string set)
+        public ActionResult Pytanie()
         {
             if (Session["Status"] != "Uczeń" && Session["test"] != "start")
                 return RedirectToAction("Index", "Home");
 
-            if (id == null)
+            if (Session["iter"] == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.next = true;
+            ViewBag.back = true;
+            Pytanie pytanie = db.Pytania.Find(Session["iter"]);
 
-            Pytanie pytanie = db.Pytania.Find(id);
-            var pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID);
-            foreach (Pytanie z in pytania)
-            {
-                if (z.ID < id)
-                    ViewBag.back = z.ID;
-                if (z.ID > id)
-                {
-                    ViewBag.next = z.ID;
-                    break;
-                }
+            var pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID).ToList();
+            if(pytania[0].ID == pytanie.ID)
+                ViewBag.back = false;
+            if (pytania[pytania.Count()-1].ID == pytanie.ID)
+                ViewBag.next = false;
 
-            }
 
+            ViewBag.title = "Pytanie 1 z " + pytania.Count();
             return View(pytanie);
         }
 
         [HttpPost, ActionName("Pytanie")]
         [ValidateAntiForgeryToken]
-        public ActionResult Pytani(int id, string dec)
+        public ActionResult Pytani(string button)
         {
+            ViewBag.back = true;
+            ViewBag.next = true;
 
-            Pytanie pytanie = db.Pytania.Find(id);
-            ViewBag.ans = "zle";
+            Pytanie pytanie = db.Pytania.Find(Session["iter"]);
+            /*ViewBag.ans = "zle";
             switch (dec)
             {
                 case "1":
@@ -599,11 +598,67 @@ namespace Dziennik.Controllers
                 case "4":
                     if (pytanie.odp == odp.odp4)
                         ViewBag.ans = "ok";
+                    break;*/
+            var pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID).ToList();
+
+            switch (button) {
+
+                case "Dalej":
+                    foreach(Pytanie a in pytania)
+                    {
+                        if (a.ID > (int)Session["iter"])
+                        {
+                            Session["iter"] = a.ID;
+                            if(pytania[pytania.Count()-1].ID == a.ID)
+                            
+                                ViewBag.next = false;
+                                
+
+                            
+
+                            break;
+                        }
+
+                    }
+
+
                     break;
 
-            }
+                case "Wróć":
+                    pytania.Reverse();
+                    foreach (Pytanie a in pytania)
+                    {
+                        if (a.ID < (int)Session["iter"])
+                        {
+                            Session["iter"] = a.ID;
+                            if (pytania[pytania.Count() - 1].ID == a.ID)
 
-            return View();
+                                ViewBag.back = false;
+                           
+
+                            break;
+                        }
+
+                    }
+
+
+                    break;
+            }
+            //
+            Pytanie pytanie_next = db.Pytania.Find(Session["iter"]);
+            pytania = db.Pytania.Where(s => s.TestID == pytanie.TestID).ToList();
+            int x = 0;
+            foreach(Pytanie a in pytania)
+            {
+                x++;
+                if (a.ID == (int)Session["iter"])
+                    break;
+            }
+            ViewBag.title = "Pytanie " + x + " z " + pytania.Count();
+
+
+
+            return View(pytanie_next);
         }
 
         protected override void Dispose(bool disposing)
