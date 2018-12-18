@@ -11,7 +11,7 @@ namespace Dziennik.Models
         public int? PrzedmiotID { get; set; }
         public int? KlasaID { get; set; }
         public int? NauczycielID { get; set; }
-        public DateTime czas_trwania { get; set; }
+        public int czasTrwania { get; set; }
 
         public virtual Przedmiot Przedmiot { get; set; }
         public virtual Klasa Klasa { get; set; }

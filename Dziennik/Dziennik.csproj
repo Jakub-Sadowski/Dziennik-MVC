@@ -205,6 +205,10 @@
     <Compile Include="Migrations\201812172214506_asd.Designer.cs">
       <DependentUpon>201812172214506_asd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812180932027_czasTrwaniaTestuWSek.cs" />
+    <Compile Include="Migrations\201812180932027_czasTrwaniaTestuWSek.Designer.cs">
+      <DependentUpon>201812180932027_czasTrwaniaTestuWSek.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -368,6 +372,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812172214506_asd.resx">
       <DependentUpon>201812172214506_asd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812180932027_czasTrwaniaTestuWSek.resx">
+      <DependentUpon>201812180932027_czasTrwaniaTestuWSek.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

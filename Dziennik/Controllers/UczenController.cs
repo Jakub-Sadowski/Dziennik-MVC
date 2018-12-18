@@ -625,7 +625,8 @@ namespace Dziennik.Controllers
             return spoznienia.AsEnumerable();
         }
 
-        public ActionResult Test(int? id)
+		#region testy
+		public ActionResult Test(int? id)
         {
             if (Session["Status"] != "Uczeń")
                 return RedirectToAction("Index", "Home");
@@ -636,7 +637,8 @@ namespace Dziennik.Controllers
             }
             var user = Session["UserID"];
             string ide = user.ToString();
-           int id_ucznia = Convert.ToInt32(ide);
+			int id_ucznia = Convert.ToInt32(ide);
+			var test = db.Testy.Find(id);
             var testy = db.Testy_ucznia.Where(s => s.UczenID == id_ucznia).Where(s=>s.TestID == id);
            
                 if(testy.Count() != 0)
@@ -652,6 +654,7 @@ namespace Dziennik.Controllers
                 var pytania = db.Pytania.Where(s => s.TestID == id).ToArray();
                 Session["test"] = "start";
                 Session["testID"] = id;
+                Session["pozostalyCzasTestu"] = test.czasTrwania;
                 Session["iter"] = pytania[0].ID;
                 int[] cache = new int[pytania.Count()];
                 Session["cache"] = cache;
@@ -682,12 +685,13 @@ namespace Dziennik.Controllers
                 ViewBag.next = false;
 
             ViewBag.title = "Pytanie 1 z " + pytania.Count();
-            return View(pytanie);
+			ViewBag.time = (int)Session["pozostalyCzasTestu"];
+			return View(pytanie);
         }
 
         [HttpPost, ActionName("Pytanie")]
         [ValidateAntiForgeryToken]
-        public ActionResult Pytani(string button,string dec)
+        public ActionResult Pytani(string button,string dec, int pozostalyCzasTestu)
         {
             ViewBag.back = true;
             ViewBag.next = true;
@@ -777,10 +781,12 @@ namespace Dziennik.Controllers
             ViewBag.title = "Pytanie " + x + " z " + pytania.Count();
             cache = (int[])Session["cache"];
             ViewBag.cache = cache[x-1];
+			Session["pozostalyCzasTestu"] = pozostalyCzasTestu;
+			ViewBag.time = (int)Session["pozostalyCzasTestu"];
 
-            ModelState.Clear();
+			ModelState.Clear();
 
-            return View(pytanie_next);
+			return View(pytanie_next);
         }
 
 		public ActionResult Wynik()
@@ -839,14 +845,15 @@ namespace Dziennik.Controllers
 				Wynik = (int)wynik
 			});
 			db.SaveChanges();
-			Session["test"] = null;
-			Session["wynik"] = null;
-			Session["max"] = null;
-			Session["iter"] = null;
-			Session["cache"] = null;
+			Session.Remove("test");
+			Session.Remove("wynik");
+			Session.Remove("max");
+			Session.Remove("iter");
+			Session.Remove("cache");
             ViewBag.ocena = oc;
             return View();
 		}
+		#endregion
 
 		protected override void Dispose(bool disposing)
         {
