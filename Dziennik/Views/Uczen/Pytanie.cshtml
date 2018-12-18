@@ -3,105 +3,121 @@
 
 <h2>@ViewBag.title</h2>
 
+<h4>Pozostały czas: <label id="timer"></label></h4>
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    <br />
-    <b>@Html.DisplayFor(model => model.tresc)</b>
-    <br />
-    <ul>
-        <li>
-            @if (ViewBag.cache == 1)
-            {
-                @Html.RadioButton("dec", "1",true)
+	@Html.AntiForgeryToken()
+	<input type="hidden" id="timerForm" name="pozostalyCzasTestu"/>
+	<br />
+	<b>@Html.DisplayFor(model => model.tresc)</b>
+	<br />
+	<ul>
+		<li>
+			@if (ViewBag.cache == 1)
+			{
+				@Html.RadioButton("dec", "1", true)
 
-            }
-            else
-            {
-                @Html.RadioButton("dec", "1")
-            }
-            @Html.DisplayFor(model => Model.odpowiedz1)
-        </li>
-        <li>
-            @if (ViewBag.cache == 2)
-            {
+			}
+			else
+			{
+				@Html.RadioButton("dec", "1")
+			}
+			@Html.DisplayFor(model => Model.odpowiedz1)
+		</li>
+		<li>
+			@if (ViewBag.cache == 2)
+			{
 
-                @Html.RadioButton("dec", "2", true)
+				@Html.RadioButton("dec", "2", true)
 
-            }
-            else
-            {
+			}
+			else
+			{
 
-                @Html.RadioButton("dec", "2")
-            }
-            @Html.DisplayFor(model => Model.odpowiedz2)
-        </li>
-        <li>
-            @if (ViewBag.cache == 3)
-            {
-                @Html.RadioButton("dec", "3", true)
-            }
-            else
-            {
-                @Html.RadioButton("dec", "3")
+				@Html.RadioButton("dec", "2")
+			}
+			@Html.DisplayFor(model => Model.odpowiedz2)
+		</li>
+		<li>
+			@if (ViewBag.cache == 3)
+			{
+				@Html.RadioButton("dec", "3", true)
+			}
+			else
+			{
+				@Html.RadioButton("dec", "3")
 
-            }
-            @Html.DisplayFor(model => Model.odpowiedz3)
-        </li>
-        <li>
-            @if (ViewBag.cache == 4)
-            {
-
-
-                @Html.RadioButton("dec", "4", true)
-
-            }
-
-            else
-            {
-                @Html.RadioButton("dec", "4")
-            }
-            @Html.DisplayFor(model => Model.odpowiedz4)
+			}
+			@Html.DisplayFor(model => Model.odpowiedz3)
+		</li>
+		<li>
+			@if (ViewBag.cache == 4)
+			{
 
 
-        </li>
+				@Html.RadioButton("dec", "4", true)
 
-    </ul>
-    <br />
-    <br />
+			}
 
-
-
-
-    <div class="btn-group" role="group" aria-label="Basic example">
-
-        @if (ViewBag.back)
-        {
-
-            <input type="submit" value="Wróć" class="btn btn-default" name="button" />
-        }
-        else
-        {
-            <input type="submit" value="Wróć" class="btn btn-default" name="button" disabled />
+			else
+			{
+				@Html.RadioButton("dec", "4")
+			}
+			@Html.DisplayFor(model => Model.odpowiedz4)
 
 
-        }
+		</li>
+
+	</ul>
+	<br />
+	<br />
 
 
 
-        <input type="submit" value="Zapisz test" class="btn btn-default" name="button" />
 
-        @if (ViewBag.next)
-        {
-            <input type="submit" value="Dalej" class="btn btn-default" name="button" />
-        }
-        else
-        {
-            <input type="submit" value="Dalej" class="btn btn-default" name="button" disabled />
-        }
+	<div class="btn-group" role="group" aria-label="Basic example">
+
+		@if (ViewBag.back)
+		{
+
+			<input type="submit" value="Wróć" class="btn btn-default" name="button" />
+		}
+		else
+		{
+			<input type="submit" value="Wróć" class="btn btn-default" name="button" disabled />
+
+
+		}
 
 
 
-    </div>
+		<input id="zapisz-test" type="submit" value="Zapisz test" class="btn btn-default" name="button" />
+
+		@if (ViewBag.next)
+		{
+			<input type="submit" value="Dalej" class="btn btn-default" name="button" />
+		}
+		else
+		{
+			<input type="submit" value="Dalej" class="btn btn-default" name="button" disabled />
+		}
+
+
+
+	</div>
 }
+
+<script type="text/javascript">
+	let time = @ViewBag.time;
+	$('#timer').html(time);
+	$('#timerForm').val(time);
+	setInterval(function () {
+		time--;
+		$('#timer').html(time);
+		$('#timerForm').val(time);
+		if (time <= 0) {
+			$('#zapisz-test').trigger('click');
+		}
+	}, 1000);
+</script>
