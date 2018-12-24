@@ -43,7 +43,7 @@
 			<td>@Html.DisplayFor(modelItem => item.FilePath)</td>
 			<td>@Html.DisplayFor(modelItem => item.DataDodania)</td>
 			<td>
-				@Html.ActionLink("Pobierz", "Pobierz", "Plik", new { id = item.ID }, null) 
+				@Html.ActionLink("Pobierz", "DownloadFile", "Plik", new { id = item.ID }, null) 
 			</td>
 		</tr>
 	}

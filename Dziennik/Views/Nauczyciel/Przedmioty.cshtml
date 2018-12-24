@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Dziennik.Models.Przedmiot>
+
+@{
+	ViewBag.Title = "Przedmioty";
+}
+
+<h2>Przedmioty</h2>
+
+<table class="table">
+	<tr>
+		<th>@Html.DisplayNameFor(model => model.ID)</th>
+		<th>@Html.DisplayNameFor(model => model.nazwa)</th>
+		<th>@Html.DisplayNameFor(model => model.level)</th>
+		<th>@Html.DisplayNameFor(model => model.Tresc_ksztalcenia)</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@Html.DisplayFor(modelItem => item.ID)</td>
+			<td>@Html.DisplayFor(modelItem => item.nazwa)</td>
+			<td>@Html.DisplayFor(modelItem => item.level)</td>
+			<td>@Html.ActionLink(Html.DisplayFor(model => item.Tresc_ksztalcenia.plikSciezka).ToString(), "DownloadTrescKsztalcenia", "Przedmiot", new { id = item.ID }, null)</td>
+			<td>
+				@Html.ActionLink("Pliki", "PlikiPrzedmiotu", new { id = item.ID })
+			</td>
+		</tr>
+	}
+
+</table>

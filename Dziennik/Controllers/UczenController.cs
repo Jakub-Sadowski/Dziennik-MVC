@@ -257,6 +257,11 @@ namespace Dziennik.Controllers
 				.SingleOrDefault()
 				;
 
+			foreach (var file in przedmiot.Pliki)
+			{
+				file.FilePath = FileHandler.getFileName(file.FilePath);
+			}
+
 			return View(przedmiot);
 		}
 

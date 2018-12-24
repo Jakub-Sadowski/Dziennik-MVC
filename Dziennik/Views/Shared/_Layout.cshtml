@@ -45,6 +45,12 @@
                         
                     }
 
+									  @if (Session["Status"] == "Nauczyciel")
+                    {
+                        <li>@Html.ActionLink("Przedmioty", "Przedmioty", "Nauczyciel")</li>
+                        
+                    }
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["UserName"] == null)

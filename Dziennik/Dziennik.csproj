@@ -172,6 +172,7 @@
     <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
+    <Compile Include="Controllers\PlikController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
@@ -335,9 +336,12 @@
     <Content Include="Views\Uczen\_Spoznienia.cshtml" />
     <Content Include="Views\Uczen\EdytowanieNieobecnosci.cshtml" />
     <Content Include="Views\Uczen\DodawanieNieobecnosci.cshtml" />
+    <Content Include="Views\Nauczyciel\PlikiPrzedmiotu.cshtml" />
+    <Content Include="Views\Nauczyciel\Przedmioty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Plik\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -8,17 +8,17 @@ using System.Web;
 using System.Web.Mvc;
 using Dziennik.ActionAttrs;
 using Dziennik.DAL;
+using Dziennik.Helpers;
 using Dziennik.Models;
 
 namespace Dziennik.Controllers
 {
-    [RedirectIfNotAdmin]
-
     public class NauczycielController : Controller
     {
         private Context db = new Context();
 
-        public ActionResult Index()
+		#region CRUD
+		public ActionResult Index()
         {
             return View(db.Nauczyciele.ToList());
         }
@@ -198,8 +198,103 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+		#endregion
 
-        protected override void Dispose(bool disposing)
+		#region Przedmioty
+		public ActionResult Przedmioty()
+		{
+			if (Session["Status"] != "Nauczyciel")
+				return RedirectToAction("Index", "Home");
+
+			var userId = Convert.ToInt32(Session["UserID"]);
+
+			var przedmioty = db.Lekcja
+				.Where(l => l.NauczycielID == userId)
+				.Include(l => l.Przedmiot)
+				.Include("Przedmiot.Tresc_ksztalcenia")
+				.Select(l => l.Przedmiot).ToList();
+			foreach (var p in przedmioty)
+			{
+				p.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(p.Tresc_ksztalcenia.plikSciezka);
+			}
+
+			return View(przedmioty);
+		}
+
+		public ActionResult PlikiPrzedmiotu(int? id)
+		{
+			if (Session["Status"] != "Nauczyciel")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Przedmiot przedmiot = db.Przedmioty.Find(id);
+			if (przedmiot == null)
+			{
+				return HttpNotFound();
+			}
+			przedmiot.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(przedmiot.Tresc_ksztalcenia.plikSciezka);
+			foreach (var file in przedmiot.Pliki)
+			{
+				file.FilePath = FileHandler.getFileName(file.FilePath);
+			}
+			return View(przedmiot);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult PlikiPrzedmiotu([Bind(Include = "ID")] Przedmiot przedmiot, HttpPostedFileBase[] fileUpload)
+		{
+			if (Session["Status"] != "Nauczyciel")
+				return RedirectToAction("Index", "Home");
+
+			if (przedmiot.ID != null)
+			{
+				string sciezka = null;
+				Przedmiot original = db.Przedmioty
+					.Include(p => p.Pliki)
+					.Include(p => p.Tresc_ksztalcenia)
+					.SingleOrDefault(p => p.ID == przedmiot.ID);
+
+				if (fileUpload != null)
+				{
+					foreach (var file in fileUpload)
+					{
+						sciezka = FileHandler.saveFile(file);
+						var newFile = new Plik { PrzedmiotID = przedmiot.ID, FilePath = sciezka, NauczycielID = Convert.ToInt32(Session["UserID"]), DataDodania = DateTime.Now };
+						db.Pliki.Add(newFile);
+						original.Pliki.Add(newFile);
+					}
+				db.SaveChanges();
+				}
+
+				return RedirectToAction("Przedmioty");
+			}
+			ViewBag.Tresc_ksztalcenia = new SelectList(db.Tresci_ksztalcenia, "PrzedmiotID", "PrzedmiotID", przedmiot.ID);
+			return View(przedmiot);
+		}
+
+		public ActionResult UsunPlik(int? id)
+		{
+			if (Session["Status"] != "Nauczyciel")
+				return RedirectToAction("Index", "Home");
+
+			Plik plik= db.Pliki.Find(id);
+			if(plik == null)
+				return RedirectToAction("Error", "Home");
+			var przedmiotId = plik.PrzedmiotID;
+			db.Pliki.Remove(plik);
+			db.SaveChanges();
+
+			FileHandler.deleteFile(plik.FilePath);
+
+			return RedirectToAction("PlikiPrzedmiotu", new { id = przedmiotId });
+		}
+		#endregion
+
+		protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
