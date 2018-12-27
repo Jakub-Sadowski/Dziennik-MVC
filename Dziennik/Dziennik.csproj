@@ -176,6 +176,7 @@
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
     <Compile Include="Controllers\UczenController.cs" />
+    <Compile Include="Controllers\UwagaController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="DAL\Initializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -338,6 +339,12 @@
     <Content Include="Views\Uczen\DodawanieNieobecnosci.cshtml" />
     <Content Include="Views\Nauczyciel\PlikiPrzedmiotu.cshtml" />
     <Content Include="Views\Nauczyciel\Przedmioty.cshtml" />
+    <Content Include="Views\Uwaga\Create.cshtml" />
+    <Content Include="Views\Uwaga\Delete.cshtml" />
+    <Content Include="Views\Uwaga\Details.cshtml" />
+    <Content Include="Views\Uwaga\Edit.cshtml" />
+    <Content Include="Views\Uwaga\Index.cshtml" />
+    <Content Include="Views\Uczen\Uwagi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

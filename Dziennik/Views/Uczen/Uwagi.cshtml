@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Dziennik.Models.Uwaga>
+
+@{
+    ViewBag.Title = "Uwagi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Uwagi</h2>
+
+<table class="table">
+    <tr>
+        <th>
+           Nauczyciel
+        </th>
+        <th>
+            Nagłówek
+        </th>
+        <th>
+           Treść
+        </th>
+        <th>
+           Data
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.naglowek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tresc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            
+        </tr>
+    }
+
+</table>

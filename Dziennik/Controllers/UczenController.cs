@@ -629,9 +629,57 @@ namespace Dziennik.Controllers
             spoznienia = spoznienia.Where(s => s.UczenID == id);
             return spoznienia.AsEnumerable();
         }
+        public ActionResult Uwagi(int? id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                id = Convert.ToInt32(ide);
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-		#region testy
-		public ActionResult Test(int? id)
+            var uwagi = from s in db.Uwagi
+                        select s;
+            uwagi = uwagi.Where(s => s.UczenID == id);
+
+            if (uwagi == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(uwagi);
+        }
+        [HttpPost, ActionName("Uwagi")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Uwagi(int id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                int id1 = Convert.ToInt32(ide);
+                var uwagi = from s in db.Uwagi
+                            select s;
+                uwagi = uwagi.Where(s => s.UczenID == id1);
+                uwagi = uwagi.Include(u => u.Nauczyciel).Include(u => u.Uczen);
+                return View(uwagi.ToList());
+            }
+            else
+            {
+                var uwagi = from s in db.Uwagi
+                            select s;
+                uwagi= uwagi.Where(s => s.UczenID == id);
+                uwagi = uwagi.Include(u => u.Nauczyciel).Include(u => u.Uczen);
+                return View(uwagi.ToList());
+            }
+        }
+
+        #region testy
+        public ActionResult Test(int? id)
         {
             if (Session["Status"] != "Uczeń")
                 return RedirectToAction("Index", "Home");

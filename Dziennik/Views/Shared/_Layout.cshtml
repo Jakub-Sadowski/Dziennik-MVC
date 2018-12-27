@@ -39,16 +39,18 @@
 
                     @if (Session["Status"] == "Uczeń")
                     {
-                        <li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>                      
+                        <li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>
                         <li>@Html.ActionLink("Oceny", "Oceny", "Uczen")</li>
                         <li>@Html.ActionLink("E-nauczanie", "Przedmioty", "Uczen")</li>
-                        
+                        <li>@Html.ActionLink("Uwagi", "Uwagi", "Uczen")</li>
+
+
                     }
 
-									  @if (Session["Status"] == "Nauczyciel")
+                    @if (Session["Status"] == "Nauczyciel")
                     {
                         <li>@Html.ActionLink("Przedmioty", "Przedmioty", "Nauczyciel")</li>
-                        
+
                     }
 
                 </ul>
