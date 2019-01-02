@@ -302,16 +302,6 @@
     <Content Include="Views\Rodzic\Details.cshtml" />
     <Content Include="Views\Rodzic\Edit.cshtml" />
     <Content Include="Views\Rodzic\Index.cshtml" />
-    <Content Include="Views\Lekcjas\Create.cshtml" />
-    <Content Include="Views\Lekcjas\Delete.cshtml" />
-    <Content Include="Views\Lekcjas\Details.cshtml" />
-    <Content Include="Views\Lekcjas\Edit.cshtml" />
-    <Content Include="Views\Lekcjas\Index.cshtml" />
-    <Content Include="Views\Nauczyciels\Create.cshtml" />
-    <Content Include="Views\Nauczyciels\Delete.cshtml" />
-    <Content Include="Views\Nauczyciels\Details.cshtml" />
-    <Content Include="Views\Nauczyciels\Edit.cshtml" />
-    <Content Include="Views\Nauczyciels\Index.cshtml" />
     <Content Include="Views\Nauczyciel\Create.cshtml" />
     <Content Include="Views\Nauczyciel\Delete.cshtml" />
     <Content Include="Views\Nauczyciel\Details.cshtml" />
