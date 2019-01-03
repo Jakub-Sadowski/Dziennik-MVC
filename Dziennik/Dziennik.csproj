@@ -335,6 +335,7 @@
     <Content Include="Views\Uwaga\Edit.cshtml" />
     <Content Include="Views\Uwaga\Index.cshtml" />
     <Content Include="Views\Uczen\Uwagi.cshtml" />
+    <Content Include="Views\Uczen\TestyUcznia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
