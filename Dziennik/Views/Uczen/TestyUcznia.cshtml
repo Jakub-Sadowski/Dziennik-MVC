@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Dziennik.Models.Testy_ucznia>
+
+@{
+    ViewBag.Title = "TestyUcznia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TestyUcznia</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Test.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Test.Nauczyciel.imie) i @Html.DisplayNameFor(model =>model.Test.Nauczyciel.nazwisko) nauczyciela
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Test.Przedmiot.nazwa) przedmiotu
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Wynik)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Test.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Test.Nauczyciel.imie) @Html.DisplayFor(modelItem => item.Test.Nauczyciel.nazwisko)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Test.Przedmiot.nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wynik)
+        </td>
+    </tr>
+}
+
+</table>

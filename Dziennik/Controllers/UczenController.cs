@@ -906,9 +906,77 @@ namespace Dziennik.Controllers
             ViewBag.ocena = oc;
             return View();
 		}
-		#endregion
+        #endregion
 
-		protected override void Dispose(bool disposing)
+        public ActionResult TestyUcznia(int? id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                id = Convert.ToInt32(ide);
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var testy = from s in db.Testy_ucznia
+                        select s;
+            testy = testy.Where(s => s.UczenID == id);
+            testy = testy.Include(u => u.Test);
+
+            if (testy == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(testy);
+        }
+        [HttpPost, ActionName("TestyUcznia")]
+        [ValidateAntiForgeryToken]
+        public ActionResult TestyUcznia(int id)
+        {
+            if (Session["Status"] == "Uczeń")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                int id1 = Convert.ToInt32(ide);
+                var testy = from s in db.Testy_ucznia
+                            select s;
+                testy = testy.Where(s => s.UczenID == id1);
+                testy = testy.Include(u => u.Test);
+                return View(testy.ToList());
+            }
+            else
+            {
+                var testy = from s in db.Testy_ucznia
+                            select s;
+                testy = testy.Where(s => s.UczenID == id);
+                testy = testy.Include(u => u.Test);
+                return View(testy.ToList());
+            }
+        }
+
+        public ActionResult PlanLekcji()
+        {
+            if (Session["Status"] != "Uczeń")
+                return RedirectToAction("Index", "Home");
+
+            var userId = Convert.ToInt32(Session["UserID"]);
+            var klasa = db.Klasy
+                .Include(k => k.Uczniowie)
+                .Where(k => k.Uczniowie.Any(u => u.ID == userId))
+                .SingleOrDefault();
+
+            var lekcje= db.Lekcja
+                .Where(l => l.KlasaID == klasa.KlasaID)
+                .ToList();
+
+            return View(lekcje);
+        }
+
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
