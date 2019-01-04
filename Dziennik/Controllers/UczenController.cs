@@ -958,6 +958,24 @@ namespace Dziennik.Controllers
             }
         }
 
+        public ActionResult PlanLekcji()
+        {
+            if (Session["Status"] != "Uczeń")
+                return RedirectToAction("Index", "Home");
+
+            var userId = Convert.ToInt32(Session["UserID"]);
+            var klasa = db.Klasy
+                .Include(k => k.Uczniowie)
+                .Where(k => k.Uczniowie.Any(u => u.ID == userId))
+                .SingleOrDefault();
+
+            var lekcje= db.Lekcja
+                .Where(l => l.KlasaID == klasa.KlasaID)
+                .ToList();
+
+            return View(lekcje);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

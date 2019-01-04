@@ -336,6 +336,7 @@
     <Content Include="Views\Uwaga\Index.cshtml" />
     <Content Include="Views\Uczen\Uwagi.cshtml" />
     <Content Include="Views\Uczen\TestyUcznia.cshtml" />
+    <Content Include="Views\Uczen\PlanLekcji.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
