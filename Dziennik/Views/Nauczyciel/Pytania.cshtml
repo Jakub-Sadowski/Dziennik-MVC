@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Dziennik.Models.Pytanie>
+
+@{
+  ViewBag.Title = "Pytania";
+}
+
+<h2>Pytania</h2>
+@Html.ActionLink("Dodaj nowy", "PytanieDodaj", new { id = (ViewContext.RouteData.Values["id"]) })
+<table class="table">
+  <tr>
+    <th>@Html.DisplayNameFor(model => model.ID)</th>
+    <th>@Html.DisplayNameFor(model => model.tresc)</th>
+    <th>@Html.DisplayNameFor(model => model.odpowiedz1)</th>
+    <th>@Html.DisplayNameFor(model => model.odpowiedz2)</th>
+    <th>@Html.DisplayNameFor(model => model.odpowiedz3)</th>
+    <th>@Html.DisplayNameFor(model => model.odpowiedz4)</th>
+    <th>@Html.DisplayNameFor(model => model.odp)</th>
+    <th>@Html.DisplayNameFor(model => model.punktacja)</th>
+    <th></th>
+  </tr>
+
+  @foreach (var item in Model)
+  {
+    <tr>
+      <td>@Html.DisplayFor(modelItem => item.ID)</td>
+      <td>@Html.DisplayFor(model => item.tresc)</td>
+      <td>@Html.DisplayFor(model => item.odpowiedz1)</td>
+      <td>@Html.DisplayFor(model => item.odpowiedz2)</td>
+      <td>@Html.DisplayFor(model => item.odpowiedz3)</td>
+      <td>@Html.DisplayFor(model => item.odpowiedz4)</td>
+      <td>@Html.DisplayFor(model => item.odp)</td>
+      <td>@Html.DisplayFor(model => item.punktacja)</td>
+      <td>
+        @Html.ActionLink("Edytcja", "PytanieEdytcja", new { id = item.ID }) |
+        @Html.ActionLink("Usuń", "PytanieUsun", new { id = item.ID })
+      </td>
+    </tr>
+  }
+
+</table>

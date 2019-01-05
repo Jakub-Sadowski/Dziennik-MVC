@@ -337,6 +337,14 @@
     <Content Include="Views\Uczen\Uwagi.cshtml" />
     <Content Include="Views\Uczen\TestyUcznia.cshtml" />
     <Content Include="Views\Uczen\PlanLekcji.cshtml" />
+    <Content Include="Views\Nauczyciel\Testy.cshtml" />
+    <Content Include="Views\Nauczyciel\Pytania.cshtml" />
+    <Content Include="Views\Nauczyciel\TestDodaj.cshtml" />
+    <Content Include="Views\Nauczyciel\TestEdytcja.cshtml" />
+    <Content Include="Views\Nauczyciel\TestUsun.cshtml" />
+    <Content Include="Views\Nauczyciel\PytanieDodaj.cshtml" />
+    <Content Include="Views\Nauczyciel\PytanieEdytcja.cshtml" />
+    <Content Include="Views\Nauczyciel\PytanieUsun.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
