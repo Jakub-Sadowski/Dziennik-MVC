@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Dziennik.Models.Lekcja>
+
+@{
+    ViewBag.Title = "Zajecia";
+}
+
+<h2>Rozklad zajec</h2>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ID)</th>
+        <th>@Html.DisplayNameFor(model => model.dzien)</th>
+        <th>@Html.DisplayNameFor(model => model.godzina)</th>
+        <th>@Html.DisplayNameFor(model => model.Przedmiot)</th>
+        <th>@Html.DisplayNameFor(model => model.Klasa.Name)</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+            <td>@Html.DisplayFor(modelItem => item.dzien)</td>
+            <td>@Html.DisplayFor(modelItem => item.godzina)</td>
+            <td>@Html.DisplayFor(modelItem => item.Przedmiot.nazwa)</td>
+            <td>@Html.DisplayFor(modelItem => item.Klasa.Name)</td>
+        </tr>
+    }
+
+</table>

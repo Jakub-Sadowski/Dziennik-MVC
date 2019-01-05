@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dziennik.DAL;
+using Dziennik.Helpers;
+using Dziennik.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Dziennik.ActionAttrs;
-using Dziennik.DAL;
-using Dziennik.Helpers;
-using Dziennik.Models;
 
 namespace Dziennik.Controllers
 {
@@ -294,6 +292,64 @@ namespace Dziennik.Controllers
 		}
         #endregion
 
+        public ActionResult PlanNauczyciela(int? id)
+        {
+            if (Session["Status"] == "Nauczyciel")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                id = Convert.ToInt32(ide);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var lekcje = from s in db.Lekcja
+                        select s;
+            lekcje = lekcje.Where(s => s.NauczycielID == id);
+
+            if (lekcje == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(lekcje);
+        }
+
+        public ActionResult RozkladNauczycieli(string search)
+        {
+            //var nauczyciele = from s in db.Nauczyciele
+            //                  .Include(s=> s.Lekcje)
+            //                select s;
+            //if (!String.IsNullOrEmpty(search))
+            //{
+            //    nauczyciele = nauczyciele.Where(s => (s.imie + " " + s.nazwisko).Contains(search));
+            //}
+            //nauczyciele = nauczyciele.OrderByDescending(s => s.nazwisko);
+
+
+            //return View(nauczyciele.ToList());
+            
+            var lekcje = from s in db.Lekcja
+                         select s;
+            if (!String.IsNullOrEmpty(search))
+            {
+                lekcje = lekcje.Where(s => (s.Nauczyciel.imie + " " + s.Nauczyciel.nazwisko).Contains(search));
+            }
+
+            if (lekcje == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(lekcje);
+        }
+        
         #region Testy
         public ActionResult Testy(int? id)
         {
