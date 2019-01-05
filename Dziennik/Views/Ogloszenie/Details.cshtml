@@ -1,0 +1,51 @@
+﻿@model Dziennik.Models.Ogloszenie
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ogloszenie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nauczyciel.imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nauczyciel.imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.naglowek)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naglowek)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tresc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tresc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

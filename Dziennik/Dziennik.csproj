@@ -172,6 +172,7 @@
     <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
+    <Compile Include="Controllers\OgloszenieController.cs" />
     <Compile Include="Controllers\PlikController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
@@ -337,6 +338,11 @@
     <Content Include="Views\Uczen\Uwagi.cshtml" />
     <Content Include="Views\Uczen\TestyUcznia.cshtml" />
     <Content Include="Views\Uczen\PlanLekcji.cshtml" />
+    <Content Include="Views\Ogloszenie\Create.cshtml" />
+    <Content Include="Views\Ogloszenie\Delete.cshtml" />
+    <Content Include="Views\Ogloszenie\Details.cshtml" />
+    <Content Include="Views\Ogloszenie\Edit.cshtml" />
+    <Content Include="Views\Ogloszenie\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

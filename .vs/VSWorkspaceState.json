@@ -2,9 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\Dziennik",
-    "\\Dziennik\\Controllers",
-    "\\Dziennik\\Views",
-    "\\Dziennik\\Views\\Uczen"
+    "\\Dziennik\\Controllers"
   ],
   "SelectedNode": "\\Dziennik.sln",
   "PreviewInSolutionExplorer": false
