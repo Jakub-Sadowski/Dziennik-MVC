@@ -419,7 +419,8 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index");
             }
 
-           
+            ViewBag.NauczycielID = Session["UserID"];
+            ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
             ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
             return View(ocena);
         }

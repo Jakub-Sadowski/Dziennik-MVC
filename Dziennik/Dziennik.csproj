@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201812180932027_czasTrwaniaTestuWSek.Designer.cs">
       <DependentUpon>201812180932027_czasTrwaniaTestuWSek.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901052041540_oceny1.cs" />
+    <Compile Include="Migrations\201901052041540_oceny1.Designer.cs">
+      <DependentUpon>201901052041540_oceny1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -392,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812180932027_czasTrwaniaTestuWSek.resx">
       <DependentUpon>201812180932027_czasTrwaniaTestuWSek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901052041540_oceny1.resx">
+      <DependentUpon>201901052041540_oceny1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
