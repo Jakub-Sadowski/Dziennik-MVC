@@ -349,7 +349,80 @@ namespace Dziennik.Controllers
 
             return View(lekcje);
         }
-        
+        public ActionResult Oceny(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var oceny = from s in db.Oceny
+                        select s;
+            oceny = oceny.Where(s => s.PrzedmiotID == id);
+
+            if (oceny == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(oceny);
+        }
+        int IDPRZEDMIOTUWYBRANEGO;
+        [HttpPost, ActionName("Oceny")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Oceny(int id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IDPRZEDMIOTUWYBRANEGO = id;
+            var oceny = from s in db.Oceny
+                        select s;
+            oceny = oceny.Where(s => s.PrzedmiotID == id);
+            return View(oceny.ToList());
+
+        }
+        public ActionResult TworzenieOceny()
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            ViewBag.NauczycielID = Session["UserID"];
+            ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
+            return View();
+        }
+
+        // POST: Ocena/Create
+        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
+        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TworzenieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                ViewBag.NauczycielID = Session["UserID"];
+            ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
+                db.Oceny.Add(ocena);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+           
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
+            return View(ocena);
+        }
         #region Testy
         public ActionResult Testy(int? id)
         {

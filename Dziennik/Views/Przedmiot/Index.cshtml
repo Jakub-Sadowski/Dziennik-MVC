@@ -28,17 +28,19 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.ID)</td>
-            <td>@Html.DisplayFor(modelItem => item.nazwa)</td>
-            <td>@Html.DisplayFor(modelItem => item.level)</td>
-						<td>@Html.ActionLink(Html.DisplayFor(model => item.Tresc_ksztalcenia.plikSciezka).ToString(), "DownloadTrescKsztalcenia", new { id = item.ID })</td>
-						<td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.ID)</td>
+        <td>@Html.DisplayFor(modelItem => item.nazwa)</td>
+        <td>@Html.DisplayFor(modelItem => item.level)</td>
+        <td>@Html.ActionLink(Html.DisplayFor(model => item.Tresc_ksztalcenia.plikSciezka).ToString(), "DownloadTrescKsztalcenia", new { id = item.ID })</td>
+       
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
     }
 
 </table>

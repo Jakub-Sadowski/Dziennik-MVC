@@ -195,7 +195,7 @@ namespace Dziennik.Controllers
             var mime = MimeMapping.GetMimeMapping(fileName);
             return File(fileBytes, mime, fileName);
         }
-
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)

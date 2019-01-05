@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Dziennik"
+    "\\Dziennik",
+    "\\Dziennik\\Controllers",
+    "\\Dziennik\\Views",
+    "\\Dziennik\\Views\\Shared",
+    "\\Dziennik\\Views\\Uczen"
   ],
   "SelectedNode": "\\Dziennik.sln",
   "PreviewInSolutionExplorer": false

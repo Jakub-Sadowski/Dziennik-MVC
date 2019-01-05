@@ -17,16 +17,17 @@
 
 	@foreach (var item in Model)
 	{
-		<tr>
-			<td>@Html.DisplayFor(modelItem => item.ID)</td>
-			<td>@Html.DisplayFor(modelItem => item.nazwa)</td>
-			<td>@Html.DisplayFor(modelItem => item.level)</td>
-			<td>@Html.ActionLink(Html.DisplayFor(model => item.Tresc_ksztalcenia.plikSciezka).ToString(), "DownloadTrescKsztalcenia", "Przedmiot", new { id = item.ID }, null)</td>
-			<td>
-				@Html.ActionLink("Pliki", "PlikiPrzedmiotu", new { id = item.ID }) |
-				@Html.ActionLink("Testy", "Testy", new { id = item.ID })
-			</td>
-		</tr>
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.ID)</td>
+        <td>@Html.DisplayFor(modelItem => item.nazwa)</td>
+        <td>@Html.DisplayFor(modelItem => item.level)</td>
+        <td>@Html.ActionLink(Html.DisplayFor(model => item.Tresc_ksztalcenia.plikSciezka).ToString(), "DownloadTrescKsztalcenia", "Przedmiot", new { id = item.ID }, null)</td>
+        <td>
+            @Html.ActionLink("Pliki", "PlikiPrzedmiotu", new { id = item.ID }) |
+            @Html.ActionLink("Testy", "Testy", new { id = item.ID }) |
+            @Html.ActionLink("Oceny", "Oceny", new { id = item.ID }) 
+        </td>
+    </tr>
 	}
 
 </table>
