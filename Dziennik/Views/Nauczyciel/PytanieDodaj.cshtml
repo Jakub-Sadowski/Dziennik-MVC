@@ -1,0 +1,91 @@
+﻿@model Dziennik.Models.Pytanie
+
+@{
+  ViewBag.Title = "Ddoaj pytanie";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ddoaj pytanie</h2>
+
+@using (Html.BeginForm())
+{
+  @Html.AntiForgeryToken()
+
+  <div class="form-horizontal">
+    <h4>Pytanie</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+      @Html.LabelFor(model => model.TestID, "TestID", htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.DropDownList("TestID", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TestID, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.tresc, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.tresc, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.tresc, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.odpowiedz1, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.odpowiedz1, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.odpowiedz1, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.odpowiedz2, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.odpowiedz2, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.odpowiedz2, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.odpowiedz3, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.odpowiedz3, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.odpowiedz3, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.odpowiedz4, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.odpowiedz4, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.odpowiedz4, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.punktacja, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.punktacja, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.punktacja, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.odp, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EnumDropDownListFor(model => model.odp, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.odp, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Dodaj" class="btn btn-default" />
+      </div>
+    </div>
+  </div>
+}
+<div>
+  @Html.ActionLink("Powrót", "Pytania", new { id = (ViewContext.RouteData.Values["id"]) })
+</div>

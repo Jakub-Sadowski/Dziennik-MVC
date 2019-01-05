@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Dziennik.Models.Lekcja>
+
+@{
+    ViewBag.Title = "Zajecia";
+}
+
+<h2>Rozklad nauczycieli</h2>
+@using (Html.BeginForm())
+{
+    <p>
+        Szukaj osobę: @Html.TextBox("search")
+        <input type="submit" value="Szukaj" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Nauczyciel.imie)</th>
+        <th>@Html.DisplayNameFor(model => model.Nauczyciel.nazwisko)</th>
+        <th>@Html.DisplayNameFor(model => model.dzien)</th>
+        <th>@Html.DisplayNameFor(model => model.godzina)</th>
+        <th>@Html.DisplayNameFor(model => model.Przedmiot)</th>
+        <th>@Html.DisplayNameFor(model => model.Klasa.Name)</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Nauczyciel.imie)</td>
+            <td>@Html.DisplayFor(modelItem => item.Nauczyciel.nazwisko)</td>
+            <td>@Html.DisplayFor(modelItem => item.dzien)</td>
+            <td>@Html.DisplayFor(modelItem => item.godzina)</td>
+            <td>@Html.DisplayFor(modelItem => item.Przedmiot.nazwa)</td>
+            <td>@Html.DisplayFor(modelItem => item.Klasa.Name)</td>
+        </tr>
+    }
+
+</table>

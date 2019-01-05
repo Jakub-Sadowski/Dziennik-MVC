@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dziennik.DAL;
+using Dziennik.Helpers;
+using Dziennik.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Dziennik.ActionAttrs;
-using Dziennik.DAL;
-using Dziennik.Helpers;
-using Dziennik.Models;
 
 namespace Dziennik.Controllers
 {
@@ -292,9 +290,298 @@ namespace Dziennik.Controllers
 
 			return RedirectToAction("PlikiPrzedmiotu", new { id = przedmiotId });
 		}
-		#endregion
+        #endregion
 
-		protected override void Dispose(bool disposing)
+        public ActionResult PlanNauczyciela(int? id)
+        {
+            if (Session["Status"] == "Nauczyciel")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                id = Convert.ToInt32(ide);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var lekcje = from s in db.Lekcja
+                        select s;
+            lekcje = lekcje.Where(s => s.NauczycielID == id);
+
+            if (lekcje == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(lekcje);
+        }
+
+        public ActionResult RozkladNauczycieli(string search)
+        {
+            //var nauczyciele = from s in db.Nauczyciele
+            //                  .Include(s=> s.Lekcje)
+            //                select s;
+            //if (!String.IsNullOrEmpty(search))
+            //{
+            //    nauczyciele = nauczyciele.Where(s => (s.imie + " " + s.nazwisko).Contains(search));
+            //}
+            //nauczyciele = nauczyciele.OrderByDescending(s => s.nazwisko);
+
+
+            //return View(nauczyciele.ToList());
+            
+            var lekcje = from s in db.Lekcja
+                         select s;
+            if (!String.IsNullOrEmpty(search))
+            {
+                lekcje = lekcje.Where(s => (s.Nauczyciel.imie + " " + s.Nauczyciel.nazwisko).Contains(search));
+            }
+
+            if (lekcje == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(lekcje);
+        }
+        
+        #region Testy
+        public ActionResult Testy(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            var userId = Convert.ToInt32(Session["UserID"]);
+
+            var testy = db.Testy
+                .Where(t => t.PrzedmiotID == id)
+                .Include(t => t.Pytania)
+                .Include(t => t.Przedmiot)
+                .Include(t => t.Klasa)
+                .Include(t => t.Nauczyciel)
+                .ToList();
+
+            return View(testy);
+        }
+
+        public ActionResult TestDodaj(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TestDodaj([Bind(Include = "ID,KlasaID,PrzedmiotID,czasTrwania")] Test test)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            if (ModelState.IsValid)
+            {
+                var userId = Convert.ToInt32(Session["UserID"]);
+                test.NauczycielID = userId;
+                db.Testy.Add(test);
+                db.SaveChanges();
+                int? przedmiotId = test.PrzedmiotID;
+                return RedirectToAction("Testy", new { id = przedmiotId });
+            }
+
+            ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", test.KlasaID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", test.PrzedmiotID);
+            return View(test);
+        }
+
+
+        public ActionResult TestEdytcja(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            var userId = Convert.ToInt32(Session["UserID"]);
+
+            var test = db.Testy
+                .Where(t => t.ID == id)
+                .Where(t => t.NauczycielID == userId)
+                .Include(t => t.Pytania)
+                .Include(t => t.Przedmiot)
+                .Include(t => t.Klasa)
+                .SingleOrDefault();
+            if(test == null)
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", test.KlasaID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", test.PrzedmiotID);
+            return View(test);
+        }
+
+        [HttpPost]
+        public ActionResult TestEdytcja([Bind(Include = "ID,PrzedmiotID,KlasaID,czasTrwania")] Test test)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            if (ModelState.IsValid)
+            {
+                var userId = Convert.ToInt32(Session["UserID"]);
+                test.NauczycielID = userId;
+                db.Entry(test).State = EntityState.Modified;
+                db.SaveChanges();
+                int? przedmiotId = test.PrzedmiotID;
+                return RedirectToAction("Testy", new { id = przedmiotId });
+            }
+            ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", test.KlasaID);
+            ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", test.PrzedmiotID);
+            return View(test);
+        }
+
+        public ActionResult TestUsun(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Test test = db.Testy.Find(id);
+            if (test == null)
+            {
+                return HttpNotFound();
+            }
+            return View(test);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TestUsun(int id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            Test test = db.Testy.Find(id);
+            int? przedmiotId = test.PrzedmiotID;
+            db.Testy.Remove(test);
+            db.SaveChanges();
+            return RedirectToAction("Testy", new { id = przedmiotId });
+        }
+        #endregion
+
+        #region Pytania
+        public ActionResult Pytania(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            var pytania = db.Pytania
+                .Where(p => p.TestID == id)
+                .ToList();
+            return View(pytania);
+        }
+
+        public ActionResult PytanieDodaj(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.TestID = new SelectList(db.Testy, "ID", "ID");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PytanieDodaj([Bind(Include = "ID,TestID,tresc,odpowiedz1,odpowiedz2,odpowiedz3,odpowiedz4,punktacja,odp")] Pytanie pytanie)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            if (ModelState.IsValid)
+            {
+                db.Pytania.Add(pytanie);
+                db.SaveChanges();
+                return RedirectToAction("Pytania", new { id = pytanie.TestID });
+            }
+
+            ViewBag.TestID = new SelectList(db.Testy, "ID", "ID", pytanie.TestID);
+            return View(pytanie);
+        }
+
+        public ActionResult PytanieEdytcja(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pytanie pytanie = db.Pytania.Find(id);
+            if (pytanie == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.TestID = new SelectList(db.Testy, "ID", "ID", pytanie.TestID);
+            return View(pytanie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PytanieEdytcja([Bind(Include = "ID,TestID,tresc,odpowiedz1,odpowiedz2,odpowiedz3,odpowiedz4,punktacja,odp")] Pytanie pytanie)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(pytanie).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Pytania", new { id = pytanie.TestID });
+            }
+            ViewBag.TestID = new SelectList(db.Testy, "ID", "ID", pytanie.TestID);
+            return View(pytanie);
+        }
+
+        public ActionResult PytanieUsun(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pytanie pytanie = db.Pytania.Find(id);
+            if (pytanie == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pytanie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PytanieUsun(int id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            Pytanie pytanie = db.Pytania.Find(id);
+            var idTestu = pytanie.TestID;
+            db.Pytania.Remove(pytanie);
+            db.SaveChanges();
+            return RedirectToAction("Pytania", new { id = idTestu });
+        }
+        #endregion
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

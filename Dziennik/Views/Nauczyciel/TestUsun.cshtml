@@ -1,0 +1,57 @@
+﻿@model Dziennik.Models.Test
+
+@{
+  ViewBag.Title = "Usuń test";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuń test</h2>
+
+<h3>Na pewno?</h3>
+<div>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.Klasa.nazwa)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Klasa.nazwa)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Nauczyciel.FullName)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Nauczyciel.FullName)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.Przedmiot.nazwa)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Przedmiot.nazwa)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.czasTrwania)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.czasTrwania)
+    </dd>
+
+  </dl>
+
+  @using (Html.BeginForm())
+  {
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+      <input type="submit" value="Delete" class="btn btn-default" /> |
+      @Html.ActionLink("Powrót", "Testy", new { id = Model.PrzedmiotID } )
+    </div>
+  }
+</div>

@@ -13,14 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Klasa.nazwa) klasy
+            @Html.DisplayNameFor(model => model.Klasa.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Klasa.level) klasy
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nauczyciel.imie) i
-            @Html.DisplayNameFor(model => model.Nauczyciel.nazwisko) nauczyciela
+            @Html.DisplayNameFor(model => model.Nauczyciel.FullName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Przedmiot.nazwa) przedmiotu
@@ -37,11 +33,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Klasa.nazwa)
+            @Html.DisplayFor(modelItem => item.Klasa.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Nauczyciel.imie)
-            @Html.DisplayFor(modelItem => item.Nauczyciel.nazwisko)
+            @Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Przedmiot.nazwa)

@@ -1,0 +1,89 @@
+﻿@model Dziennik.Models.Pytanie
+
+@{
+  ViewBag.Title = "Usuń pytanie";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuń pytanie</h2>
+
+<h3>Na pewno?</h3>
+<div>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.Test.ID)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.Test.ID)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.tresc)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.tresc)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.odpowiedz1)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.odpowiedz1)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.odpowiedz2)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.odpowiedz2)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.odpowiedz3)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.odpowiedz3)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.odpowiedz4)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.odpowiedz4)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.punktacja)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.punktacja)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.odp)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.odp)
+    </dd>
+
+  </dl>
+
+  @using (Html.BeginForm())
+  {
+    @Html.AntiForgeryToken()
+
+  <div class="form-actions no-color">
+    <input type="submit" value="Usuń" class="btn btn-default" /> |
+    @Html.ActionLink("Powrót", "Pytania", new { id = Model.TestID })
+  </div>
+  }
+</div>

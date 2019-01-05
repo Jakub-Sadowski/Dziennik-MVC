@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Dziennik.Models.Test>
+
+@{
+  ViewBag.Title = "Testy";
+}
+
+<h2>Testy</h2>
+@Html.ActionLink("Dodaj nowy", "TestDodaj", new { id = (ViewContext.RouteData.Values["id"]) })
+<table class="table">
+  <tr>
+    <th>@Html.DisplayNameFor(model => model.ID)</th>
+    <th>@Html.DisplayNameFor(model => model.Przedmiot.nazwa)</th>
+    <th>@Html.DisplayNameFor(model => model.Nauczyciel.FullName)</th>
+    <th>@Html.DisplayNameFor(model => model.czasTrwania)</th>
+    <th></th>
+  </tr>
+
+  @foreach (var item in Model)
+  {
+    <tr>
+      <td>@Html.DisplayFor(modelItem => item.ID)</td>
+      <td>@Html.DisplayFor(modelItem => item.Przedmiot.nazwa)</td>
+      <td>@Html.DisplayFor(modelItem => item.Nauczyciel.FullName)</td>
+      <td>@Html.DisplayFor(model => item.czasTrwania)</td>
+      <td>
+        @Html.ActionLink("Pytania", "Pytania", new { id = item.ID }) |
+        @Html.ActionLink("Edytcja", "TestEdytcja", new { id = item.ID }) |
+        @Html.ActionLink("Usuń", "TestUsun", new { id = item.ID }) 
+      </td>
+    </tr>
+  }
+
+</table>
