@@ -2,6 +2,7 @@
 using Dziennik.Helpers;
 using Dziennik.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -475,6 +476,245 @@ namespace Dziennik.Controllers
             return RedirectToAction("Testy", new { id = przedmiotId });
         }
         #endregion
+        #region Raporty
+
+        [NonAction]
+        public static List<String> GetDates(dzien? day)
+        {
+
+
+            List<String> list = new List<String>();
+            int year = DateTime.Now.Year -1 ;
+
+            DateTime date = new DateTime(year, 9, 1);
+            
+            while (date.Month != 7 && date.Month != 8 && date <= DateTime.Now && date.Year >= DateTime.Now.Year - 1)
+            {
+                if (DateTime.Now.Month >= 9 && DateTime.Now.Year == date.Year)
+                    break;
+                
+
+                if ((int)date.DayOfWeek - 1 == (int)day)
+                    list.Add(date.ToString("dd-MM-yyyy"));
+
+
+                date = date.AddDays(1);
+
+            }
+
+            list.Reverse();
+
+            
+
+         return list;
+        }
+
+
+            public ActionResult LekcjeNauczyciela()
+        {
+            int id;
+            if (Session["Status"] == "Nauczyciel")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                id = Convert.ToInt32(ide);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var lekcje = db.Lekcja.Where(s => s.NauczycielID == id);
+            return View(lekcje);
+
+        }
+
+        public ActionResult LekcjaDoRaportu(int? id,string data)
+        {
+
+            ViewBag.id = id;
+            int id_n;
+            if (Session["Status"] == "Nauczyciel")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                id_n = Convert.ToInt32(ide);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var lekcja = db.Lekcja.Find(id);
+            if (lekcja == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Daty = GetDates(lekcja.dzien);
+            if (data != null)
+                ViewBag.d = data;
+            else {
+                data = GetDates(lekcja.dzien)[0];
+                ViewBag.d = data;
+            }
+            var uczniowie = db.Uczniowie.Where(s => s.KlasaID == lekcja.KlasaID).ToList();
+            int[] cache = new int[uczniowie.Count()];
+            int a = 0;
+            DateTime new_Data = DateTime.ParseExact(data, "dd-MM-yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+            foreach (var uczen in uczniowie)
+            {
+                var nieobecnosci = db.Nieobecnosci.Where(s => s.UczenID == uczen.ID);
+               var nieobecnosci2 = nieobecnosci.Where(s => s.date ==new_Data);
+                var nieobecnosci3 = nieobecnosci2.Where(s => s.LekcjaID == id).ToList();
+                var spoznienia = db.Spoznienia.Where(s => s.UczenID == uczen.ID);
+                var spoznienia2 = spoznienia.Where(s => s.date == new_Data);
+                var spoznienia3 = spoznienia2.Where(s => s.LekcjaID == id).ToList();
+
+                if (nieobecnosci3.Count() > 0)
+                    cache[a] = 1;
+                else
+                if (spoznienia3.Count() > 0)
+                    cache[a] = 2;
+                else
+                    cache[a] = 0;
+
+                a++;
+            }
+
+            ViewBag.cache = cache;
+            
+
+
+            return View(lekcja);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UtworzRaport(int? id, string data)
+        {
+            
+            if (Session["Status"] == "Nauczyciel")
+            {
+                var user = Session["UserID"];
+                string ide = user.ToString();
+               
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (data == null || id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var lekcja = db.Lekcja.Find(id);
+            if (lekcja == null)
+            {
+                return HttpNotFound();
+            }
+            var uczniowie = db.Uczniowie.Where(s => s.KlasaID == lekcja.KlasaID).ToList();
+            DateTime new_Data = DateTime.ParseExact(data, "dd-MM-yyyy",
+                                      System.Globalization.CultureInfo.InvariantCulture);
+            string[] radio_index = new string[uczniowie.Count()];
+            int a = 0;
+            foreach (var uczen in uczniowie)
+            {
+                var nieobecnosci = db.Nieobecnosci.Where(s => s.UczenID == uczen.ID);
+                var nieobecnosci2 = nieobecnosci.Where(s => s.date == new_Data);
+                var spoznienia = db.Spoznienia.Where(s => s.UczenID == uczen.ID);
+                var spoznienia2 = spoznienia.Where(s => s.date == new_Data);
+                var nieobecnosci3 = nieobecnosci2.Where(s => s.LekcjaID == id).ToList();
+                var spoznienia3 = spoznienia2.Where(s => s.LekcjaID == id).ToList();
+
+
+
+                radio_index[a] = Request.Form["c_" + uczen.ID];
+                Spoznienie spoznienie = new Spoznienie
+                {
+                    UczenID = uczen.ID,
+                    LekcjaID = id,
+                    date = DateTime.ParseExact(data, "dd-MM-yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                };
+                Nieobecnosc nieobecnosc = new Nieobecnosc
+                {
+                    UczenID = uczen.ID,
+                    LekcjaID = id,
+                    date = DateTime.ParseExact(data, "dd-MM-yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                    Status = 0
+                };
+                if (radio_index[a] == "Spoznienie" && spoznienia3.Count()==0)
+                {
+                    if (nieobecnosci3.Count() > 0)
+                    {
+                        int x = 0;
+                        foreach(var j in nieobecnosci3)
+                        {
+                            x = j.ID;
+                        }
+                        db.Nieobecnosci.Remove(db.Nieobecnosci.Find(x));
+                    }
+                    db.Spoznienia.Add(spoznienie);
+                }
+
+                if (radio_index[a] == "Nieobecnosc" && nieobecnosci3.Count() == 0)
+                {
+                    if (spoznienia3.Count() > 0)
+                    {
+                        int x = 0;
+                        foreach (var j in spoznienia3)
+                        {
+                            x = j.ID;
+                        }
+                        db.Spoznienia.Remove(db.Spoznienia.Find(x));
+                    }
+                    db.Nieobecnosci.Add(nieobecnosc);
+                }
+
+                if (radio_index[a] == "Obecnosc")
+                {
+                    if (spoznienia3.Count() > 0)
+                    {
+                        int x = 0;
+                        foreach (var j in spoznienia3)
+                        {
+                            x = j.ID;
+                        }
+                        db.Spoznienia.Remove(db.Spoznienia.Find(x));
+                    }
+
+                    if (nieobecnosci3.Count() > 0)
+                    {
+                        int x = 0;
+                        foreach (var j in nieobecnosci3)
+                        {
+                            x = j.ID;
+                        }
+                        db.Nieobecnosci.Remove(db.Nieobecnosci.Find(x));
+                    }
+
+                }
+                a++; 
+            }
+            db.SaveChanges();
+
+
+            
+            
+            return RedirectToAction("LekcjaDoRaportu", "Nauczyciel", new { id = id, data = data });
+        }
+
+
+
+        #endregion
+
 
         #region Pytania
         public ActionResult Pytania(int? id)

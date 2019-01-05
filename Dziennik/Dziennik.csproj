@@ -212,6 +212,18 @@
     <Compile Include="Migrations\201812180932027_czasTrwaniaTestuWSek.Designer.cs">
       <DependentUpon>201812180932027_czasTrwaniaTestuWSek.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901051435547_aaaa.cs" />
+    <Compile Include="Migrations\201901051435547_aaaa.Designer.cs">
+      <DependentUpon>201901051435547_aaaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901051443336_aaaaaa.cs" />
+    <Compile Include="Migrations\201901051443336_aaaaaa.Designer.cs">
+      <DependentUpon>201901051443336_aaaaaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901052048071_aaaaaa1.cs" />
+    <Compile Include="Migrations\201901052048071_aaaaaa1.Designer.cs">
+      <DependentUpon>201901052048071_aaaaaa1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -343,6 +355,9 @@
     <Content Include="Views\Ogloszenie\Details.cshtml" />
     <Content Include="Views\Ogloszenie\Edit.cshtml" />
     <Content Include="Views\Ogloszenie\Index.cshtml" />
+    <Content Include="Views\Nauczyciel\LekcjeNauczyciela.cshtml" />
+    <Content Include="Views\Nauczyciel\LekcjaDoRaportu.cshtml" />
+    <Content Include="Views\Nauczyciel\UtworzRaport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -384,6 +399,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812180932027_czasTrwaniaTestuWSek.resx">
       <DependentUpon>201812180932027_czasTrwaniaTestuWSek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901051435547_aaaa.resx">
+      <DependentUpon>201901051435547_aaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901051443336_aaaaaa.resx">
+      <DependentUpon>201901051443336_aaaaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901052048071_aaaaaa1.resx">
+      <DependentUpon>201901052048071_aaaaaa1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
