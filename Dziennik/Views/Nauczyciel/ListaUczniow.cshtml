@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Dziennik.Models.Uczen>
+@{
+    ViewBag.Title = "ListaUczniow";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Uczniowie</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Szukaj osobę: @Html.TextBox("search")
+        <input type="submit" value="Szukaj" />
+    </p>
+}
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nazwisko)
+        </th>
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwisko)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Oceny", "Oceny", new { id = item.ID }) |
+                @Html.ActionLink("Absencje", "Absencja","Uczen", new { id = item.ID }) 
+            </td>
+        </tr>
+    }
+
+</table>

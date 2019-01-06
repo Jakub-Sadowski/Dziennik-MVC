@@ -272,6 +272,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Nauczyciel\Oceny.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -358,6 +359,8 @@
     <Content Include="Views\Nauczyciel\LekcjeNauczyciela.cshtml" />
     <Content Include="Views\Nauczyciel\LekcjaDoRaportu.cshtml" />
     <Content Include="Views\Nauczyciel\UtworzRaport.cshtml" />
+    <Content Include="Views\Nauczyciel\ListaUczniow.cshtml" />
+    <Content Include="Views\Nauczyciel\TworzenieOceny.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

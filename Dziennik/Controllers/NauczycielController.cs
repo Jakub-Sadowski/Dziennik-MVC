@@ -350,6 +350,71 @@ namespace Dziennik.Controllers
 
             return View(lekcje);
         }
+         public int IDPRZEDMIOTUWYBRANEGO;
+         int IDUCZNIA;
+        public ActionResult ListaUczniow(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var przedmiot = db.Przedmioty.Find(id);
+            IDPRZEDMIOTUWYBRANEGO = id ?? default(int);
+            var lewel = przedmiot.level.ToString();
+            
+            var klasa = from s in db.Klasy
+                        where s.level.ToString().ToLower() == lewel.ToLower()
+                        select s.KlasaID;
+          
+
+            if (klasa == null)
+            {
+                return HttpNotFound();
+            }
+            var uczniowie = from s in db.Uczniowie
+                        select s;
+            uczniowie = uczniowie.Where(s => s.KlasaID == klasa.FirstOrDefault());
+            
+            return View(uczniowie);
+        }
+    
+        [HttpPost, ActionName("ListaUczniow")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ListaUczniow(int id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IDPRZEDMIOTUWYBRANEGO = id;
+            var przedmiot = db.Przedmioty.Find(id);
+            
+            var lewel = przedmiot.level.ToString();
+            var klasa = from s in db.Klasy
+                        where s.level.ToString().ToLower() == lewel.ToLower()
+                        select s.KlasaID;
+
+
+            if (klasa == null)
+            {
+                return HttpNotFound();
+            }
+            var uczniowie = from s in db.Uczniowie
+                            select s;
+            uczniowie = uczniowie.Where(s => s.KlasaID == klasa.FirstOrDefault());
+
+            return View(uczniowie.ToList());
+
+        }
         public ActionResult Oceny(int? id)
         {
             if (Session["Status"] != "Nauczyciel")
@@ -360,10 +425,13 @@ namespace Dziennik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
+            IDUCZNIA = id ?? default(int);
+            var uczen = db.Uczniowie.Find(id);
+            //var oceny = uczen.Oceny;
             var oceny = from s in db.Oceny
                         select s;
-            oceny = oceny.Where(s => s.PrzedmiotID == id);
+            oceny = oceny.Where(s => s.PrzedmiotID == IDPRZEDMIOTUWYBRANEGO);
+            oceny = oceny.Where(s => s.UczenID == IDUCZNIA);
 
             if (oceny == null)
             {
@@ -372,7 +440,7 @@ namespace Dziennik.Controllers
 
             return View(oceny);
         }
-        int IDPRZEDMIOTUWYBRANEGO;
+       
         [HttpPost, ActionName("Oceny")]
         [ValidateAntiForgeryToken]
         public ActionResult Oceny(int id)
@@ -385,10 +453,12 @@ namespace Dziennik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IDPRZEDMIOTUWYBRANEGO = id;
+            IDUCZNIA = id;
             var oceny = from s in db.Oceny
                         select s;
-            oceny = oceny.Where(s => s.PrzedmiotID == id);
+            oceny = oceny.Where(s => s.PrzedmiotID == IDPRZEDMIOTUWYBRANEGO);
+            oceny = oceny.Where(s => s.UczenID == IDUCZNIA);
+
             return View(oceny.ToList());
 
         }
@@ -398,7 +468,7 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index", "Home");
             ViewBag.NauczycielID = Session["UserID"];
             ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
+            ViewBag.UczenID = IDUCZNIA;
             return View();
         }
 
@@ -422,7 +492,7 @@ namespace Dziennik.Controllers
 
             ViewBag.NauczycielID = Session["UserID"];
             ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", ocena.UczenID);
+            ViewBag.UczenID = IDUCZNIA;
             return View(ocena);
         }
         #region Testy
