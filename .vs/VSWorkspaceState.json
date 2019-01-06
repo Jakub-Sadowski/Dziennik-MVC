@@ -7,6 +7,6 @@
     "\\Dziennik\\Views\\Shared",
     "\\Dziennik\\Views\\Uczen"
   ],
-  "SelectedNode": "\\Dziennik.sln",
+  "SelectedNode": "\\Dziennik\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }
