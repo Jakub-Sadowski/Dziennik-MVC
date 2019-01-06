@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "LekcjeNauczyciela";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<Dziennik.Models.Lekcja>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lekcje nauczyciela</h2>
+
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Klasa.Name)
+        </th>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.Przedmiot.nazwa) przedmiotu
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.godzina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dzien)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klasa.Name)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Przedmiot.nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.godzina)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dzien)
+            </td>
+            <td>
+               
+                @Html.ActionLink("Wybierz", "LekcjaDoRaportu", new { id = item.ID }) 
+                
+            </td>
+        </tr>
+    }
+
+</table>
+
+

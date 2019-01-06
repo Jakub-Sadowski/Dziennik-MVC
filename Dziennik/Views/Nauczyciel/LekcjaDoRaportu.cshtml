@@ -1,0 +1,146 @@
+﻿@model Dziennik.Models.Lekcja
+
+
+@{
+    ViewBag.Title = "LekcjaDoRaportu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Raport lekcji @Model.Przedmiot.nazwa (klasa @Model.Klasa.level @Model.Klasa.nazwa )</h2>
+<br />
+@using (Html.BeginForm("LekcjaDoRaportu", "Nauczyciel", new { id = ViewBag.id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group" align="center">
+        <label for="sel1">Wybierz dzień:</label>
+        <select class="form-control" name="data" onchange="submit();" style="text-align-last:center;">
+
+            @foreach (var item in ViewBag.Daty)
+            {
+
+                if (ViewBag.d == item)
+                {
+                    <option selected="selected" value="@item">@item</option>
+                }
+                else
+                {
+                    <option value="@item">@item</option>
+
+                }
+            }
+
+
+
+
+
+        </select>
+
+
+    </div>
+
+}
+<br /><br />
+
+
+@using (Html.BeginForm("UtworzRaport", "Nauczyciel", new {id = ViewBag.id , data = ViewBag.d }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+      <div class="form-group" align="center">
+
+          <table class="table">
+              <tr>
+
+                  <th>
+                      Imię
+                  </th>
+                  <th>
+                      Nazwisko
+                  </th>
+                  <th>
+                      Obecność
+                  </th>
+                  <th>
+                      Spóźnienie
+                  </th>
+                  <th>
+                      Nieobecność
+                  </th>
+
+
+              </tr>
+              @{
+                  int a = 0;
+              }
+
+              @foreach (var item in Model.Klasa.Uczniowie)
+              {
+
+
+                  <tr>
+
+                      <td>
+                          @Html.DisplayFor(modelItem => item.imie)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.nazwisko)
+                      </td>
+                      <td>
+
+
+                          @if (ViewBag.cache[a] == 0)
+                          {
+                              @Html.RadioButton("c_" + item.ID.ToString(), "Obecnosc", true)
+                          }
+                          else
+                          {
+                              @Html.RadioButton("c_" + item.ID.ToString(), "Obecnosc", false)
+
+                          }
+                      </td>
+
+
+                      <td>
+
+
+                          @if (ViewBag.cache[a] == 2)
+                          {
+                              @Html.RadioButton("c_" + item.ID.ToString(), "Spoznienie", true)
+                          }
+                          else
+                          {
+                              @Html.RadioButton("c_" + item.ID.ToString(), "Spoznienie", false)
+
+                          }
+                      </td>
+
+                      <td>
+                          @if (ViewBag.cache[a] == 1)
+                          {
+
+                              @Html.RadioButton("c_" + item.ID.ToString(), "Nieobecnosc", true)
+                          }
+                          else
+                          {
+                              @Html.RadioButton("c_" + item.ID.ToString(), "Nieobecnosc", false)
+
+                          }
+                      </td>
+
+
+                  </tr>
+                  a++;
+              }
+
+          </table>
+          <hr />
+
+              <input type="submit" value="Zatwierdź" class="btn btn-default">
+              
+
+          </div>
+          }
+
+

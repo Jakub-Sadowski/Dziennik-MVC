@@ -5,6 +5,11 @@ using System.Web;
 
 namespace Dziennik.Models
 {
+    public enum dzien
+    {
+        poniedziałek, wtorek, środa, czwartek, piątek
+    }
+
     public class Lekcja
     {
         public int ID { get; set; }
@@ -12,7 +17,7 @@ namespace Dziennik.Models
         public int? KlasaID { get; set; }
         public int? PrzedmiotID { get; set; }
         public int godzina { get; set; }
-        public string dzien { get; set; }
+        public dzien? dzien { get; set; }
 
         public virtual Klasa Klasa { get; set; }
         public virtual Nauczyciel Nauczyciel{ get; set; }

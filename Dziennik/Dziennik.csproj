@@ -172,7 +172,6 @@
     <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
-    <Compile Include="Controllers\OcenyController.cs" />
     <Compile Include="Controllers\OgloszenieController.cs" />
     <Compile Include="Controllers\PlikController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
@@ -213,9 +212,17 @@
     <Compile Include="Migrations\201812180932027_czasTrwaniaTestuWSek.Designer.cs">
       <DependentUpon>201812180932027_czasTrwaniaTestuWSek.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901052041540_oceny1.cs" />
-    <Compile Include="Migrations\201901052041540_oceny1.Designer.cs">
-      <DependentUpon>201901052041540_oceny1.cs</DependentUpon>
+    <Compile Include="Migrations\201901051435547_aaaa.cs" />
+    <Compile Include="Migrations\201901051435547_aaaa.Designer.cs">
+      <DependentUpon>201901051435547_aaaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901051443336_aaaaaa.cs" />
+    <Compile Include="Migrations\201901051443336_aaaaaa.Designer.cs">
+      <DependentUpon>201901051443336_aaaaaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901052048071_aaaaaa1.cs" />
+    <Compile Include="Migrations\201901052048071_aaaaaa1.Designer.cs">
+      <DependentUpon>201901052048071_aaaaaa1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
@@ -348,13 +355,9 @@
     <Content Include="Views\Ogloszenie\Details.cshtml" />
     <Content Include="Views\Ogloszenie\Edit.cshtml" />
     <Content Include="Views\Ogloszenie\Index.cshtml" />
-    <Content Include="Views\Oceny\Create.cshtml" />
-    <Content Include="Views\Oceny\Delete.cshtml" />
-    <Content Include="Views\Oceny\Details.cshtml" />
-    <Content Include="Views\Oceny\Edit.cshtml" />
-    <Content Include="Views\Oceny\Index.cshtml" />
-    <Content Include="Views\Nauczyciel\Oceny.cshtml" />
-    <Content Include="Views\Nauczyciel\TworzenieOceny.cshtml" />
+    <Content Include="Views\Nauczyciel\LekcjeNauczyciela.cshtml" />
+    <Content Include="Views\Nauczyciel\LekcjaDoRaportu.cshtml" />
+    <Content Include="Views\Nauczyciel\UtworzRaport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -397,8 +400,14 @@
     <EmbeddedResource Include="Migrations\201812180932027_czasTrwaniaTestuWSek.resx">
       <DependentUpon>201812180932027_czasTrwaniaTestuWSek.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901052041540_oceny1.resx">
-      <DependentUpon>201901052041540_oceny1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901051435547_aaaa.resx">
+      <DependentUpon>201901051435547_aaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901051443336_aaaaaa.resx">
+      <DependentUpon>201901051443336_aaaaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901052048071_aaaaaa1.resx">
+      <DependentUpon>201901052048071_aaaaaa1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
