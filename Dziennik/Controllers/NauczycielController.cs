@@ -350,8 +350,68 @@ namespace Dziennik.Controllers
 
             return View(lekcje);
         }
-         public int IDPRZEDMIOTUWYBRANEGO;
+         int IDPRZEDMIOTUWYBRANEGO;
          int IDUCZNIA;
+        public ActionResult Klasy(int? id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            var przedmiot = db.Przedmioty.Find(id);
+            TempData["idprzedmiotu"] = id ?? default(int);
+            var lewel = przedmiot.level.ToString();
+
+            var klasa = from s in db.Klasy
+                        where s.level.ToString().ToLower() == lewel.ToLower()
+                        select s;
+
+
+            if (klasa == null)
+            {
+                return HttpNotFound();
+            }
+          
+            return View(klasa);
+        }
+
+        [HttpPost, ActionName("Klasy")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Klasy(int id)
+        {
+            if (Session["Status"] != "Nauczyciel")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+           
+            TempData["idprzedmiotu"] = id;
+            TempData["idprzedmiotu1"] = id;
+           var przedmiot = db.Przedmioty.Find(id);
+            var lewel = przedmiot.level.ToString();
+            var klasa = from s in db.Klasy
+                        where s.level.ToString().ToLower() == lewel.ToLower()
+                        select s;
+
+
+            if (klasa == null)
+            {
+                return HttpNotFound();
+            }
+           
+            return View(klasa.ToList());
+
+        }
+
         public ActionResult ListaUczniow(int? id)
         {
             if (Session["Status"] != "Nauczyciel")
@@ -363,22 +423,23 @@ namespace Dziennik.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             
-            var przedmiot = db.Przedmioty.Find(id);
-            IDPRZEDMIOTUWYBRANEGO = id ?? default(int);
-            var lewel = przedmiot.level.ToString();
             
-            var klasa = from s in db.Klasy
+            //var przedmiot = db.Przedmioty.Find((int)TempData.Peek("idprzedmiotu"));
+            //TempData["idprzedmiotu"] = id ?? default(int);
+            //var lewel = przedmiot.level.ToString();
+            
+          /*  var klasa = from s in db.Klasy
                         where s.level.ToString().ToLower() == lewel.ToLower()
-                        select s.KlasaID;
+                        select s;
           
 
             if (klasa == null)
             {
                 return HttpNotFound();
-            }
+            }*/
             var uczniowie = from s in db.Uczniowie
                         select s;
-            uczniowie = uczniowie.Where(s => s.KlasaID == klasa.FirstOrDefault());
+            uczniowie = uczniowie.Where(s => s.KlasaID == id);
             
             return View(uczniowie);
         }
@@ -395,22 +456,23 @@ namespace Dziennik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IDPRZEDMIOTUWYBRANEGO = id;
-            var przedmiot = db.Przedmioty.Find(id);
+            //IDPRZEDMIOTUWYBRANEGO = 1;
+           // TempData["idprzedmiotu"] = id;
+            /*var przedmiot = db.Przedmioty.Find((int)TempData.Peek("idprzedmiotu"));
             
             var lewel = przedmiot.level.ToString();
             var klasa = from s in db.Klasy
                         where s.level.ToString().ToLower() == lewel.ToLower()
-                        select s.KlasaID;
+                        select s;
 
 
             if (klasa == null)
             {
                 return HttpNotFound();
-            }
+            }*/
             var uczniowie = from s in db.Uczniowie
                             select s;
-            uczniowie = uczniowie.Where(s => s.KlasaID == klasa.FirstOrDefault());
+            uczniowie = uczniowie.Where(s => s.KlasaID == id);
 
             return View(uczniowie.ToList());
 
@@ -425,13 +487,15 @@ namespace Dziennik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IDUCZNIA = id ?? default(int);
+            TempData["iducznia"] = id ?? default(int);
+            TempData["iducznia1"] = id ?? default(int);
+            IDPRZEDMIOTUWYBRANEGO = (int)TempData.Peek("idprzedmiotu");
             var uczen = db.Uczniowie.Find(id);
             //var oceny = uczen.Oceny;
             var oceny = from s in db.Oceny
                         select s;
             oceny = oceny.Where(s => s.PrzedmiotID == IDPRZEDMIOTUWYBRANEGO);
-            oceny = oceny.Where(s => s.UczenID == IDUCZNIA);
+            oceny = oceny.Where(s => s.UczenID == id);
 
             if (oceny == null)
             {
@@ -453,11 +517,14 @@ namespace Dziennik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IDUCZNIA = id;
+            TempData["iducznia"] = id;
+            TempData["cos"] = id;
+
+            IDPRZEDMIOTUWYBRANEGO = (int)TempData.Peek("idprzedmiotu");
             var oceny = from s in db.Oceny
                         select s;
             oceny = oceny.Where(s => s.PrzedmiotID == IDPRZEDMIOTUWYBRANEGO);
-            oceny = oceny.Where(s => s.UczenID == IDUCZNIA);
+            oceny = oceny.Where(s => s.UczenID == id);
 
             return View(oceny.ToList());
 
@@ -466,6 +533,8 @@ namespace Dziennik.Controllers
         {
             if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
+            IDPRZEDMIOTUWYBRANEGO = (int)TempData.Peek("idprzedmiotu");
+            IDUCZNIA= (int)TempData.Peek("iducznia");
             ViewBag.NauczycielID = Session["UserID"];
             ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
             ViewBag.UczenID = IDUCZNIA;
@@ -483,16 +552,17 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
-                ViewBag.NauczycielID = Session["UserID"];
-            ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
                 db.Oceny.Add(ocena);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+           
             ViewBag.NauczycielID = Session["UserID"];
-            ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
-            ViewBag.UczenID = IDUCZNIA;
+            ocena.NauczycielID= Int32.Parse(ViewBag.NauczycielID); 
+            ViewBag.PrzedmiotID = (int)TempData.Peek("idprzedmiotu");
+            ocena.PrzedmiotID= (int)TempData["idprzedmiotu"];
+            ViewBag.UczenID = (int)TempData.Peek("cos"); 
+            ocena.UczenID= (int)TempData["cos"];
             return View(ocena);
         }
         #region Testy

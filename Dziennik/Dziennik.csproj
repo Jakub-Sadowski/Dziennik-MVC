@@ -361,6 +361,7 @@
     <Content Include="Views\Nauczyciel\UtworzRaport.cshtml" />
     <Content Include="Views\Nauczyciel\ListaUczniow.cshtml" />
     <Content Include="Views\Nauczyciel\TworzenieOceny.cshtml" />
+    <Content Include="Views\Nauczyciel\Klasy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
