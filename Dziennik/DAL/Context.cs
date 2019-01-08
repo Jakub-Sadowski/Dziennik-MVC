@@ -125,19 +125,25 @@ namespace Dziennik.DAL
          .WillCascadeOnDelete(false);
 
               modelBuilder.Entity<Ocena>()
-     .HasOptional(o => o.Nauczyciel)
+     .HasRequired(o => o.Nauczyciel)
      .WithMany(m => m.Oceny)
      .HasForeignKey(k => k.NauczycielID)
      .WillCascadeOnDelete(false);
            
 
             modelBuilder.Entity<Ocena>()
-         .HasOptional(o => o.Przedmiot)
+         .HasRequired(o => o.Przedmiot)
          .WithMany(m => m.Oceny)
          .HasForeignKey(k => k.PrzedmiotID)
          .WillCascadeOnDelete(true);
 
-                      modelBuilder.Entity<Lekcja>()
+            modelBuilder.Entity<Ocena>()
+         .HasRequired(o => o.Uczen)
+         .WithMany(m => m.Oceny)
+         .HasForeignKey(k => k.UczenID)
+         .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Lekcja>()
          .HasOptional(o => o.Przedmiot)
          .WithMany(m => m.Lekcje)
          .HasForeignKey(k => k.PrzedmiotID)
@@ -181,12 +187,7 @@ namespace Dziennik.DAL
          .WillCascadeOnDelete(true);
 
 
-                                       modelBuilder.Entity<Ocena>()
-         .HasOptional(o => o.Uczen)
-         .WithMany(m => m.Oceny)
-         .HasForeignKey(k => k.UczenID)
-         .WillCascadeOnDelete(true);
-    
+                               
                                           modelBuilder.Entity<Uwaga>()
          .HasOptional(o => o.Uczen)
          .WithMany(m => m.Uwagi)

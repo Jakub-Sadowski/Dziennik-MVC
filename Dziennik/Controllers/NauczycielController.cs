@@ -180,7 +180,7 @@ namespace Dziennik.Controllers
             var list7 = db.Oceny.Where(s => s.NauczycielID == id);
             foreach (var a in list7)
             {
-                a.NauczycielID = null;
+                //a.NauczycielID = null;
                 db.Entry(a).State = EntityState.Modified;
 
 
@@ -456,20 +456,7 @@ namespace Dziennik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //IDPRZEDMIOTUWYBRANEGO = 1;
-           // TempData["idprzedmiotu"] = id;
-            /*var przedmiot = db.Przedmioty.Find((int)TempData.Peek("idprzedmiotu"));
-            
-            var lewel = przedmiot.level.ToString();
-            var klasa = from s in db.Klasy
-                        where s.level.ToString().ToLower() == lewel.ToLower()
-                        select s;
-
-
-            if (klasa == null)
-            {
-                return HttpNotFound();
-            }*/
+           
             var uczniowie = from s in db.Uczniowie
                             select s;
             uczniowie = uczniowie.Where(s => s.KlasaID == id);
@@ -533,11 +520,7 @@ namespace Dziennik.Controllers
         {
             if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
-            IDPRZEDMIOTUWYBRANEGO = (int)TempData.Peek("idprzedmiotu");
-            IDUCZNIA= (int)TempData.Peek("iducznia");
-            ViewBag.NauczycielID = Session["UserID"];
-            ViewBag.PrzedmiotID = IDPRZEDMIOTUWYBRANEGO;
-            ViewBag.UczenID = IDUCZNIA;
+           
             return View();
         }
 
@@ -546,24 +529,62 @@ namespace Dziennik.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TworzenieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
+        public ActionResult TworzenieOceny(FormCollection collection)
         {
             if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
-            if (ModelState.IsValid)
-            {
-                db.Oceny.Add(ocena);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-           
+            
+            double ocenka =Convert.ToDouble(collection["ocena"]);
+ 
+            int wage = Convert.ToInt32(collection["waga"]);
+            string trusc =collection["tresc"];
+            //var dato = Convert.ToString(collection["data"]);
             ViewBag.NauczycielID = Session["UserID"];
-            ocena.NauczycielID= Int32.Parse(ViewBag.NauczycielID); 
-            ViewBag.PrzedmiotID = (int)TempData.Peek("idprzedmiotu");
-            ocena.PrzedmiotID= (int)TempData["idprzedmiotu"];
-            ViewBag.UczenID = (int)TempData.Peek("cos"); 
-            ocena.UczenID= (int)TempData["cos"];
+            Ocena ocena1 = new Ocena
+            {
+                
+                ocena = ocenka,
+                waga =wage,
+                data = DateTime.Now,
+                tresc = trusc,
+                PrzedmiotID = (int)TempData.Peek("idprzedmiotu"),
+                NauczycielID = Int32.Parse(ViewBag.NauczycielID),
+                UczenID = (int)TempData.Peek("iducznia")
+        };
+            db.Oceny.Add(ocena1);
+            db.SaveChanges();
+            return View(ocena1);
+        }
+       
+
+        // GET: Ocena/Delete/5
+        public ActionResult UsuwanieOceny(int? id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ocena ocena = db.Oceny.Find(id);
+            if (ocena == null)
+            {
+                return HttpNotFound();
+            }
             return View(ocena);
+        }
+
+        // POST: Ocena/Delete/5
+        [HttpPost, ActionName("UsuwanieOceny")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UsuwanieOcenyPotwierdzone(int id)
+        {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+            Ocena ocena = db.Oceny.Find(id);
+            db.Oceny.Remove(ocena);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         #region Testy
         public ActionResult Testy(int? id)

@@ -224,6 +224,14 @@
     <Compile Include="Migrations\201901052048071_aaaaaa1.Designer.cs">
       <DependentUpon>201901052048071_aaaaaa1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901081534004_oceny.cs" />
+    <Compile Include="Migrations\201901081534004_oceny.Designer.cs">
+      <DependentUpon>201901081534004_oceny.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901081540578_oceny1.cs" />
+    <Compile Include="Migrations\201901081540578_oceny1.Designer.cs">
+      <DependentUpon>201901081540578_oceny1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -362,6 +370,7 @@
     <Content Include="Views\Nauczyciel\ListaUczniow.cshtml" />
     <Content Include="Views\Nauczyciel\TworzenieOceny.cshtml" />
     <Content Include="Views\Nauczyciel\Klasy.cshtml" />
+    <Content Include="Views\Nauczyciel\UsuwanieOceny.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -412,6 +421,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901052048071_aaaaaa1.resx">
       <DependentUpon>201901052048071_aaaaaa1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081534004_oceny.resx">
+      <DependentUpon>201901081534004_oceny.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081540578_oceny1.resx">
+      <DependentUpon>201901081540578_oceny1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
