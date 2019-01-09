@@ -22,6 +22,8 @@ namespace Dziennik.Models
         [Required]
         public string haslo { get; set; }
 
+        public string Email { get; set; }
+
         public virtual ICollection<Ogloszenie_dla_rodzicow> Ogloszenia { get; set; }
         public virtual ICollection<Uczen> Uczniowie { get; set; }
         public string FullName

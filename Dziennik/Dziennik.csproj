@@ -173,6 +173,7 @@
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
     <Compile Include="Controllers\OgloszenieController.cs" />
+    <Compile Include="Controllers\Ogloszenie_dla_rodzicowController.cs" />
     <Compile Include="Controllers\PlikController.cs" />
     <Compile Include="Controllers\PrzedmiotController.cs" />
     <Compile Include="Controllers\RodzicController.cs" />
@@ -231,6 +232,18 @@
     <Compile Include="Migrations\201901081540578_oceny1.cs" />
     <Compile Include="Migrations\201901081540578_oceny1.Designer.cs">
       <DependentUpon>201901081540578_oceny1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901091933377_rodzic.cs" />
+    <Compile Include="Migrations\201901091933377_rodzic.Designer.cs">
+      <DependentUpon>201901091933377_rodzic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092022252_razdwa.cs" />
+    <Compile Include="Migrations\201901092022252_razdwa.Designer.cs">
+      <DependentUpon>201901092022252_razdwa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092034004_razdwatrzy.cs" />
+    <Compile Include="Migrations\201901092034004_razdwatrzy.Designer.cs">
+      <DependentUpon>201901092034004_razdwatrzy.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
@@ -371,6 +384,12 @@
     <Content Include="Views\Nauczyciel\TworzenieOceny.cshtml" />
     <Content Include="Views\Nauczyciel\Klasy.cshtml" />
     <Content Include="Views\Nauczyciel\UsuwanieOceny.cshtml" />
+    <Content Include="Views\Ogloszenie_dla_rodzicow\Create.cshtml" />
+    <Content Include="Views\Ogloszenie_dla_rodzicow\Delete.cshtml" />
+    <Content Include="Views\Ogloszenie_dla_rodzicow\Details.cshtml" />
+    <Content Include="Views\Ogloszenie_dla_rodzicow\Edit.cshtml" />
+    <Content Include="Views\Ogloszenie_dla_rodzicow\Index.cshtml" />
+    <Content Include="Views\Rodzic\Ogloszenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -427,6 +446,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901081540578_oceny1.resx">
       <DependentUpon>201901081540578_oceny1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901091933377_rodzic.resx">
+      <DependentUpon>201901091933377_rodzic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092022252_razdwa.resx">
+      <DependentUpon>201901092022252_razdwa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092034004_razdwatrzy.resx">
+      <DependentUpon>201901092034004_razdwatrzy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

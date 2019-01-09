@@ -148,7 +148,25 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult Ogloszenia()
+        {
+            if (Session["Status"] != "Rodzic")
+                return RedirectToAction("Index", "Home");
+            ViewBag.NauczycielID = Session["UserID"];
+            int id = Int32.Parse(ViewBag.NauczycielID);
+            Rodzic rodzic = db.Rodzice.Find(id);
 
+            var dzieci = from s in db.Uczniowie
+                         where s.RodzicID == id
+                        select s.KlasaID;
+            var ogloszenia = from s in db.Ogloszenia_dla_rodzicow
+                             from b in dzieci
+                             where s.KlasaID==b
+                        select s;
+            //var ogloszenia_dla_rodzicow = db.Ogloszenia_dla_rodzicow.Include(o => o.klasa).Include(o => o.Nauczyciel);
+            //ogloszenia_dla_rodzicow = ogloszenia_dla_rodzicow.Where(o=>o.KlasaID==dzieci.);
+            return View(ogloszenia.ToList());
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -5,7 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Ogłoszenia</h2>
+<p>
+    @Html.ActionLink("Dla Rodziców", "Index", "Ogloszenie_dla_rodzicow")
+</p>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -27,26 +30,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.naglowek)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tresc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.data)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.naglowek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tresc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

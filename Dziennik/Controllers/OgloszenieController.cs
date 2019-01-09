@@ -18,6 +18,8 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie
         public ActionResult Index()
         {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
             var ogloszenia = db.Ogloszenia.Include(o => o.Nauczyciel);
             return View(ogloszenia.ToList());
         }

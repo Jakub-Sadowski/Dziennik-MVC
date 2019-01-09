@@ -161,11 +161,11 @@ namespace Dziennik.DAL
          .HasForeignKey(k => k.PrzedmiotID)
          .WillCascadeOnDelete(true);
 
-                            modelBuilder.Entity<Ogloszenie_dla_rodzicow>()
+                            /*modelBuilder.Entity<Ogloszenie_dla_rodzicow>()
          .HasOptional(o => o.Rodzic)
          .WithMany(m => m.Ogloszenia)
          .HasForeignKey(k => k.RodzicID)
-         .WillCascadeOnDelete(true);
+         .WillCascadeOnDelete(true);*/
 
               modelBuilder.Entity<Uczen>()
 .HasOptional(o => o.Rodzic)

@@ -538,7 +538,6 @@ namespace Dziennik.Controllers
  
             int wage = Convert.ToInt32(collection["waga"]);
             string trusc =collection["tresc"];
-            //var dato = Convert.ToString(collection["data"]);
             ViewBag.NauczycielID = Session["UserID"];
             Ocena ocena1 = new Ocena
             {
