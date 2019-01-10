@@ -554,7 +554,45 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return View(ocena1);
         }
-       
+        public ActionResult EdytowanieOceny(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ocena ocena = db.Oceny.Find(id);
+            if (ocena == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.NauczycielID = Session["UserID"];
+            ocena.NauczycielID = Int32.Parse(ViewBag.NauczycielID);
+            
+        
+            return View(ocena);
+        }
+
+        // POST: Oceny/Edit/5
+        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
+        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EdytowanieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(ocena).State = EntityState.Modified;
+                ViewBag.NauczycielID = Session["UserID"];
+                ocena.NauczycielID = Int32.Parse(ViewBag.NauczycielID);
+                ocena.data = DateTime.Now;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            //ViewBag.NauczycielID = Session["UserID"];
+            //ocena.NauczycielID = Int32.Parse(ViewBag.NauczycielID);
+            //ocena.data = DateTime.Now;
+            return View(ocena);
+        }
 
         // GET: Ocena/Delete/5
         public ActionResult UsuwanieOceny(int? id)

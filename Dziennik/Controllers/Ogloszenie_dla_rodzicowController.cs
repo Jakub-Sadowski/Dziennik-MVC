@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Dziennik.DAL;
@@ -53,21 +54,56 @@ namespace Dziennik.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,NauczycielID,KlasaID,naglowek,tresc,data")] Ogloszenie_dla_rodzicow ogloszenie_dla_rodzicow)
+        public async System.Threading.Tasks.Task<ActionResult> Create([Bind(Include = "ID,NauczycielID,KlasaID,naglowek,tresc,data")] Ogloszenie_dla_rodzicow ogloszenie_dla_rodzicow)
         {
             if (Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
+            var rodzice = from s in db.Uczniowie
+                         where s.KlasaID==ogloszenie_dla_rodzicow.KlasaID
+                         select s.Rodzic;
+            var emaile =  from b in rodzice
+                          from a in db.Rodzice
+                          where a==b
+                          select a.Email;
+       
             if (ModelState.IsValid)
             {
-                ogloszenie_dla_rodzicow.data = DateTime.Now;
                 db.Ogloszenia_dla_rodzicow.Add(ogloszenie_dla_rodzicow);
+                ogloszenie_dla_rodzicow.data = DateTime.Now;
+                var user = Session["UserID"];
+                string ide = user.ToString();
+                int id1 = Convert.ToInt32(ide);
+                ogloszenie_dla_rodzicow.NauczycielID = id1;
+                
                 db.SaveChanges();
+                var body = ogloszenie_dla_rodzicow.tresc;
+                var message = new MailMessage();
+                //emaile.ForEachAsync(message.To.Add(new MailAddress(emaile.Select(s=> s.Email));
+                message.To.Add(new MailAddress(emaile.First()));
+                message.From = new MailAddress("mojagracv@gmail.com");
+                message.Subject = "Dodano nowe ogłoszenie w dzienniku elektronicznym " + ogloszenie_dla_rodzicow.naglowek;
+                message.Body = body;
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "mojagracv@gmail.com",  // replace with valid value
+                        Password = "civilization96"  // replace with valid value
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
                 return RedirectToAction("Index");
             }
 
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", ogloszenie_dla_rodzicow.KlasaID);
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", ogloszenie_dla_rodzicow.NauczycielID);
-            
+            ViewBag.NauczycielID = Session["UserID"];
+
             return View(ogloszenie_dla_rodzicow);
         }
 

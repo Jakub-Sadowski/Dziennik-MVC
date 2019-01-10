@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>EdytowanieOceny</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
         <h4>Ocena</h4>
         <hr />
@@ -34,14 +34,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.data, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.data, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.data, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.tresc, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.tresc, new { htmlAttributes = new { @class = "form-control" } })
@@ -49,30 +41,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PrzedmiotID, "PrzedmiotID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("PrzedmiotID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PrzedmiotID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NauczycielID, "NauczycielID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("NauczycielID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NauczycielID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UczenID, "UczenID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UczenID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UczenID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+              
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

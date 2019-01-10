@@ -60,6 +60,7 @@
                 @Html.DisplayFor(modelItem => item.tresc)
             </td>
             <td>
+                @Html.ActionLink("Edit", "EdytowanieOceny", new { id = item.ID })
                 @Html.ActionLink("Delete", "UsuwanieOceny", new { id = item.ID })
             </td>
         </tr>

@@ -351,9 +351,6 @@
     <Content Include="Views\Uczen\Przedmioty.cshtml" />
     <Content Include="Views\Uczen\SzczegolyPrzedmiotu.cshtml" />
     <Content Include="Views\Uczen\Pytanie.cshtml" />
-    <Content Include="Views\Uczen\TworzenieOceny.cshtml" />
-    <Content Include="Views\Uczen\EdytowanieOceny.cshtml" />
-    <Content Include="Views\Uczen\UsuwanieOceny.cshtml" />
     <Content Include="Views\Uczen\Absencja.cshtml" />
     <Content Include="Views\Uczen\UsuwanieNieobecnosci.cshtml" />
     <Content Include="Views\Uczen\Wynik.cshtml" />
@@ -390,6 +387,7 @@
     <Content Include="Views\Ogloszenie_dla_rodzicow\Edit.cshtml" />
     <Content Include="Views\Ogloszenie_dla_rodzicow\Index.cshtml" />
     <Content Include="Views\Rodzic\Ogloszenia.cshtml" />
+    <Content Include="Views\Nauczyciel\EdytowanieOceny.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
