@@ -78,8 +78,9 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
                 var body = ogloszenie_dla_rodzicow.tresc;
                 var message = new MailMessage();
-                //emaile.ForEachAsync(message.To.Add(new MailAddress(emaile.Select(s=> s.Email));
-                message.To.Add(new MailAddress(emaile.First()));
+                foreach (var item in emaile) {
+                    message.To.Add(new MailAddress(item));
+                }
                 message.From = new MailAddress("mojagracv@gmail.com");
                 message.Subject = "Dodano nowe ogłoszenie w dzienniku elektronicznym " + ogloszenie_dla_rodzicow.naglowek;
                 message.Body = body;

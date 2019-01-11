@@ -579,6 +579,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EdytowanieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Entry(ocena).State = EntityState.Modified;
