@@ -245,6 +245,14 @@
     <Compile Include="Migrations\201901092034004_razdwatrzy.Designer.cs">
       <DependentUpon>201901092034004_razdwatrzy.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901131503476_ocea.cs" />
+    <Compile Include="Migrations\201901131503476_ocea.Designer.cs">
+      <DependentUpon>201901131503476_ocea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901131506132_ocea1.cs" />
+    <Compile Include="Migrations\201901131506132_ocea1.Designer.cs">
+      <DependentUpon>201901131506132_ocea1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -453,6 +461,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901092034004_razdwatrzy.resx">
       <DependentUpon>201901092034004_razdwatrzy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901131503476_ocea.resx">
+      <DependentUpon>201901131503476_ocea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901131506132_ocea1.resx">
+      <DependentUpon>201901131506132_ocea1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

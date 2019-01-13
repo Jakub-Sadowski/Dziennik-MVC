@@ -556,10 +556,13 @@ namespace Dziennik.Controllers
         }
         public ActionResult EdytowanieOceny(int? id)
         {
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            TempData["idoceny"] = id ?? default(int);
             Ocena ocena = db.Oceny.Find(id);
             if (ocena == null)
             {
@@ -577,22 +580,27 @@ namespace Dziennik.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EdytowanieOceny([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
+        public ActionResult EdytowanieOceny(FormCollection collection)
         {
-            
-            if (ModelState.IsValid)
-            {
-                db.Entry(ocena).State = EntityState.Modified;
+            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
+            Ocena ocena1 = db.Oceny.Find(TempData["idoceny"]);
+            double ocenka = Convert.ToDouble(collection["ocena"]);
+
+            int wage = Convert.ToInt32(collection["waga"]);
+            string trusc = collection["tresc"];
+
+            ocena1.ocena = ocenka;
+            ocena1.waga = wage;
+            ocena1.tresc = trusc;
                 ViewBag.NauczycielID = Session["UserID"];
-                ocena.NauczycielID = Int32.Parse(ViewBag.NauczycielID);
-                ocena.data = DateTime.Now;
+                ocena1.IdEdytujacego = Int32.Parse(ViewBag.NauczycielID);
+                ocena1.dataEdycji = DateTime.Now;
+            db.Entry(ocena1).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            //ViewBag.NauczycielID = Session["UserID"];
-            //ocena.NauczycielID = Int32.Parse(ViewBag.NauczycielID);
-            //ocena.data = DateTime.Now;
-            return View(ocena);
+                return RedirectToAction("Przedmioty");
+            
         }
 
         // GET: Ocena/Delete/5

@@ -18,6 +18,8 @@ namespace Dziennik.Models
         public int PrzedmiotID { get; set; }
         public int NauczycielID { get; set; }
         public int UczenID { get; set; }
+        public int? IdEdytujacego { get; set; }
+        public DateTime? dataEdycji { get; set; }
 
         public virtual Uczen Uczen { get; set; }
         public virtual Nauczyciel Nauczyciel { get; set; }
