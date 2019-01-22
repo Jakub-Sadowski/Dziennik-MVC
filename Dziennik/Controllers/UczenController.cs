@@ -424,8 +424,9 @@ namespace Dziennik.Controllers
         {
             if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
-            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID");
             ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID");
+            
             return View();
         }
 
