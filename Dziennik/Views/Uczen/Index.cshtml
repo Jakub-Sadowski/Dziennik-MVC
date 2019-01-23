@@ -7,7 +7,7 @@
 <h2>Uczniowie</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Stwórz", "Create")
 </p>
 @using (Html.BeginForm())
 {
@@ -63,11 +63,11 @@
             @Html.DisplayFor(modelItem => item.haslo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Detale", "Details", new { id = item.ID }) |
             @Html.ActionLink("Oceny", "Oceny", new { id = item.ID }) |
             @Html.ActionLink("Absencje", "Absencja", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
         </td>
     </tr>
     }
