@@ -45,7 +45,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.data)
         </td>
-        
+
+        <td>
+           
+            @Html.ActionLink("Szczegóły", "Details","Ogloszenie_dla_rodzicow" ,new { id = item.ID },null) 
+          
+        </td>
+
     </tr>
 }
 

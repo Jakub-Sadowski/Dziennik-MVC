@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Uczniowie</h2>
+<h2>Klasa @ViewBag.level @ViewBag.klasa</h2>
 
 @using (Html.BeginForm())
 {
@@ -15,30 +15,31 @@
 }
 <table class="table">
     <tr>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.imie)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.nazwisko)
         </th>
-       
+
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            
+
             <td>
                 @Html.DisplayFor(modelItem => item.imie)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.nazwisko)
             </td>
-            
+
             <td>
-                @Html.ActionLink("Oceny", "Oceny", new { id = item.ID }) |
-                @Html.ActionLink("Uwagi", "Uwagi", new { id = item.ID }) 
+                @Html.ActionLink("Oceny", "Oceny_wszystkie", new { id = item.ID }) |
+                @Html.ActionLink("Uwagi", "Uwagi", new { id = item.ID }) |
+                @Html.ActionLink("Absencje", "Absencja_wszystkie", new { id = item.ID })
             </td>
         </tr>
     }

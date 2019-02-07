@@ -167,6 +167,315 @@ namespace Dziennik.Controllers
             //ogloszenia_dla_rodzicow = ogloszenia_dla_rodzicow.Where(o=>o.KlasaID==dzieci.);
             return View(ogloszenia.ToList());
         }
+
+        public ActionResult Oceny(string data)
+        {
+            int? id = null;
+            if(data != null)
+                id = Int32.Parse(data);
+                
+
+            if (Session["Status"] != "Rodzic")
+                return RedirectToAction("Index", "Home");
+        
+
+            int id_rodzic = Int32.Parse((string)Session["UserID"]);
+            //Rodzic rodzic = db.Rodzice.Find(id_rodzic);
+            var dzieci = db.Uczniowie.Where(s => s.RodzicID == id_rodzic).ToList();
+            ViewBag.dzieci = dzieci;
+
+            if (id == null)
+            {
+
+                if (dzieci.Count() == 0)
+                    return RedirectToAction("Index", "Home");
+                else
+                {
+                    ViewBag.imie = dzieci[0].imie;
+                    ViewBag.nazwisko = dzieci[0].nazwisko;
+                    int id_dziecka = dzieci[0].ID;
+                    var oceny = db.Oceny.Where(s => s.UczenID == id_dziecka).ToList();
+                    return View(oceny);
+                }
+
+            }
+            else
+            {
+                Uczen uczen = db.Uczniowie.Find(id);
+                if(uczen == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.imie = uczen.imie;
+                ViewBag.nazwisko = uczen.nazwisko;
+                var oceny = db.Oceny.Where(s => s.UczenID == id).ToList();
+                return View(oceny);
+            }
+        }
+        public ActionResult Absencja(string data)
+        {
+            int? id = null;
+            if (data != null)
+                id = Int32.Parse(data);
+
+            if (Session["Status"] != "Rodzic")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+      
+
+            var id_rodzica = Int32.Parse((string)Session["UserID"]);
+            //Rodzic rodzic = db.Rodzice.Find(id);
+            var dzieci = db.Uczniowie.Where(s => s.RodzicID == id_rodzica).ToList();
+            ViewBag.dzieci = dzieci;
+            if (id == null)
+            {
+                if (dzieci.Count() == 0)
+                    return RedirectToAction("Index", "Home");
+                else
+                {
+                    ViewBag.imie = dzieci[0].imie;
+                    ViewBag.nazwisko = dzieci[0].nazwisko;
+                    int id_dziecka = dzieci[0].ID;
+                    var model = new Absencja();
+
+                    model.Nieobecnosci = GetNieobecnosciModel(id_dziecka);
+                    model.Spoznienia = GetSpoznieniaModel(id_dziecka);
+
+                    return View(model);
+                }
+            }
+            else
+            {
+                Uczen uczen = db.Uczniowie.Find(id);
+                if (uczen == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.imie = uczen.imie;
+                ViewBag.nazwisko = uczen.nazwisko;
+                var model = new Absencja();
+                model.Nieobecnosci = GetNieobecnosciModel(uczen.ID);
+                model.Spoznienia = GetSpoznieniaModel(uczen.ID);
+
+                return View(model);
+            }
+        }
+        private IEnumerable<Nieobecnosc> GetNieobecnosciModel(int id)
+        {
+            var nieobecn = from s in db.Nieobecnosci
+                           select s;
+            nieobecn = nieobecn.Where(s => s.UczenID == id).Include(x => x.Lekcja.Przedmiot);
+            return nieobecn.AsEnumerable();
+        }
+
+        private IEnumerable<Spoznienie> GetSpoznieniaModel(int id)
+        {
+            var spoznienia = from s in db.Spoznienia
+                             select s;
+            spoznienia = spoznienia.Where(s => s.UczenID == id).Include(x => x.Lekcja.Przedmiot);
+            return spoznienia.AsEnumerable();
+        }
+        public ActionResult PlanLekcji(string data)
+        {
+
+            int? id = null;
+            if (data != null)
+                id = Int32.Parse(data);
+
+            if (Session["Status"] != "Rodzic")
+                return RedirectToAction("Index", "Home");
+
+            var id_rodzica = Convert.ToInt32(Session["UserID"]);
+           
+            Rodzic rodzic = db.Rodzice.Find(id_rodzica);
+            var dzieci = db.Uczniowie.Where(s => s.RodzicID == id_rodzica).ToList();
+            ViewBag.dzieci = dzieci;
+            var klasa = db.Klasy
+                .Include(k => k.Uczniowie)
+                .Where(k => k.Uczniowie.Any(u => u.RodzicID == id_rodzica))
+                .SingleOrDefault();
+
+
+
+            if (id == null)
+            {
+                if (dzieci.Count() == 0)
+                    return RedirectToAction("Index", "Home");
+                else
+                {
+                    ViewBag.imie = dzieci[0].imie;
+                    ViewBag.nazwisko = dzieci[0].nazwisko;
+                    int id_dziecka = dzieci[0].ID;
+                    var lekcje = db.Lekcja
+                     .Where(l => l.KlasaID == klasa.KlasaID)
+                     .ToList();
+                    return View(lekcje);
+                }
+            }
+            else
+            {
+                Uczen uczen = db.Uczniowie.Find(id);
+                if (uczen == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.imie = uczen.imie;
+                ViewBag.nazwisko = uczen.nazwisko;
+                var lekcje = db.Lekcja
+                    .Where(l => l.KlasaID == klasa.KlasaID)
+                    .ToList();
+                return View(lekcje);
+            }
+        }
+        /// <summary>
+        ///Uwagi
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Uwagi(string data)
+        {
+            int? id = null;
+            if (data != null)
+                id = Int32.Parse(data);
+            if (Session["Status"] != "Rodzic")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var id_rodzica = Convert.ToInt32(Session["UserID"]);
+            Rodzic rodzic = db.Rodzice.Find(id_rodzica);
+            var dzieci = db.Uczniowie.Where(s => s.RodzicID == id_rodzica).ToList();
+            ViewBag.dzieci = dzieci;
+            if (id == null)
+            {
+                if (dzieci.Count() == 0)
+                    return RedirectToAction("Index", "Home");
+                else
+                {
+                    ViewBag.imie = dzieci[0].imie;
+                    ViewBag.nazwisko = dzieci[0].nazwisko;
+                    int id_dziecka = dzieci[0].ID;
+                    var uwagi_dziecka = from s in db.Uwagi
+                                select s;
+                    uwagi_dziecka = uwagi_dziecka.Where(s => s.Uczen.RodzicID == id_rodzica);
+                    return View(uwagi_dziecka);
+                }
+            }
+            else
+            {
+                Uczen uczen = db.Uczniowie.Find(id);
+                if (uczen == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.imie = uczen.imie;
+                ViewBag.nazwisko = uczen.nazwisko;
+                var uwagi = from s in db.Uwagi
+                            select s;
+                uwagi = uwagi.Where(s => s.Uczen.RodzicID == id_rodzica);
+                uwagi = uwagi.Where(s => s.ID == id);
+                return View(uwagi);
+            }
+        }
+        public ActionResult UsuwanieNieobecnosci(int? id)
+        {
+            if (Session["Status"] != "Rodzic")
+                return RedirectToAction("Index", "Home");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var nieobecnosc = db.Nieobecnosci.Find(id);
+            var nieobecnosci = from s in db.Nieobecnosci
+                               select s;
+            nieobecnosc.Status = Nieobecnosc.status.Usprawiedliwiona;
+            db.Entry(nieobecnosc).State = EntityState.Modified;
+            db.SaveChanges();
+            return View(nieobecnosc);
+        }
+        public ActionResult EdycjaProfilu()
+        {
+            if (Session["Status"] != "Rodzic")
+                return RedirectToAction("Index", "Home");
+            var id = Convert.ToInt32(Session["UserID"]);
+            Rodzic rodzic = db.Rodzice.Find(id);
+            ViewBag.Imie = rodzic.imie;
+            ViewBag.Nazwisko = rodzic.nazwisko;
+            ViewBag.Email = rodzic.Email;
+
+            return View(rodzic);
+            /*
+             *   Spoznienie spoznienie = db.Spoznienia.Find(id);
+            if (spoznienie == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", spoznienie.LekcjaID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", spoznienie.UczenID);
+            return View(spoznienie);
+             * */
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EdycjaProfilu([Bind(Include = "ID, imie, nazwisko, Email")]Rodzic userprofile)
+        {
+            //XDDDDDDDDDDDDDDDDDDDDD
+            // if (ModelState.IsValid)
+           // {
+               int ? id = userprofile.ID;
+                // Get the userprofile
+                Rodzic user = db.Rodzice.FirstOrDefault(u => u.ID == id);
+
+            // Update fields
+                user.ID = userprofile.ID;
+                user.imie = userprofile.imie;
+                user.nazwisko = userprofile.nazwisko;
+                user.Email = userprofile.Email;
+                
+                db.Entry(user).State = EntityState.Modified;
+
+                db.SaveChanges();
+
+               // return RedirectToAction("Index", "Home"); // or whatever
+          // }
+            
+           return View(userprofile);
+        }
+        public ActionResult DodawanieZapytania()
+        {
+            if (Session["Status"] != "Rodzic")
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+            Nauczyciel n = new Nauczyciel();
+            ViewBag.Nauczyciel = db.Nauczyciele.ToList();
+           // ViewBag.NauczycielID = new SelectList(new List<SelectListItem>
+            //    {
+             //       new SelectListItem { Text = "ID", Value = ((int)n.NauczycielID).ToString()},
+              //      new SelectListItem { Text = "Imie", Value = n.imie},
+             //   }, "Value", "Text");
+            return View();
+
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DodawanieZapytania([Bind(Include = "NauczycielID, pytanie")] Zapytanie zapytanie, string data)
+        {
+            if (Session["Status"] != "Rodzic")
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+            var userId = Convert.ToInt32(Session["UserID"]);
+            zapytanie.data_pytania = DateTime.Now;
+            zapytanie.NauczycielID = Convert.ToInt32(data);
+            zapytanie.RodzicID = userId;
+            if (ModelState.IsValid)
+            {
+                db.Zapytania.Add(zapytanie);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(zapytanie);
+
+
+
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

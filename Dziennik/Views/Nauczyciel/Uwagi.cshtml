@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Dziennik.Models.Uwaga>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Uwagi @ViewBag.imie @ViewBag.nazwisko</h2>
+
+<p>
+    @Html.ActionLink("Dodaj nową", "Nowa_uwaga", new { id = ViewBag.id })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nauczyciel.imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uczen.imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.naglowek)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tresc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nauczyciel.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uczen.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.naglowek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tresc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edytuj_uwage", new { id = item.ID }) |
+                @Html.ActionLink("Szczegóły", "Szczegoly_uwagi", new { id = item.ID }) |
+                
+            </td>
+        </tr>
+    }
+
+</table>
+
+

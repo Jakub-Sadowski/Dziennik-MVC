@@ -36,6 +36,7 @@ namespace Dziennik.DAL
 
         public DbSet<Uczen> Uczniowie { get; set; }
         public DbSet<Uwaga> Uwagi { get; set; }
+        public DbSet<Zapytanie> Zapytania { get; set; }
 
 
 

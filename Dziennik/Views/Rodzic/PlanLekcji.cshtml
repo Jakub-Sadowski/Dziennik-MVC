@@ -1,0 +1,49 @@
+﻿@using Dziennik.Models
+@model IEnumerable<Dziennik.Models.Lekcja>
+
+@{
+	ViewBag.Title = "Plan Lekcji";
+}
+
+<h2>Plan Lekcji</h2>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ID)</th>
+        <th>@Html.DisplayNameFor(model => model.dzien)</th>
+        <th>@Html.DisplayNameFor(model => model.godzina)</th>
+        <th>@Html.DisplayNameFor(model => model.Przedmiot)</th>
+        <th>@Html.DisplayNameFor(model => model.Nauczyciel.FullName)</th>
+    </tr>
+
+	@foreach (var item in Model)
+	{
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.ID)</td>
+        <td>@Html.DisplayFor(modelItem => item.dzien)</td>
+        <td>@Html.DisplayFor(modelItem => item.godzina)</td>
+        <td>@Html.DisplayFor(modelItem => item.Przedmiot.nazwa)</td>
+        <td>@Html.DisplayFor(modelItem => item.Nauczyciel.FullName)</td>
+    </tr>
+	}
+
+</table>
+@using (Html.BeginForm("PlanLekcji", "Rodzic", FormMethod.Get))
+{
+
+    <div class="form-group" align="center">
+        <label for="sel1">Wybierz ucznia:</label>
+        <select class="form-control" name="data" onchange="submit();" style="text-align-last:center;">
+            <option value="">--Wybierz--</option>
+
+            @foreach (var item in (List<Uczen>)ViewBag.dzieci)
+            {
+
+
+                <option value="@item.ID">@item.imie @item.nazwisko</option>
+
+
+            }
+
+</div>
+}

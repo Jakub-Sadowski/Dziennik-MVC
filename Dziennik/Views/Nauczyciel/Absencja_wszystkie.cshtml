@@ -1,0 +1,14 @@
+﻿@model Dziennik.Models.Absencja
+
+@{
+    ViewBag.Title = "Absencja";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nieobecności</h2>
+@Html.Partial("_Nieobecnosci", Model.Nieobecnosci)
+
+<h2>Spóźnienia</h2>
+@Html.Partial("_Spoznienia", Model.Spoznienia)
+
+

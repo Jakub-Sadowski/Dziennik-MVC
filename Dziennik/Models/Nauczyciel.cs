@@ -17,6 +17,8 @@ namespace Dziennik.Models
         public string login { get; set; }
         public string haslo { get; set; }
 
+
+        public virtual ICollection<Zapytanie> Zapytania { get; set; }
         public virtual ICollection<Klasa> WychowywaneKlasy { get; set; }
         public virtual ICollection<Lekcja> Lekcje { get; set; }
         public virtual ICollection<Plik> Pliki { get; set; }

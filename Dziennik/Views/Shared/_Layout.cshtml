@@ -4,9 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title — moja aplikacja platformy ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
 
                 </button>
-                @Html.ActionLink("Nazwa aplikacji", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Dziennik", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -37,7 +37,7 @@
                         <li>@Html.ActionLink("Lekcje", "Index", "Lekcja")</li>
                     }
 
-                    @if (Session["Status"] == "Uczeń")
+                    @if (Session["Status"] == "Uczen")
                     {
                         <li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>
                         <li>@Html.ActionLink("Oceny", "Oceny", "Uczen")</li>
@@ -46,26 +46,36 @@
                         <li>@Html.ActionLink("Testy", "TestyUcznia", "Uczen")</li>
                         <li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Uczen")</li>
                         <li>@Html.ActionLink("Rozkład nauczycieli", "RozkladNauczycieli", "Nauczyciel")</li>
+					
+						
 
 
                     }
                     @if (Session["Status"] == "Rodzic")
                     {
-                        <li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>
-                        <li>@Html.ActionLink("Oceny", "Oceny", "Uczen")</li>
-                        <li>@Html.ActionLink("Uwagi", "Uwagi", "Uczen")</li>
+                        <li>@Html.ActionLink("Absencja", "Absencja", "Rodzic")</li>
+                        <li>@Html.ActionLink("Oceny", "Oceny", "Rodzic")</li>
+                        <li>@Html.ActionLink("Uwagi", "Uwagi", "Rodzic")</li>
                         <li>@Html.ActionLink("Ogloszenia", "Ogloszenia", "Rodzic")</li>
-                        <li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Uczen")</li>
-                        <li>@Html.ActionLink("Rozkład nauczycieli", "RozkladNauczycieli", "Nauczyciel")</li>
+                        <li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Rodzic")</li>
+						<li>@Html.ActionLink("Pytanie do nauczyciela", "DodawanieZapytania", "Rodzic")</li>
+						
+
+
 
 
                     }
 
                     @if (Session["Status"] == "Nauczyciel")
                     {
+
                         <li>@Html.ActionLink("Przedmioty", "Przedmioty", "Nauczyciel")</li>
                         <li>@Html.ActionLink("Ogloszenia", "Index", "Ogloszenie")</li>
-                        <li>@Html.ActionLink("Raporty obecności", "LekcjeNauczyciela", "Nauczyciel")</li>
+                        <li>@Html.ActionLink("Obecności", "LekcjeNauczyciela", "Nauczyciel")</li>
+                        <li>@Html.ActionLink("Klasa wychowawcy", "Wychowankowie", "Nauczyciel")</li>
+						 <li>@Html.ActionLink("Pytania", "Pytania_rodzicow", "Nauczyciel")</li>
+
+
 
                     }
 
@@ -78,7 +88,8 @@
                     }
                     else
                     {
-                        <li class="navbar-text">@Session["Name"].ToString() @Session["Forname"].ToString() (@Session["Status"].ToString() ) </li>
+                        <li>@Html.ActionLink(@Session["Name"].ToString()
+						+" "+ @Session["Forname"].ToString(), "EdycjaProfilu",(@Session["Status"].ToString())) </li>
                         <li>@Html.ActionLink("Wyloguj", "Wyloguj", "Log")</li>
                     }
 
@@ -88,10 +99,6 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year — moja aplikacja platformy ASP.NET</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

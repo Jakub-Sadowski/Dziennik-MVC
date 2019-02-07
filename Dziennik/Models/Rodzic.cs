@@ -25,6 +25,7 @@ namespace Dziennik.Models
         public string Email { get; set; }
 
         public virtual ICollection<Ogloszenie_dla_rodzicow> Ogloszenia { get; set; }
+        public virtual ICollection<Zapytanie> Zapytania { get; set; }
         public virtual ICollection<Uczen> Uczniowie { get; set; }
         public string FullName
         {

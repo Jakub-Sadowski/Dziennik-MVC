@@ -57,7 +57,7 @@ namespace Dziennik.Controllers
                     Session["UserName"] = uczniowie.login.ToString();
                     Session["Name"] = uczniowie.imie.ToString();
                     Session["Forname"] = uczniowie.nazwisko.ToString();
-                    Session["Status"] = "Uczeń";
+                    Session["Status"] = "Uczen";
                     return RedirectToAction("Zalogowany");
                 }
                 var nauczyciele = db.Nauczyciele.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
@@ -68,7 +68,7 @@ namespace Dziennik.Controllers
                     Session["Name"] = nauczyciele.imie.ToString();
                     Session["Forname"] = nauczyciele.nazwisko.ToString();
                     Session["Status"] = "Nauczyciel";
-                    return RedirectToAction("Zalogowany");
+                    return RedirectToAction("Pytania_rodzicow","Nauczyciel");
                 }
                 ViewBag.message = "Błędny login lub hasło";
             }

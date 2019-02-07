@@ -172,6 +172,7 @@
     <Compile Include="Controllers\LekcjaController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\NauczycielController.cs" />
+    <Compile Include="Controllers\OcenyController.cs" />
     <Compile Include="Controllers\OgloszenieController.cs" />
     <Compile Include="Controllers\Ogloszenie_dla_rodzicowController.cs" />
     <Compile Include="Controllers\PlikController.cs" />
@@ -253,9 +254,26 @@
     <Compile Include="Migrations\201901131506132_ocea1.Designer.cs">
       <DependentUpon>201901131506132_ocea1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901231533462_aaaaaaa.cs" />
+    <Compile Include="Migrations\201901231533462_aaaaaaa.Designer.cs">
+      <DependentUpon>201901231533462_aaaaaaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231546048_sadjuiahuiasbdhduiosnj.cs" />
+    <Compile Include="Migrations\201901231546048_sadjuiahuiasbdhduiosnj.Designer.cs">
+      <DependentUpon>201901231546048_sadjuiahuiasbdhduiosnj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231623597_sadjuiahuiasbdhduiosnj1.cs" />
+    <Compile Include="Migrations\201901231623597_sadjuiahuiasbdhduiosnj1.Designer.cs">
+      <DependentUpon>201901231623597_sadjuiahuiasbdhduiosnj1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231730285_aaaaaaaaa.cs" />
+    <Compile Include="Migrations\201901231730285_aaaaaaaaa.Designer.cs">
+      <DependentUpon>201901231730285_aaaaaaaaa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\Zapytanie.cs" />
     <Compile Include="Models\Klasa.cs" />
     <Compile Include="Models\Nauczyciel.cs" />
     <Compile Include="Models\Nieobecnosc.cs" />
@@ -274,9 +292,14 @@
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\Uczen.cs" />
     <Compile Include="Models\Uwaga.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Dziennik.dll" />
+    <Content Include="bin\Dziennik.pdb" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -290,6 +313,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="obj\Release\Dziennik.csproj.CoreCompileInputs.cache" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -301,6 +325,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Uploads\0aac401d-ed44-49ed-86c0-1860ebb4fdb3_1a.png" />
+    <Content Include="Uploads\c7d25bbb-ea80-46a8-bacc-63a87f35233e_login.gif" />
     <Content Include="Views\Nauczyciel\Oceny.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -396,6 +422,49 @@
     <Content Include="Views\Ogloszenie_dla_rodzicow\Index.cshtml" />
     <Content Include="Views\Rodzic\Ogloszenia.cshtml" />
     <Content Include="Views\Nauczyciel\EdytowanieOceny.cshtml" />
+    <Content Include="Views\Log\gdy_zalogowany.cshtml" />
+    <Content Include="Views\Log\Login.cshtml" />
+    <Content Include="Views\Log\Wyloguj.cshtml" />
+    <Content Include="Views\Log\Zalogowany.cshtml" />
+    <Content Include="Uploads\1129a8ec-e919-42c4-8c10-d8983456a349_iOS_zadanie_12.pdf" />
+    <Content Include="Views\Nauczyciel\PlanNauczyciela.cshtml" />
+    <Content Include="Views\Nauczyciel\Pytania.cshtml" />
+    <Content Include="Views\Nauczyciel\PytanieDodaj.cshtml" />
+    <Content Include="Views\Nauczyciel\PytanieEdytcja.cshtml" />
+    <Content Include="Views\Nauczyciel\PytanieUsun.cshtml" />
+    <Content Include="Views\Nauczyciel\RozkladNauczycieli.cshtml" />
+    <Content Include="Views\Nauczyciel\TestDodaj.cshtml" />
+    <Content Include="Views\Nauczyciel\TestEdytcja.cshtml" />
+    <Content Include="Views\Nauczyciel\TestUsun.cshtml" />
+    <Content Include="Views\Nauczyciel\Testy.cshtml" />
+    <Content Include="Views\Oceny\Create.cshtml" />
+    <Content Include="Views\Oceny\Delete.cshtml" />
+    <Content Include="Views\Oceny\Details.cshtml" />
+    <Content Include="Views\Oceny\Edit.cshtml" />
+    <Content Include="Views\Oceny\Index.cshtml" />
+    <Content Include="Views\Uczen\DodawanieSpoznienia.cshtml" />
+    <Content Include="Views\Uczen\EdytowanieSpoznienia.cshtml" />
+    <Content Include="Views\Uczen\Test.cshtml" />
+    <Content Include="Views\Uczen\UsuwanieSpoznienia.cshtml" />
+    <Content Include="Views\Rodzic\Oceny.cshtml" />
+    <Content Include="Views\Rodzic\Absencja.cshtml" />
+    <Content Include="Views\Rodzic\_Nieobecnosci.cshtml" />
+    <Content Include="Views\Rodzic\_Spoznienia.cshtml" />
+    <Content Include="Views\Rodzic\PlanLekcji.cshtml" />
+    <Content Include="Views\Rodzic\Uwagi.cshtml" />
+    <Content Include="Views\Nauczyciel\Uwagi.cshtml" />
+    <Content Include="Views\Nauczyciel\Nowa_uwaga.cshtml" />
+    <Content Include="Views\Nauczyciel\Edytuj_uwage.cshtml" />
+    <Content Include="Views\Nauczyciel\Szczegoly_uwagi.cshtml" />
+    <Content Include="Views\Nauczyciel\Wychowankowie.cshtml" />
+    <Content Include="Views\Nauczyciel\Oceny_wszystkie.cshtml" />
+    <Content Include="Views\Nauczyciel\Absencja_wszystkie.cshtml" />
+    <Content Include="Views\Nauczyciel\_Nieobecnosci.cshtml" />
+    <Content Include="Views\Nauczyciel\_Spoznienia.cshtml" />
+    <Content Include="Views\Nauczyciel\Pytania_rodzicow.cshtml" />
+    <Content Include="Views\Nauczyciel\Odpowiedz_pytanie.cshtml" />
+    <Content Include="Views\Rodzic\DodawanieZapytania.cshtml" />
+    <Content Include="Views\Rodzic\EdytowanieNieobecnosci.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -467,6 +536,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901131506132_ocea1.resx">
       <DependentUpon>201901131506132_ocea1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231533462_aaaaaaa.resx">
+      <DependentUpon>201901231533462_aaaaaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231546048_sadjuiahuiasbdhduiosnj.resx">
+      <DependentUpon>201901231546048_sadjuiahuiasbdhduiosnj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231623597_sadjuiahuiasbdhduiosnj1.resx">
+      <DependentUpon>201901231623597_sadjuiahuiasbdhduiosnj1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231730285_aaaaaaaaa.resx">
+      <DependentUpon>201901231730285_aaaaaaaaa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

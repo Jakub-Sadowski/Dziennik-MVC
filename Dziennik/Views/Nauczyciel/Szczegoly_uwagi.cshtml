@@ -1,0 +1,44 @@
+﻿@model Dziennik.Models.Uwaga
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Szczegoly uwagi</h2>
+
+<div>
+    <h4>Uwaga</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.naglowek)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naglowek)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tresc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tresc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+   
+    @Html.ActionLink("Wróć", "Uwagi",new { id = ViewBag.id})
+</p>

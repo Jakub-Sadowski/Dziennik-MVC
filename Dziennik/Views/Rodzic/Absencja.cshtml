@@ -1,0 +1,39 @@
+﻿@using Dziennik.Models
+
+@model Dziennik.Models.Absencja
+
+@{
+    ViewBag.Title = "Absencja";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Absencja ucznia: @ViewBag.imie @ViewBag.nazwisko</h2>
+<h2>Nieobecności</h2>
+@Html.Partial("_Nieobecnosci", Model.Nieobecnosci)
+
+<h2>Spóźnienia</h2>
+@Html.Partial("_Spoznienia", Model.Spoznienia)
+
+<div>
+
+@using (Html.BeginForm("Absencja", "Rodzic", FormMethod.Get))
+{
+
+    <div class="form-group" align="center">
+        <label for="sel1">Wybierz ucznia:</label>
+        <select class="form-control" name="data" onchange="submit();" style="text-align-last:center;">
+            <option value="">--Wybierz--</option>
+
+            @foreach (var item in (List<Uczen>)ViewBag.dzieci)
+            {
+
+
+                <option value="@item.ID">@item.imie @item.nazwisko</option>
+
+
+            }
+
+</div>
+}
+
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Dziennik.Models.Zapytanie>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Pytania rodziców</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Rodzic
+        </th>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.data_pytania)
+        </th>
+        <th>
+		            @Html.DisplayNameFor(model => model.data_odpowiedz)
+
+		</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rodzic.FullName)
+        </td>
+     
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.data_pytania)
+        </td>
+
+		 <td>
+            @Html.DisplayFor(modelItem => item.data_odpowiedz)
+        </td>
+       
+	   
+	   <td>
+            @Html.ActionLink("Odpowiedz", "Odpowiedz_pytanie", new { id=item.ID }) 
+            
+        </td>
+    </tr>
+}
+
+</table>

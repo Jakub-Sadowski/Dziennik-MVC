@@ -29,6 +29,10 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["Status"] != "Nauczyciel" && Session["Status"] != "Rodzic" )
+                return RedirectToAction("Index", "Home");
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -44,6 +48,9 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Create
         public ActionResult Create()
         {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
             ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie");
             return View();
@@ -111,6 +118,9 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -151,6 +161,9 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["Status"] != "Nauczyciel")
+                return RedirectToAction("Index", "Home");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

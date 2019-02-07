@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<Dziennik.Models.Nieobecnosc>
 
 
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UczenID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.LekcjaID)
+        </th>
+		<th>
+            Przedmiot
         </th>
         <th>
             @Html.DisplayNameFor(model => model.date)
@@ -15,17 +16,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UczenID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.LekcjaID)
+        </td>
+		<td>
+            @Html.DisplayFor(modelItem => item.Lekcja.Przedmiot.nazwa)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.date)
@@ -33,8 +33,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Status)
         </td>
-		
-   
+		@if(item.Status == Dziennik.Models.Nieobecnosc.status.Nieusprawiedliwiona)
+		{
+        <td>
+            @Html.ActionLink("Usprawiedliw","UsuwanieNieobecnosci", new { id = item.ID })
+        </td>
+		}
     </tr>
     }
 
