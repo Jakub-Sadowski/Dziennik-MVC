@@ -162,7 +162,7 @@ namespace Dziennik.Controllers
         public ActionResult Oceny(int? id)
         {
 
-            if (Session["Status"] == "Uczeń")
+            if (Session["Status"] == "uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -203,7 +203,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Oceny(int id)
         {
-            if (Session["Status"] == "Uczeń")
+            if (Session["Status"] == "uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -227,7 +227,7 @@ namespace Dziennik.Controllers
 
 		public ActionResult Przedmioty()
 		{
-			if (Session["Status"] != "Uczeń")
+			if (Session["Status"] != "uczen")
 				return RedirectToAction("Index", "Home");
 
 			var userId = Convert.ToInt32(Session["UserID"]);
@@ -251,7 +251,7 @@ namespace Dziennik.Controllers
 
 		public ActionResult SzczegolyPrzedmiotu(int? id)
 		{
-			if (Session["Status"] != "Uczeń")
+			if (Session["Status"] != "uczen")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -289,7 +289,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Absencja(int? id)
         {
-            if (Session["Status"] == "Uczeń")
+            if (Session["Status"] == "uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -313,7 +313,7 @@ namespace Dziennik.Controllers
         {
             Absencja model = new Absencja();
 
-            if (Session["Status"] == "Uczeń")
+            if (Session["Status"] == "uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -595,7 +595,7 @@ namespace Dziennik.Controllers
         }
         public ActionResult Uwagi(int? id)
         {
-            if (Session["Status"] == "Uczeń")
+            if (Session["Status"] == "uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -621,7 +621,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Uwagi(int id)
         {
-            if (Session["Status"] == "Uczeń")
+            if (Session["Status"] == "uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -645,7 +645,7 @@ namespace Dziennik.Controllers
         #region testy
         public ActionResult Test(int? id)
         {
-            if (Session["Status"] != "Uczeń")
+            if (Session["Status"] != "uczen")
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -684,7 +684,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Pytanie()
         {
-            if (Session["Status"] != "Uczeń" && Session["test"] != "start")
+            if (Session["Status"] != "uczen" && Session["test"] != "start")
                 return RedirectToAction("Index", "Home");
 
             if (Session["iter"] == null)
@@ -808,7 +808,7 @@ namespace Dziennik.Controllers
 
 		public ActionResult Wynik()
 		{
-			if (Session["Status"] != "Uczeń" && Session["test"] != "start")
+			if (Session["Status"] != "uczen" && Session["test"] != "start")
 				return RedirectToAction("Index", "Home");
 			ViewBag.wynik = Session["wynik"];
 			ViewBag.max = (int)Session["max"];
@@ -874,7 +874,7 @@ namespace Dziennik.Controllers
 
         public ActionResult TestyUcznia(int? id)
         {
-            if (Session["Status"] == "Uczeń")
+            if (Session["Status"] == "uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -901,7 +901,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TestyUcznia(int id)
         {
-            if (Session["Status"] == "Uczeń")
+            if (Session["Status"] == "uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -924,7 +924,7 @@ namespace Dziennik.Controllers
 
         public ActionResult PlanLekcji()
         {
-            if (Session["Status"] != "Uczeń")
+            if (Session["Status"] != "uczen")
                 return RedirectToAction("Index", "Home");
 
             var userId = Convert.ToInt32(Session["UserID"]);
