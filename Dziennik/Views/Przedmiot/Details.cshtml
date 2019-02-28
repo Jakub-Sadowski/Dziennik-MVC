@@ -47,9 +47,9 @@
 
 
             <td>
-                @Html.ActionLink("Edit", "Edit", "Test", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", "Test", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", "Test", new { id = item.ID })
+                @Html.ActionLink("Edytuj", "Edit", "Test", new { id = item.ID }) |
+                @Html.ActionLink("Detale", "Details", "Test", new { id = item.ID }) |
+                @Html.ActionLink("Usuń", "Delete", "Test", new { id = item.ID })
             </td>
 
         </tr>
@@ -77,9 +77,9 @@
             <td>@Html.DisplayFor(model => item.Klasa.Name)</td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", "Lekcja", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", "Lekcja", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", "Lekcja", new { id = item.ID })
+                @Html.ActionLink("Edytuj", "Edit", "Lekcja", new { id = item.ID }) |
+                @Html.ActionLink("Detale", "Details", "Lekcja", new { id = item.ID }) |
+                @Html.ActionLink("DUsuń", "Delete", "Lekcja", new { id = item.ID })
             </td>
 
         </tr>
@@ -113,9 +113,9 @@
         <th>@Html.DisplayNameFor(model => item.Nauczyciel.FullName)</th>
 
         <td>
-            @Html.ActionLink("Edit", "Edit", "Ocena", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", "Ocena", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", "Ocena", new { id = item.ID })
+            @Html.ActionLink("Edytuj", "Edit", "Ocena", new { id = item.ID }) |
+            @Html.ActionLink("Detale", "Details", "Ocena", new { id = item.ID }) |
+            @Html.ActionLink("Usuń", "Delete", "Ocena", new { id = item.ID })
         </td>
 
     </tr>
@@ -126,6 +126,6 @@
 
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Powrót", "Index")
 </p>

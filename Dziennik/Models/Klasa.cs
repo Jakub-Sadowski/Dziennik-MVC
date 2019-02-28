@@ -21,6 +21,7 @@ namespace Dziennik.Models
         public string nazwa { get; set; }
         
         public klasa? level { get; set; }
+        //public string Referer { get; set; }
 
         [ForeignKey("Wychowawca")]
         public int? WychowawcaID { get; set; }
