@@ -89,7 +89,7 @@
                     else
                     {
                         <li>@Html.ActionLink(@Session["Name"].ToString()
-						+" "+ @Session["Forname"].ToString(), "EdycjaProfilu",(@Session["Status"].ToString())) </li>
+						+" "+ @Session["Forname"].ToString() + " " + "(" +@Session["Status"].ToString() +")", "EdycjaProfilu") </li>
                         <li>@Html.ActionLink("Wyloguj", "Wyloguj", "Log")</li>
                     }
 

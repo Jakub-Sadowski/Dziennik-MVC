@@ -378,8 +378,6 @@ namespace Dziennik.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var nieobecnosc = db.Nieobecnosci.Find(id);
-            var nieobecnosci = from s in db.Nieobecnosci
-                               select s;
             nieobecnosc.Status = Nieobecnosc.status.Usprawiedliwiona;
             db.Entry(nieobecnosc).State = EntityState.Modified;
             db.SaveChanges();

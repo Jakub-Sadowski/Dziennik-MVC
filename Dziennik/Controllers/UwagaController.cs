@@ -18,8 +18,6 @@ namespace Dziennik.Controllers
         // GET: Uwaga
         public ActionResult Index()
         {
-            if (Session["Status"] != "Admin"|| (Session["Status"] != "Nauczyciel"))
-                return RedirectToAction("Index", "Home");
             var uwagi = db.Uwagi.Include(u => u.Nauczyciel).Include(u => u.Uczen);
             return View(uwagi.ToList());
         }
