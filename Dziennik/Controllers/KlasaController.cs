@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Dziennik.DAL;
+using Dziennik.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Dziennik.DAL;
-using Dziennik.Models;
-using Dziennik.ActionAttrs;
 
 
 namespace Dziennik.Controllers

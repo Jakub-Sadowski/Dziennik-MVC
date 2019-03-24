@@ -1,5 +1,4 @@
-﻿using Dziennik.ActionAttrs;
-using Dziennik.DAL;
+﻿using Dziennik.DAL;
 using Dziennik.Models;
 using System;
 using System.Collections.Generic;

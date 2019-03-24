@@ -162,7 +162,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionAttrs\RedirectIfNotAdmin.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -186,7 +185,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHandler.cs" />
-    <Compile Include="Helpers\SuperDuperCookieSuccurity.cs" />
+    <Compile Include="Helpers\CookieEncryption.cs" />
     <Compile Include="Migrations\201812160915074_filePath.cs" />
     <Compile Include="Migrations\201812160915074_filePath.Designer.cs">
       <DependentUpon>201812160915074_filePath.cs</DependentUpon>

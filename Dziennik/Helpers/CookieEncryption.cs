@@ -5,10 +5,10 @@ using System.Web;
 
 namespace Dziennik.Helpers
 {
-    public static class SuperDuperCookieSuccurity
+    public static class CookieEncryption
     {
-        private static readonly string KEY = "ZABIJCIEMNIE";
-        private static readonly int MAGICNUMBER = 177013;
+        private static readonly string KEY = "OsGUyfLbk";
+        private static readonly int MAGICNUMBER = 17013;
 
         public static int Encrypt(int id)
         {

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dziennik.DAL;
+using Dziennik.Helpers;
+using System;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Dziennik.DAL;
-using Dziennik.Helpers;
-using Dziennik.Models;
 
 namespace Dziennik.Controllers
 {
@@ -33,7 +29,7 @@ namespace Dziennik.Controllers
                 var admin = db.Administratorzy.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
                 if (admin != null)
                 {
-                    HaveYouEverReadCleanCodeDoYouEvenKnowWhatSOLIDPrinciplesAre(
+                    SetSessionAndCookies(
                         admin.ID.ToString(), admin.login.ToString(), admin.imie.ToString(),
                         admin.nazwisko.ToString(), "Admin", rememberme);
                     return RedirectToAction("Zalogowany");
@@ -41,7 +37,7 @@ namespace Dziennik.Controllers
                 var rodzic = db.Rodzice.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
                 if (rodzic != null)
                 {
-                    HaveYouEverReadCleanCodeDoYouEvenKnowWhatSOLIDPrinciplesAre(
+                    SetSessionAndCookies(
                             rodzic.ID.ToString(), rodzic.login.ToString(), rodzic.imie.ToString(),
                             rodzic.nazwisko.ToString(), "Rodzic", rememberme);
                     return RedirectToAction("Zalogowany");
@@ -49,7 +45,7 @@ namespace Dziennik.Controllers
                 var uczen = db.Uczniowie.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
                 if (uczen != null)
                 {
-                    HaveYouEverReadCleanCodeDoYouEvenKnowWhatSOLIDPrinciplesAre(
+                    SetSessionAndCookies(
                             uczen.ID.ToString(), uczen.login.ToString(), uczen.imie.ToString(),
                             uczen.nazwisko.ToString(), "Uczen", rememberme);
                     return RedirectToAction("Zalogowany");
@@ -57,7 +53,7 @@ namespace Dziennik.Controllers
                 var nauczyciel = db.Nauczyciele.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
                 if (nauczyciel != null)
                 {
-                    HaveYouEverReadCleanCodeDoYouEvenKnowWhatSOLIDPrinciplesAre(
+                    SetSessionAndCookies(
                             nauczyciel.NauczycielID.ToString(), nauczyciel.login.ToString(), nauczyciel.imie.ToString(),
                             nauczyciel.nazwisko.ToString(), "Nauczyciel", rememberme);
                     return RedirectToAction("Pytania_rodzicow","Nauczyciel");
@@ -69,10 +65,7 @@ namespace Dziennik.Controllers
             return View();
         }
 
-        /// <summary>
-        /// https://soundcloud.com/espen-sande-larsen-365984601/refactor-1
-        /// </summary>
-        private void HaveYouEverReadCleanCodeDoYouEvenKnowWhatSOLIDPrinciplesAre(string userID, string userName, string name, string forname, string status, bool appendCookies)
+        private void SetSessionAndCookies(string userID, string userName, string name, string forname, string status, bool appendCookies)
         {
             Session["UserID"] = userID;
             Session["UserName"] = userName;
@@ -89,20 +82,20 @@ namespace Dziennik.Controllers
         private void AppendCookies(string userID, string userName, string name, string forname, string status)
         {
             var id = int.Parse(userID);
-            Response.AppendCookie(new HttpCookie("oWo", SuperDuperCookieSuccurity.Encrypt(id).ToString()));
-            Response.AppendCookie(new HttpCookie("UserName", userName));
-            Response.AppendCookie(new HttpCookie("Name", name));
-            Response.AppendCookie(new HttpCookie("Forname", forname));
-            Response.AppendCookie(new HttpCookie("WHATS_THIS", SuperDuperCookieSuccurity.Encrypt(status)));
+            Response.AppendCookie(new HttpCookie("1", CookieEncryption.Encrypt(id).ToString()));
+            Response.AppendCookie(new HttpCookie("2", userName));
+            Response.AppendCookie(new HttpCookie("3", name));
+            Response.AppendCookie(new HttpCookie("4", forname));
+            Response.AppendCookie(new HttpCookie("5", CookieEncryption.Encrypt(status)));
         }
 
         private void ExpireCookies()
         {
-            Response.Cookies["oWo"].Expires = DateTime.MinValue;
-            Response.Cookies["UserName"].Expires = DateTime.MinValue;
-            Response.Cookies["Name"].Expires = DateTime.MinValue;
-            Response.Cookies["Forname"].Expires = DateTime.MinValue;
-            Response.Cookies["WHATS_THIS"].Expires = DateTime.MinValue;
+            Response.Cookies["1"].Expires = DateTime.MinValue;
+            Response.Cookies["2"].Expires = DateTime.MinValue;
+            Response.Cookies["3"].Expires = DateTime.MinValue;
+            Response.Cookies["4"].Expires = DateTime.MinValue;
+            Response.Cookies["5"].Expires = DateTime.MinValue;
         }
 
         public ActionResult Zalogowany()
@@ -121,7 +114,7 @@ namespace Dziennik.Controllers
         {
             if (Session["UserID"] != null)
             {
-                HaveYouEverReadCleanCodeDoYouEvenKnowWhatSOLIDPrinciplesAre(null, null, null, null, null, false);
+                SetSessionAndCookies(null, null, null, null, null, false);
                 return View();
             }
             else
