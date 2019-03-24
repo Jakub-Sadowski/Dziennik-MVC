@@ -18,7 +18,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie
         public ActionResult Index()
         {
-            if (Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             var ogloszenia = db.Ogloszenia.Include(o => o.Nauczyciel);
             return View(ogloszenia.ToList());
@@ -42,7 +42,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie/Create
         public ActionResult Create()
         {
-            if ((Session["Status"] != "Nauczyciel") && (Session["Status"] != "Admin"))
+            if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
                 return RedirectToAction("Index", "Home");
 
             ViewBag.NauczycielID = Session["UserID"];
@@ -59,7 +59,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,NauczycielID,naglowek,tresc,data")] Ogloszenie ogloszenie)
         {
-            if ((Session["Status"] != "Nauczyciel") && (Session["Status"] != "Admin"))
+            if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
                 return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie/Edit/5
         public ActionResult Edit(int? id)
         {
-            if ((Session["Status"] != "Nauczyciel") && (Session["Status"] != "Admin"))
+            if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -108,7 +108,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,NauczycielID,naglowek,tresc,data")] Ogloszenie ogloszenie)
         {
-            if ((Session["Status"] != "Nauczyciel") && (Session["Status"] != "Admin"))
+            if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
                 return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
@@ -124,7 +124,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie/Delete/5
         public ActionResult Delete(int? id)
         {
-            if ((Session["Status"] != "Nauczyciel") && (Session["Status"] != "Admin"))
+            if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -144,7 +144,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if ((Session["Status"] != "Nauczyciel") && (Session["Status"] != "Admin"))
+            if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
                 return RedirectToAction("Index", "Home");
 
             Ogloszenie ogloszenie = db.Ogloszenia.Find(id);

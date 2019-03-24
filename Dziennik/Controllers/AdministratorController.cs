@@ -17,7 +17,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Index(string search)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			var admini = from s in db.Administratorzy
@@ -32,7 +32,7 @@ namespace Dziennik.Controllers
         
         public ActionResult Details(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -49,7 +49,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Create()
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			return View();
@@ -59,7 +59,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
@@ -83,7 +83,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Edit(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -102,7 +102,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
@@ -122,7 +122,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Delete(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -141,7 +141,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			Administrator administrator = db.Administratorzy.Find(id);

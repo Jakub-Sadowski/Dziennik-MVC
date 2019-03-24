@@ -18,7 +18,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Index(string search)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			var uczniowie = from s in db.Uczniowie
@@ -33,7 +33,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Details(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -53,7 +53,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Create()
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
@@ -65,7 +65,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
@@ -88,7 +88,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Edit(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -109,7 +109,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
@@ -131,7 +131,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Delete(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -150,7 +150,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			Uczen uczen = db.Uczniowie.Find(id);
@@ -162,14 +162,14 @@ namespace Dziennik.Controllers
         public ActionResult Oceny(int? id)
         {
 
-            if (Session["Status"] == "Uczen")
+            if ((string)Session["Status"] == "Uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
                 id = Convert.ToInt32(ide);
 
             }
-            if (Session["Status"] == "Rodzic")
+            if ((string)Session["Status"] == "Rodzic")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -203,7 +203,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Oceny(int id)
         {
-            if (Session["Status"] == "Uczen")
+            if ((string)Session["Status"] == "Uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -227,7 +227,7 @@ namespace Dziennik.Controllers
 
 		public ActionResult Przedmioty()
 		{
-			if (Session["Status"] != "Uczen")
+			if ((string)Session["Status"] != "Uczen")
 				return RedirectToAction("Index", "Home");
 
 			var userId = Convert.ToInt32(Session["UserID"]);
@@ -251,7 +251,7 @@ namespace Dziennik.Controllers
 
 		public ActionResult SzczegolyPrzedmiotu(int? id)
 		{
-			if (Session["Status"] != "Uczen")
+			if ((string)Session["Status"] != "Uczen")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -289,7 +289,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Absencja(int? id)
         {
-            if (Session["Status"] == "Uczen")
+            if ((string)Session["Status"] == "Uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -313,7 +313,7 @@ namespace Dziennik.Controllers
         {
             Absencja model = new Absencja();
 
-            if (Session["Status"] == "Uczen")
+            if ((string)Session["Status"] == "Uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -341,7 +341,7 @@ namespace Dziennik.Controllers
 
         public ActionResult DodawanieNieobecnosci()
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID");
             ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
@@ -355,7 +355,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DodawanieNieobecnosci([Bind(Include = "ID,UczenID,LekcjaID, date")] Nieobecnosc nieobecnosc)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
@@ -370,7 +370,7 @@ namespace Dziennik.Controllers
         }
         public ActionResult EdycjaProfilu()
         {
-            if (Session["Status"] != "Uczen")
+            if ((string)Session["Status"] != "Uczen")
                 return RedirectToAction("Index", "Home");
             var id = Convert.ToInt32(Session["UserID"]);
             Uczen rodzic = db.Uczniowie.Find(id);
@@ -417,7 +417,7 @@ namespace Dziennik.Controllers
         // GET: Ocena/Edit/5
         public ActionResult EdytowanieNieobecnosci(int? id)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             if (id == null)
             {
@@ -438,7 +438,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EdytowanieNieobecnosci([Bind(Include = "ID,UczenID,LekcjaID, date, Status")] Nieobecnosc nieobecnosc)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
@@ -453,7 +453,7 @@ namespace Dziennik.Controllers
         
         public ActionResult UsuwanieNieobecnosci(int? id)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             if (id == null)
             {
@@ -471,7 +471,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UsuwanieNieobecnosciPotwierdzenie(int id)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             Nieobecnosc nieobecnosc= db.Nieobecnosci.Find(id);
             db.Nieobecnosci.Remove(nieobecnosc);
@@ -485,7 +485,7 @@ namespace Dziennik.Controllers
 
         public ActionResult DodawanieSpoznienia()
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID");
             ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName");
@@ -499,7 +499,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DodawanieSpoznienia([Bind(Include = "ID,UczenID,LekcjaID, date")] Spoznienie spoznienie)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
@@ -516,7 +516,7 @@ namespace Dziennik.Controllers
         // GET: Ocena/Edit/5
         public ActionResult EdytowanieSpoznienia(int? id)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             if (id == null)
             {
@@ -537,7 +537,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EdytowanieSpoznienia([Bind(Include = "ID,UczenID,LekcjaID, date")] Spoznienie spoznienie)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
@@ -552,7 +552,7 @@ namespace Dziennik.Controllers
 
         public ActionResult UsuwanieSpoznienia(int? id)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             if (id == null)
             {
@@ -570,7 +570,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UsuwaniSpoznieniaPotwierdzenie(int id)
         {
-            if (Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Admin" && Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             Spoznienie spoznienie = db.Spoznienia.Find(id);
             db.Spoznienia.Remove(spoznienie);
@@ -595,7 +595,7 @@ namespace Dziennik.Controllers
         }
         public ActionResult Uwagi(int? id)
         {
-            if (Session["Status"] == "Uczen")
+            if ((string)Session["Status"] == "Uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -621,7 +621,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Uwagi(int id)
         {
-            if (Session["Status"] == "Uczen")
+            if ((string)Session["Status"] == "Uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -645,7 +645,7 @@ namespace Dziennik.Controllers
         #region testy
         public ActionResult Test(int? id)
         {
-            if (Session["Status"] != "Uczen")
+            if ((string)Session["Status"] != "Uczen")
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -684,7 +684,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Pytanie()
         {
-            if (Session["Status"] != "Uczen" && Session["test"] != "start")
+            if ((string)Session["Status"] != "Uczen" && Session["test"] != "start")
                 return RedirectToAction("Index", "Home");
 
             if (Session["iter"] == null)
@@ -808,7 +808,7 @@ namespace Dziennik.Controllers
 
 		public ActionResult Wynik()
 		{
-			if (Session["Status"] != "Uczen" && Session["test"] != "start")
+			if ((string)Session["Status"] != "Uczen" && Session["test"] != "start")
 				return RedirectToAction("Index", "Home");
 			ViewBag.wynik = Session["wynik"];
 			ViewBag.max = (int)Session["max"];
@@ -874,7 +874,7 @@ namespace Dziennik.Controllers
 
         public ActionResult TestyUcznia(int? id)
         {
-            if (Session["Status"] == "Uczen")
+            if ((string)Session["Status"] == "Uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -901,7 +901,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TestyUcznia(int id)
         {
-            if (Session["Status"] == "Uczen")
+            if ((string)Session["Status"] == "Uczen")
             {
                 var user = Session["UserID"];
                 string ide = user.ToString();
@@ -924,7 +924,7 @@ namespace Dziennik.Controllers
 
         public ActionResult PlanLekcji()
         {
-            if (Session["Status"] != "Uczen")
+            if ((string)Session["Status"] != "Uczen")
                 return RedirectToAction("Index", "Home");
 
             var userId = Convert.ToInt32(Session["UserID"]);

@@ -19,7 +19,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Index()
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			var klasy = db.Klasy.Include(k => k.Wychowawca);
@@ -28,7 +28,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Details(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -45,7 +45,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Create()
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie");
@@ -56,7 +56,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "KlasaID,nazwa,level,WychowawcaID")] Klasa klasa)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			List<Klasa> klaska = db.Klasy.Where(a => a.nazwa == klasa.nazwa).ToList();
@@ -78,7 +78,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Edit(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -98,7 +98,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "KlasaID,nazwa,level,WychowawcaID")] Klasa klasa)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Delete(int? id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -132,7 +132,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
 		{
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			Klasa klasa = db.Klasy.Find(id);

@@ -25,7 +25,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
 
-                    @if (Session["Status"] == "Admin")
+                    @if ((string)Session["Status"] == "Admin")
                     {
 
                         <li>@Html.ActionLink("Administratorzy", "Index", "Administrator")</li>
@@ -37,7 +37,7 @@
                         <li>@Html.ActionLink("Lekcje", "Index", "Lekcja")</li>
                     }
 
-                    @if (Session["Status"] == "Uczen")
+                    @if ((string)Session["Status"] == "Uczen")
                     {
                         <li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>
                         <li>@Html.ActionLink("Oceny", "Oceny", "Uczen")</li>
@@ -51,7 +51,7 @@
 
 
                     }
-                    @if (Session["Status"] == "Rodzic")
+                    @if ((string)Session["Status"] == "Rodzic")
                     {
                         <li>@Html.ActionLink("Absencja", "Absencja", "Rodzic")</li>
                         <li>@Html.ActionLink("Oceny", "Oceny", "Rodzic")</li>
@@ -66,7 +66,7 @@
 
                     }
 
-                    @if (Session["Status"] == "Nauczyciel")
+                    @if ((string)Session["Status"] == "Nauczyciel")
                     {
 
                         <li>@Html.ActionLink("Przedmioty", "Przedmioty", "Nauczyciel")</li>

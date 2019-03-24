@@ -18,7 +18,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Index(string search)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
             var rodzice = from s in db.Rodzice
@@ -34,7 +34,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Details(int? id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -51,7 +51,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Create()
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			return View();
@@ -61,7 +61,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Rodzic rodzic)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
@@ -82,7 +82,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Edit(int? id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -101,7 +101,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo")] Rodzic rodzic)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
@@ -121,7 +121,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Delete(int? id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -140,7 +140,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			Rodzic rodzic = db.Rodzice.Find(id);
@@ -150,7 +150,7 @@ namespace Dziennik.Controllers
         }
         public ActionResult Ogloszenia()
         {
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
                 return RedirectToAction("Index", "Home");
             ViewBag.NauczycielID = Session["UserID"];
             int id = Int32.Parse(ViewBag.NauczycielID);
@@ -175,7 +175,7 @@ namespace Dziennik.Controllers
                 id = Int32.Parse(data);
                 
 
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
                 return RedirectToAction("Index", "Home");
         
 
@@ -216,7 +216,7 @@ namespace Dziennik.Controllers
             if (data != null)
                 id = Int32.Parse(data);
 
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -279,7 +279,7 @@ namespace Dziennik.Controllers
             if (data != null)
                 id = Int32.Parse(data);
 
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
                 return RedirectToAction("Index", "Home");
 
             var id_rodzica = Convert.ToInt32(Session["UserID"]);
@@ -332,7 +332,7 @@ namespace Dziennik.Controllers
             int? id = null;
             if (data != null)
                 id = Int32.Parse(data);
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -371,7 +371,7 @@ namespace Dziennik.Controllers
         }
         public ActionResult UsuwanieNieobecnosci(int? id)
         {
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
                 return RedirectToAction("Index", "Home");
             if (id == null)
             {
@@ -385,7 +385,7 @@ namespace Dziennik.Controllers
         }
         public ActionResult EdycjaProfilu()
         {
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
                 return RedirectToAction("Index", "Home");
             var id = Convert.ToInt32(Session["UserID"]);
             Rodzic rodzic = db.Rodzice.Find(id);
@@ -433,7 +433,7 @@ namespace Dziennik.Controllers
         }
         public ActionResult DodawanieZapytania()
         {
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
             {
                 return RedirectToAction("Index", "Home");
 
@@ -453,7 +453,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DodawanieZapytania([Bind(Include = "NauczycielID, pytanie")] Zapytanie zapytanie, string data)
         {
-            if (Session["Status"] != "Rodzic")
+            if ((string)Session["Status"] != "Rodzic")
             {
                 return RedirectToAction("Index", "Home");
 

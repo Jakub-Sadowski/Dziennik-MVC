@@ -19,7 +19,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow
         public ActionResult Index()
         {
-            if (Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
 
             var ogloszenia_dla_rodzicow = db.Ogloszenia_dla_rodzicow.Include(o => o.klasa).Include(o => o.Nauczyciel);
@@ -29,7 +29,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Details/5
         public ActionResult Details(int? id)
         {
-            if (Session["Status"] != "Nauczyciel" && Session["Status"] != "Rodzic" )
+            if ((string)Session["Status"] != "Nauczyciel" && Session["Status"] != "Rodzic" )
                 return RedirectToAction("Index", "Home");
 
 
@@ -48,7 +48,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Create
         public ActionResult Create()
         {
-            if (Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
 
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
@@ -63,7 +63,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<ActionResult> Create([Bind(Include = "ID,NauczycielID,KlasaID,naglowek,tresc,data")] Ogloszenie_dla_rodzicow ogloszenie_dla_rodzicow)
         {
-            if (Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
             var rodzice = from s in db.Uczniowie
                          where s.KlasaID==ogloszenie_dla_rodzicow.KlasaID
@@ -118,7 +118,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -142,7 +142,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,NauczycielID,KlasaID,naglowek,tresc,data")] Ogloszenie_dla_rodzicow ogloszenie_dla_rodzicow)
         {
-            if (Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
@@ -161,7 +161,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
 
             if (id == null)
@@ -181,7 +181,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (Session["Status"] != "Nauczyciel")
+            if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
 
             Ogloszenie_dla_rodzicow ogloszenie_dla_rodzicow = db.Ogloszenia_dla_rodzicow.Find(id);

@@ -40,7 +40,7 @@ namespace Dziennik.Controllers
         // GET: Oceny/Create
         public ActionResult Create()
         {
-            if (Session["Status"] != "Nauczyciel") 
+            if ((string)Session["Status"] != "Nauczyciel") 
                 return RedirectToAction("Index", "Home");
 
             ViewBag.NauczycielID = Session["UserID"];           
@@ -56,7 +56,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
         {
-            if (Session["Status"] != "Nauczyciel") 
+            if ((string)Session["Status"] != "Nauczyciel") 
                 return RedirectToAction("Index", "Home");
 
             ViewBag.NauczycielID = Session["UserID"];

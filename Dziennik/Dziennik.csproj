@@ -186,6 +186,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHandler.cs" />
+    <Compile Include="Helpers\SuperDuperCookieSuccurity.cs" />
     <Compile Include="Migrations\201812160915074_filePath.cs" />
     <Compile Include="Migrations\201812160915074_filePath.Designer.cs">
       <DependentUpon>201812160915074_filePath.cs</DependentUpon>

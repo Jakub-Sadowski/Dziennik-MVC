@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Loguj";
 }
 
@@ -19,7 +18,6 @@
             </p>
         }
         <div class="form-group">
-
             <label class="control-label col-md-1"> Login </label>
             <div class="col-md-10">
                 <input name="login" class="form-control">
@@ -31,10 +29,17 @@
                 <input type="password" name="password" class="form-control">
             </div>
         </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Loguj" class="btn btn-default" />
+      <div class="form-group">
+            <label class="control-label col-md-1"> Zapamiętaj mnie </label>
+            <div class="col-md-10">
+              <input id="rememberme" type="checkbox" value="true" name="rememberme" />
+              <input type="hidden" value="false" name="rememberme" />
+            </div>
         </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Loguj" class="btn btn-default" />
+          </div>
         </div>
     </div>
 }

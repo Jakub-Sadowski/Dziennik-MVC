@@ -19,7 +19,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Index(string nazwa)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			string databaseName = db.Database.Connection.Database;
@@ -37,7 +37,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Details(int? id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -67,7 +67,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Create()
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			ViewBag.Tresc_ksztalcenia = new SelectList(db.Tresci_ksztalcenia, "PrzedmiotID", "PrzedmiotID");
@@ -78,7 +78,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,nazwa,level")] Przedmiot przedmiot, HttpPostedFileBase fileUpload)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (ModelState.IsValid)
@@ -98,7 +98,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Edit(int? id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -118,7 +118,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,nazwa,level")] Przedmiot przedmiot, HttpPostedFileBase fileUpload)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (ModelState.IsValid)
@@ -149,7 +149,7 @@ namespace Dziennik.Controllers
 
         public ActionResult Delete(int? id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			if (id == null)
@@ -168,7 +168,7 @@ namespace Dziennik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			Przedmiot przedmiot = db.Przedmioty.Find(id);
@@ -183,7 +183,7 @@ namespace Dziennik.Controllers
 
         public ActionResult DownloadTrescKsztalcenia(int? id)
         {
-			if (Session["Status"] != "Admin")
+			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
 			var tk = db.Tresci_ksztalcenia.Find(id);
