@@ -5,13 +5,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UczenID)
+            @Html.DisplayNameFor(model => model.Lekcja.Nauczyciel)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LekcjaID)
+            Godzina
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.date)
+            @Html.DisplayNameFor(model => model.Lekcja)
+        </th>
+        <th>
+            Data
         </th>
         <th></th>
     </tr>
@@ -20,10 +23,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UczenID)
+                @Html.DisplayFor(modelItem => item.Lekcja.Nauczyciel.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LekcjaID)
+                @Html.DisplayFor(modelItem => item.Lekcja.godzina)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lekcja.Przedmiot.nazwa)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.date)

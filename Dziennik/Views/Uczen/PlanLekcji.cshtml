@@ -8,9 +8,8 @@
 
 <table class="table">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.ID)</th>
-        <th>@Html.DisplayNameFor(model => model.dzien)</th>
-        <th>@Html.DisplayNameFor(model => model.godzina)</th>
+        <th>Dzien</th>
+        <th>Godzina</th>
         <th>@Html.DisplayNameFor(model => model.Przedmiot)</th>
         <th>@Html.DisplayNameFor(model => model.Nauczyciel.FullName)</th>
     </tr>
@@ -18,7 +17,6 @@
 	@foreach (var item in Model)
 	{
     <tr>
-        <td>@Html.DisplayFor(modelItem => item.ID)</td>
         <td>@Html.DisplayFor(modelItem => item.dzien)</td>
         <td>@Html.DisplayFor(modelItem => item.godzina)</td>
         <td>@Html.DisplayFor(modelItem => item.Przedmiot.nazwa)</td>
