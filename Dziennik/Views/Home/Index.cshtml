@@ -3,30 +3,29 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<h2>Ogłoszenia</h2>
-@foreach (var item in Model)
-{
-<div class="post">
-    <div class="post-meta">
-        <div class="row">
 
-            <!--Heading-->
-            <div class="post-title">
-                <h2> @Html.DisplayFor(modelItem => item.naglowek)</h2>
-            </div>
+<center><h1>Ogłoszenia</h1></center>
+<br />
+<div class="list-group">
 
-        </div>
-    </div>
+    @foreach (var item in Model)
+    {
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <small>@Html.DisplayFor(modelItem => item.data)</small>
+            <h3 class="mb-1">
+                @Html.DisplayFor(modelItem => item.naglowek)
+            </h3>
 
-    <!--Short Description-->
-    <div class="post-body">
-        @Html.DisplayFor(modelItem => item.tresc)
-    </div>
-    <div class="post-meta">
-        @Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
-        @Html.DisplayFor(modelItem => item.data)
+        </div><br />
+        <p class="mb-1">@Html.DisplayFor(modelItem => item.tresc)</p>
+        <small>@Html.DisplayFor(modelItem => item.Nauczyciel.FullName)</small>
+        </a>
 
-    </div>
 
+        
+
+
+        }
 </div>
-}
+

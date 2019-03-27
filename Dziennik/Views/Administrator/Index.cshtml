@@ -4,11 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<center><h2>Administratorzy</h2></center>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<input type="button" class="btn btn-default" value="Nowy" onclick="location.href='@Url.Action("Create", "Administrator")'" />
+
+<br />
+<br />
+
+
+
+
 @using (Html.BeginForm())
 {
     <p>
@@ -16,7 +21,7 @@
         <input type="submit" value="Szukaj" />
     </p>
 }
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.imie)
@@ -49,9 +54,12 @@
                 @Html.DisplayFor(modelItem => item.haslo)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="button" class="btn btn-default" value="Edytuj" onclick="location.href='@Url.Action("Edit", "Administrator", new { id = item.ID })'" />
+                    <input type="button" class="btn btn-default" value="Szczegóły" onclick="location.href='@Url.Action("Details", "Administrator", new { id = item.ID })'" />
+                    <input type="button" class="btn btn-default" value="Usuń" onclick="location.href='@Url.Action("Delete", "Administrator", new { id = item.ID })'" />
+                    </div>
+
             </td>
         </tr>
     }
