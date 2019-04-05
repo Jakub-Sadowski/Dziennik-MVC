@@ -1,9 +1,11 @@
-﻿using Dziennik.DAL;
+﻿using Dziennik.Controllers.API;
+using Dziennik.DAL;
 using Dziennik.Models;
 using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Dziennik.Controllers
@@ -12,8 +14,8 @@ namespace Dziennik.Controllers
     {
         private Context db = new Context();
 
-        // GET: Ogloszenie
-        public ActionResult Index()
+								#region crud
+								public ActionResult Index()
         {
             if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
@@ -21,7 +23,6 @@ namespace Dziennik.Controllers
             return View(ogloszenia.ToList());
         }
 
-        // GET: Ogloszenie/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +37,6 @@ namespace Dziennik.Controllers
             return View(ogloszenie);
         }
 
-        // GET: Ogloszenie/Create
         public ActionResult Create()
         {
             if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
@@ -49,12 +49,9 @@ namespace Dziennik.Controllers
             return View();
         }
 
-        // POST: Ogloszenie/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,NauczycielID,naglowek,tresc,data")] Ogloszenie ogloszenie)
+        public async Task<ActionResult> Create([Bind(Include = "ID,NauczycielID,naglowek,tresc,data")] Ogloszenie ogloszenie)
         {
             if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
                 return RedirectToAction("Index", "Home");
@@ -68,7 +65,12 @@ namespace Dziennik.Controllers
                 int id1 = Convert.ToInt32(ide);
                 ogloszenie.NauczycielID = id1;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+																var notiContrl = new NotificationsController();
+																await notiContrl.PostNotificationAsync(new Notification(ogloszenie));
+
+
+																return RedirectToAction("Index");
             }
 
             ViewBag.NauczycielID = Session["UserID"];
@@ -77,7 +79,6 @@ namespace Dziennik.Controllers
 
         }
 
-        // GET: Ogloszenie/Edit/5
         public ActionResult Edit(int? id)
         {
             if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
@@ -98,9 +99,6 @@ namespace Dziennik.Controllers
         }
 
 
-        // POST: Ogloszenie/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,NauczycielID,naglowek,tresc,data")] Ogloszenie ogloszenie)
@@ -118,7 +116,6 @@ namespace Dziennik.Controllers
             return View(ogloszenie);
         }
 
-        // GET: Ogloszenie/Delete/5
         public ActionResult Delete(int? id)
         {
             if (((string)Session["Status"] != "Nauczyciel") && ((string)Session["Status"] != "Admin"))
@@ -136,7 +133,6 @@ namespace Dziennik.Controllers
             return View(ogloszenie);
         }
 
-        // POST: Ogloszenie/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -158,5 +154,6 @@ namespace Dziennik.Controllers
             }
             base.Dispose(disposing);
         }
-    }
+								#endregion
+				}
 }

@@ -1,4 +1,5 @@
 ﻿using Dziennik.Helpers;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -10,11 +11,12 @@ namespace Dziennik
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            GlobalFilters.Filters.Add(new IdeSieZabicPrzeTenCodebase());
+												GlobalConfiguration.Configure(WebApiConfig.Register);
+												GlobalFilters.Filters.Add(new IdeSieZabicPrzeTenCodebase());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
+								}
     }
 
     public class IdeSieZabicPrzeTenCodebase : ActionFilterAttribute

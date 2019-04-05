@@ -9,100 +9,103 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+				<div class="container">
+						<div class="navbar-header">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
 
-                </button>
-                @Html.ActionLink("Dziennik", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+								</button>
+								@Html.ActionLink("Dziennik", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+						</div>
+						<div class="navbar-collapse collapse">
+								<ul class="nav navbar-nav">
+										<li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
 
-                    @if ((string)Session["Status"] == "Admin")
-                    {
+										@if ((string)Session["Status"] == "Admin")
+										{
 
-                        <li>@Html.ActionLink("Administratorzy", "Index", "Administrator")</li>
-                        <li>@Html.ActionLink("Nauczyciele", "Index", "Nauczyciel")</li>
-                        <li>@Html.ActionLink("Uczniowie", "Index", "Uczen")</li>
-                        <li>@Html.ActionLink("Rodzice", "Index", "Rodzic")</li>
-                        <li>@Html.ActionLink("Klasy", "Index", "Klasa")</li>
-                        <li>@Html.ActionLink("Przedmioty", "Index", "Przedmiot")</li>
-                        <li>@Html.ActionLink("Lekcje", "Index", "Lekcja")</li>
-                    }
+												<li>@Html.ActionLink("Administratorzy", "Index", "Administrator")</li>
+												<li>@Html.ActionLink("Nauczyciele", "Index", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Uczniowie", "Index", "Uczen")</li>
+												<li>@Html.ActionLink("Rodzice", "Index", "Rodzic")</li>
+												<li>@Html.ActionLink("Klasy", "Index", "Klasa")</li>
+												<li>@Html.ActionLink("Przedmioty", "Index", "Przedmiot")</li>
+												<li>@Html.ActionLink("Lekcje", "Index", "Lekcja")</li>
+										}
 
-                    @if ((string)Session["Status"] == "Uczen")
-                    {
-                        <li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>
-                        <li>@Html.ActionLink("Oceny", "Oceny", "Uczen")</li>
-                        <li>@Html.ActionLink("E-nauczanie", "Przedmioty", "Uczen")</li>
-                        <li>@Html.ActionLink("Uwagi", "Uwagi", "Uczen")</li>
-                        <li>@Html.ActionLink("Testy", "TestyUcznia", "Uczen")</li>
-                        <li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Uczen")</li>
-                        <li>@Html.ActionLink("Rozkład nauczycieli", "RozkladNauczycieli", "Nauczyciel")</li>
-					
-						
-
-
-                    }
-                    @if ((string)Session["Status"] == "Rodzic")
-                    {
-                        <li>@Html.ActionLink("Absencja", "Absencja", "Rodzic")</li>
-                        <li>@Html.ActionLink("Oceny", "Oceny", "Rodzic")</li>
-                        <li>@Html.ActionLink("Uwagi", "Uwagi", "Rodzic")</li>
-                        <li>@Html.ActionLink("Ogloszenia", "Ogloszenia", "Rodzic")</li>
-                        <li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Rodzic")</li>
-						<li>@Html.ActionLink("Pytanie do nauczyciela", "DodawanieZapytania", "Rodzic")</li>
-						
+										@if ((string)Session["Status"] == "Uczen")
+										{
+												<li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>
+												<li>@Html.ActionLink("Oceny", "Oceny", "Uczen")</li>
+												<li>@Html.ActionLink("E-nauczanie", "Przedmioty", "Uczen")</li>
+												<li>@Html.ActionLink("Uwagi", "Uwagi", "Uczen")</li>
+												<li>@Html.ActionLink("Testy", "TestyUcznia", "Uczen")</li>
+												<li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Uczen")</li>
+												<li>@Html.ActionLink("Rozkład nauczycieli", "RozkladNauczycieli", "Nauczyciel")</li>
 
 
 
 
-                    }
-
-                    @if ((string)Session["Status"] == "Nauczyciel")
-                    {
-
-                        <li>@Html.ActionLink("Przedmioty", "Przedmioty", "Nauczyciel")</li>
-                        <li>@Html.ActionLink("Ogłoszenia", "Index", "Ogloszenie")</li>
-                        <li>@Html.ActionLink("Obecności", "LekcjeNauczyciela", "Nauczyciel")</li>
-                        <li>@Html.ActionLink("Klasa wychowawcy", "Wychowankowie", "Nauczyciel")</li>
-						 <li>@Html.ActionLink("Pytania", "Pytania_rodzicow", "Nauczyciel")</li>
-
+										}
+										@if ((string)Session["Status"] == "Rodzic")
+										{
+												<li>@Html.ActionLink("Absencja", "Absencja", "Rodzic")</li>
+												<li>@Html.ActionLink("Oceny", "Oceny", "Rodzic")</li>
+												<li>@Html.ActionLink("Uwagi", "Uwagi", "Rodzic")</li>
+												<li>@Html.ActionLink("Ogloszenia", "Ogloszenia", "Rodzic")</li>
+												<li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Rodzic")</li>
+												<li>@Html.ActionLink("Pytanie do nauczyciela", "DodawanieZapytania", "Rodzic")</li>
 
 
-                    }
 
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @if (Session["UserName"] == null)
-                    {
-                        <li class="navbar-text">Nie jesteś zalogowany(a)</li>
-                        <li>@Html.ActionLink("Zaloguj się", "Login", "Log")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink(@Session["Name"].ToString()
-						+" "+ @Session["Forname"].ToString() + " " + "(" +@Session["Status"].ToString() +")", "EdycjaProfilu") </li>
-                        <li>@Html.ActionLink("Wyloguj", "Wyloguj", "Log")</li>
-                    }
 
-                </ul>
-</div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+										}
+
+										@if ((string)Session["Status"] == "Nauczyciel")
+										{
+
+												<li>@Html.ActionLink("Przedmioty", "Przedmioty", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Ogłoszenia", "Index", "Ogloszenie")</li>
+												<li>@Html.ActionLink("Obecności", "LekcjeNauczyciela", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Klasa wychowawcy", "Wychowankowie", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Pytania", "Pytania_rodzicow", "Nauczyciel")</li>
+
+
+
+										}
+
+								</ul>
+								<ul class="nav navbar-nav navbar-right">
+										@if (Session["UserName"] == null)
+										{
+												<li class="navbar-text">Nie jesteś zalogowany(a)</li>
+												<li>@Html.ActionLink("Zaloguj się", "Login", "Log")</li>
+										}
+										else
+										{
+												<li>
+														@Html.ActionLink(@Session["Name"].ToString()
++" "+ @Session["Forname"].ToString() + " " + "(" +@Session["Status"].ToString() +")", "EdycjaProfilu")
+												</li>
+												<li>@Html.ActionLink("Wyloguj", "Wyloguj", "Log")</li>
+										}
+
+								</ul>
+						</div>
+				</div>
+		</div>
+		<div class="container body-content">
+				@RenderBody()
+		</div>
+
+		@Scripts.Render("~/bundles/jquery")
+		@Scripts.Render("~/bundles/bootstrap")
+		@Scripts.Render("~/Scripts/Notifications.js")
+		@RenderSection("scripts", required: false)
 </body>
 </html>

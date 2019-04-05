@@ -9,10 +9,9 @@ namespace Dziennik.Controllers
     {
         private Context db = new Context();
 
-        // GET: Ogloszenie
         public ActionResult Index()
         {
-            var ogloszenia = db.Ogloszenia.Include(o => o.Nauczyciel);
+            var ogloszenia = db.Ogloszenia.Include(o => o.Nauczyciel).OrderByDescending(x => x.data);
             return View(ogloszenia.ToList());
         }
     }
