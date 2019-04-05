@@ -219,10 +219,10 @@ namespace Dziennik.Controllers
                 .Where(l => l.NauczycielID == userId)
                 .Include(l => l.Przedmiot)
                 .Include("Przedmiot.Tresc_ksztalcenia")
-                .Select(l => l.Przedmiot).ToList();
+                .Select(l => l.Przedmiot).Distinct().ToList();
             foreach (var p in przedmioty)
             {
-                p.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(p.Tresc_ksztalcenia.plikSciezka);
+                p.Tresc_ksztalcenia.plikSciezka = FileHandler.GetFileName(p.Tresc_ksztalcenia.plikSciezka);
             }
 
             return View(przedmioty);
@@ -242,10 +242,10 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
-            przedmiot.Tresc_ksztalcenia.plikSciezka = FileHandler.getFileName(przedmiot.Tresc_ksztalcenia.plikSciezka);
+            przedmiot.Tresc_ksztalcenia.plikSciezka = FileHandler.GetFileName(przedmiot.Tresc_ksztalcenia.plikSciezka);
             foreach (var file in przedmiot.Pliki)
             {
-                file.FilePath = FileHandler.getFileName(file.FilePath);
+                file.FilePath = FileHandler.GetFileName(file.FilePath);
             }
             return View(przedmiot);
         }
@@ -269,7 +269,7 @@ namespace Dziennik.Controllers
                 {
                     foreach (var file in fileUpload)
                     {
-                        sciezka = FileHandler.saveFile(file);
+                        sciezka = FileHandler.SaveFile(file);
                         var newFile = new Plik { PrzedmiotID = przedmiot.ID, FilePath = sciezka, NauczycielID = Convert.ToInt32(Session["UserID"]), DataDodania = DateTime.Now };
                         db.Pliki.Add(newFile);
                         original.Pliki.Add(newFile);
@@ -295,7 +295,7 @@ namespace Dziennik.Controllers
             db.Pliki.Remove(plik);
             db.SaveChanges();
 
-            FileHandler.deleteFile(plik.FilePath);
+            FileHandler.DeleteFile(plik.FilePath);
 
             return RedirectToAction("PlikiPrzedmiotu", new { id = przedmiotId });
         }

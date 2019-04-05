@@ -27,7 +27,7 @@ namespace Dziennik.Controllers
         // GET: Ogloszenie_dla_rodzicow/Details/5
         public ActionResult Details(int? id)
         {
-            if ((string)Session["Status"] != "Nauczyciel" && Session["Status"] != "Rodzic" )
+            if ((string)Session["Status"] != "Nauczyciel" && (string)Session["Status"] != "Rodzic" )
                 return RedirectToAction("Index", "Home");
 
 
