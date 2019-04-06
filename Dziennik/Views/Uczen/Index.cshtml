@@ -4,11 +4,13 @@
     ViewBag.Title = "Uczniowie";
 }
 
-<h2>Uczniowie</h2>
+<center><h2>Uczniowie</h2></center>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<input type="button" class="btn btn-default" value="Nowy" onclick="location.href='@Url.Action("Create", "Uczen")'" />
+
+<br />
+<br />
+
 @using (Html.BeginForm())
 {
     <p>
@@ -16,60 +18,63 @@
         <input type="submit" value="Szukaj" />
     </p>
 }
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Klasa)
+            Klasa
         </th>
         <th>
             Rodzic
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.imie)
+            Imię
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nazwisko)
+            Nazwisko
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.login)
+            Login
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.haslo)
+            Hasło
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Klasa.level)
-            @Html.DisplayFor(modelItem => item.Klasa.nazwa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rodzic.imie)
-            @Html.DisplayFor(modelItem => item.Rodzic.nazwisko)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.imie)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nazwisko)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.haslo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Oceny", "Oceny", new { id = item.ID }) |
-            @Html.ActionLink("Absencje", "Absencja", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klasa.level)
+                @Html.DisplayFor(modelItem => item.Klasa.nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rodzic.imie)
+                @Html.DisplayFor(modelItem => item.Rodzic.nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.haslo)
+            </td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic examlpe">
+                    <input type="button" class="btn btn-default" value="Edytuj" onclick="location.href='@Url.Action("Edit", "Uczen", new { id = item.ID })'" />
+                    <input type="button" class="btn btn-default" value="Szczegóły" onclick="location.href='@Url.Action("Details", "Uczen", new { id = item.ID})'" />
+                    <input type="button" class="btn btn-default" value="Oceny" onclick="location.href='@Url.Action("Oceny", "Uczen", new { id = item.ID})'" />
+                    <input type="button" class="btn btn-default" value="Uwagi" onclick="location.href='@Url.Action("Uwagi", "Uczen", new { id = item.ID})'" />
+                    <input type="button" class="btn btn-default" value="Absencje" onclick="location.href='@Url.Action("Absencje", "Uczen", new { id = item.ID})'" />
+                    <input type="button" class="btn btn-default" value="Usuń" onclick="location.href='@Url.Action("Delete", "Uczen", new { id = item.ID })'" />
+                </div>
+            </td>
+        </tr>
     }
 
 </table>

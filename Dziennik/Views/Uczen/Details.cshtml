@@ -1,41 +1,20 @@
-﻿@model dynamic
-
+﻿@model Dziennik.Models.Uczen
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Szczegóły</h2>
 
 <div>
-    <h4>Uczen</h4>
-
-    @Html.ActionLink("Back to List", "Index")
+    <h4>Uczeń</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Klasa
+            Imię
         </dt>
 
         <dd>
-            @Model.uczen.Klasa.level
-            @Model.uczen.Klasa.nazwa
-        </dd>
-
-        <dt>
-            Rodzic
-        </dt>
-
-        <dd>
-            @Model.uczen.Rodzic.imie
-            @Model.uczen.Rodzic.nazwisko
-        </dd>
-
-        <dt>
-            Imie
-        </dt>
-
-        <dd>
-            @Model.uczen.imie
+            @Html.DisplayFor(model => model.imie)
         </dd>
 
         <dt>
@@ -43,7 +22,25 @@
         </dt>
 
         <dd>
-            @Model.uczen.nazwisko
+            @Html.DisplayFor(model => model.nazwisko)
+        </dd>
+
+        <dt>
+            Rodzic
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rodzic.imie)
+            @Html.DisplayFor(model => model.Rodzic.nazwisko)
+        </dd>
+
+        <dt>
+            Klasa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Klasa.level)
+            @Html.DisplayFor(model => model.Klasa.nazwa)
         </dd>
 
         <dt>
@@ -51,148 +48,20 @@
         </dt>
 
         <dd>
-            @Model.uczen.login
+            @Html.DisplayFor(model => model.login)
         </dd>
 
         <dt>
-            Haslo
+            Hasło
         </dt>
 
         <dd>
-            @Model.uczen.login
+            @Html.DisplayFor(model => model.haslo)
         </dd>
 
     </dl>
 </div>
 <p>
-
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Powrót", "Index")
 </p>
-
-<h2>Oceny</h2>
-
-
-<table class="table">
-    <tr>
-        <th>
-            Nauczyciel
-        </th>
-        <th>
-            Wartosc
-        </th>
-        <th>
-            Waga
-        </th>
-        <th>
-            data
-        </th>
-        <th>
-
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.oceny)
-    {
-        <tr>
-            <td>
-                @item.Nauczyciel.imie
-            </td>
-            <td>
-                @item.ocena
-            </td>
-            <td>
-                @item.waga
-            </td>
-            <td>
-                @item.data
-            </td>
-
-        </tr>
-    }
-
-</table>
-
-<h2>Spoznienia</h2>
-
-
-<table class="table">
-    <tr>
-        <th>
-            Godzina
-        </th>
-        <th>
-            Dzien
-        </th>
-        <th>
-            Data
-        </th>
-        <th>
-
-        </th>
-        <th>
-
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.spoznienia)
-    {
-        <tr>
-            <td>
-                @item.Lekcja.godzina
-            </td>
-            <td>
-                @item.Lekcja.dzien
-            </td>
-            <td>
-                @item.date
-            </td>
-
-
-        </tr>
-    }
-
-</table>
-
-<h2>Nieobecnosci</h2>
-
-
-<table class="table">
-    <tr>
-        <th>
-            Godzina
-        </th>
-        <th>
-            Dzien
-        </th>
-        <th>
-            Data
-        </th>
-        <th>
-
-        </th>
-        <th>
-
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.nieobecnosci)
-    {
-        <tr>
-            <td>
-                @item.Lekcja.godzina
-            </td>
-            <td>
-                @item.Lekcja.dzien
-            </td>
-            <td>
-                @item.date
-            </td>
-
-
-        </tr>
-    }
-
-</table>
-

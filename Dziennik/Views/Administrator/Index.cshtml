@@ -11,9 +11,6 @@
 <br />
 <br />
 
-
-
-
 @using (Html.BeginForm())
 {
     <p>
@@ -24,16 +21,16 @@
 <table class="table table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.imie)
+            Imię
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nazwisko)
+            Nazwisko
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.login)
+            Login
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.haslo)
+            Hasło
         </th>
         <th></th>
     </tr>
@@ -58,7 +55,7 @@
                     <input type="button" class="btn btn-default" value="Edytuj" onclick="location.href='@Url.Action("Edit", "Administrator", new { id = item.ID })'" />
                     <input type="button" class="btn btn-default" value="Szczegóły" onclick="location.href='@Url.Action("Details", "Administrator", new { id = item.ID })'" />
                     <input type="button" class="btn btn-default" value="Usuń" onclick="location.href='@Url.Action("Delete", "Administrator", new { id = item.ID })'" />
-                    </div>
+                </div>
 
             </td>
         </tr>

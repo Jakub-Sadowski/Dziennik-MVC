@@ -5,14 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
 namespace Dziennik.Controllers
 {//
-				public class UczenController : Controller
+    public class UczenController : Controller
 				{
 								private Context db = new Context();
 
@@ -41,16 +40,13 @@ namespace Dziennik.Controllers
 												{
 																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 												}
-												dynamic obj = new ExpandoObject();
-												obj.uczen = db.Uczniowie.Find(id);
-												obj.oceny = db.Oceny.Include(s => s.Nauczyciel).Where(s => s.UczenID == id);
-												obj.spoznienia = db.Spoznienia.Include(s => s.Lekcja).Where(s => s.UczenID == id);
-												obj.nieobecnosci = db.Nieobecnosci.Include(s => s.Lekcja).Where(s => s.UczenID == id);
-												obj.testy = db.Testy_ucznia.Where(s => s.UczenID == id);
-
-
-												return View(obj);
-								}
+			Uczen uczen= db.Uczniowie.Find(id);
+			if (uczen == null)
+			{
+				return HttpNotFound();
+			}
+			return View(uczen);
+		}
 
 								public ActionResult Create()
 								{
@@ -372,15 +368,15 @@ namespace Dziennik.Controllers
 
 												return View();
 												/*
-             *   Spoznienie spoznienie = db.Spoznienia.Find(id);
-            if (spoznienie == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", spoznienie.LekcjaID);
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", spoznienie.UczenID);
-            return View(spoznienie);
-             * */
+			 *   Spoznienie spoznienie = db.Spoznienia.Find(id);
+			if (spoznienie == null)
+			{
+				return HttpNotFound();
+			}
+			ViewBag.LekcjaID = new SelectList(db.Lekcja, "ID", "PrzedmiotID", spoznienie.LekcjaID);
+			ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "FullName", spoznienie.UczenID);
+			return View(spoznienie);
+			 * */
 								}
 								[HttpPost]
 								[ValidateAntiForgeryToken]

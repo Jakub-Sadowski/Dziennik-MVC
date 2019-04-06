@@ -2,51 +2,62 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<center><h2>Nauczyciele</h2></center>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<input type="button" class="btn btn-default" value="Nowy" onclick="location.href='@Url.Action("Create", "Nauczyciel")'" />
+
+<br />
+<br />
+
+@using (Html.BeginForm())
+{
+    <p>
+        Szukaj osobę: @Html.TextBox("search")
+        <input type="submit" value="Szukaj" />
+    </p>
+}
+<table class="table table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.imie)
+            Imię
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nazwisko)
+            Nazwisko
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.login)
+            Login
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.haslo)
+            Hasło
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.imie)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nazwisko)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.haslo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.NauczycielID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.NauczycielID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.NauczycielID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.haslo)
+            </td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic examlpe">
+                    <input type="button" class="btn btn-default" value="Edytuj" onclick="location.href='@Url.Action("Edit", "Nauczyciel", new { id = item.NauczycielID })'" />
+                    <input type="button" class="btn btn-default" value="Szczegóły" onclick="location.href='@Url.Action("Details", "Nauczyciel", new { id = item.NauczycielID})'" />
+                    <input type="button" class="btn btn-default" value="Usuń" onclick="location.href='@Url.Action("Delete", "Nauczyciel", new { id = item.NauczycielID })'" />
+                </div>
+            </td>
+        </tr>
+    }
 
 </table>
