@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -148,6 +149,65 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+        public ActionResult Profil(int? id,int? liczba)
+        {
+            ViewBag.control = liczba;
+            if ((string)Session["Status"] != "Admin" || Int32.Parse((string)Session["UserID"]) != id)
+                return RedirectToAction("Index", "Home");
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Administrator administrator = db.Administratorzy.Find(id);
+            if (administrator == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.lista = db.Administratorzy.ToList();
+            
+            return View(administrator);
+
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Zmien_login(Administrator admin)
+        {
+            int liczba;
+            if ((string)Session["Status"] != "Admin" || Int32.Parse((string)Session["UserID"]) != admin.ID)
+                return RedirectToAction("Index", "Home");
+
+            if (admin == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (db.Administratorzy.Where(a => a.login == admin.login).Count() > 0 && db.Administratorzy.Find(admin.ID).login != admin.login)
+                liczba = 1;
+
+            else
+            {
+                liczba = 0;
+                if (ModelState.IsValid)
+                {
+
+                    db.Administratorzy.AddOrUpdate(admin);
+                    db.SaveChanges();
+
+                }
+
+            } 
+
+            return RedirectToAction("Profil", "Administrator", new { id = admin.ID, liczba = liczba });
+
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {
