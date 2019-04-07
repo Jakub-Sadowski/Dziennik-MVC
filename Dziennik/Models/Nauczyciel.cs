@@ -12,10 +12,11 @@ namespace Dziennik.Models
     {
         public int? NauczycielID { get; set; }
         
-        public string imie { get; set; }
-        public string nazwisko { get; set; }
-        public string login { get; set; }
-        public string haslo { get; set; }
+        public string Imie { get; set; }
+        public string Nazwisko { get; set; }
+        public string Login { get; set; }
+        public string Haslo { get; set; }
+        public string Email { get; set; }
 
 
         public virtual ICollection<Zapytanie> Zapytania { get; set; }
@@ -33,7 +34,7 @@ namespace Dziennik.Models
         {
             get
             {
-                return imie + " " + nazwisko;
+                return Imie + " " + Nazwisko;
             }
         }
     }

@@ -931,6 +931,88 @@ namespace Dziennik.Controllers
 												return View(lekcje);
 								}
 
+								#region Pytanie do nauczyciela
+								public ActionResult PytaniaDoNauczyciela()
+								{
+												if ((string)Session["Status"] != "Uczen")
+																return RedirectToAction("Index", "Home");
+
+												var userId = Convert.ToInt32(Session["UserID"]);
+												return View(db.Pytania_ucznia.Where(x => x.UczenID == userId).OrderByDescending(x => x.Data_pytania).ToList());
+								}
+
+								public ActionResult DodawaniePytaniaDoNauczyciela()
+								{
+												if ((string)Session["Status"] != "Uczen")
+																return RedirectToAction("Index", "Home");
+
+												ViewBag.Nauczyciel = db.Nauczyciele.ToList();
+												return View();
+								}
+
+								[HttpPost]
+								[ValidateAntiForgeryToken]
+								public ActionResult DodawaniePytaniaDoNauczyciela([Bind(Include = "NauczycielID, Pytanie")] Pytanie_ucznia pytanie)
+								{
+												if ((string)Session["Status"] != "Rodzic")
+																return RedirectToAction("Index", "Home");
+
+												if (ModelState.IsValid)
+												{
+																var userId = Convert.ToInt32(Session["UserID"]);
+																pytanie.Data_pytania = DateTime.Now;
+																pytanie.UczenID= userId;
+																db.Pytania_ucznia.Add(pytanie);
+																db.SaveChanges();
+
+																var uczen = db.Uczniowie.Find(userId);
+																var nauczyciel = db.Nauczyciele.Find(pytanie.NauczycielID);
+																EmailHelper.Send(nauczyciel.Email,EmailHelper.APP_EMAIL,$"Uczen {uczen.FullName} zadał pytanie.\n{pytanie.Pytanie}","Pytanie od ucznia");
+																return RedirectToAction("PytaniaDoNauczyciela");
+												}
+
+												return View(pytanie);
+								}
+
+								public ActionResult PytanieDoNauczyciela(int? id)
+								{
+												if (id == null)
+												{
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+												}
+												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
+												if (pytanie_ucznia == null)
+												{
+																return HttpNotFound();
+												}
+												return View(pytanie_ucznia);
+								}
+
+								public ActionResult PytanieDoNauczycielaDelete(int? id)
+								{
+												if (id == null)
+												{
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+												}
+												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
+												if (pytanie_ucznia == null)
+												{
+																return HttpNotFound();
+												}
+												return View(pytanie_ucznia);
+								}
+
+								[HttpPost, ActionName("Delete")]
+								[ValidateAntiForgeryToken]
+								public ActionResult PytanieDoNauczycielaDeleteConfirmed(int id)
+								{
+												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
+												db.Pytania_ucznia.Remove(pytanie_ucznia);
+												db.SaveChanges();
+												return RedirectToAction("PytaniaDoNauczyciela");
+								}
+								#endregion
+
 								protected override void Dispose(bool disposing)
 								{
 												if (disposing)

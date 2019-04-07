@@ -26,6 +26,7 @@ namespace Dziennik.DAL
         public DbSet<Plik> Pliki { get; set; }
         public DbSet<Przedmiot> Przedmioty { get; set; }
         public DbSet<Pytanie> Pytania { get; set; }
+        public DbSet<Pytanie_ucznia> Pytania_ucznia { get; set; }
 
         public DbSet<Rodzic> Rodzice { get; set; }
         public DbSet<Spoznienie> Spoznienia { get; set; }

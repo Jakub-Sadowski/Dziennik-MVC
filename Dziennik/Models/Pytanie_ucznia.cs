@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Dziennik.Models
+{
+				public class Pytanie_ucznia
+				{
+								public int ID { get; set; }
+								public int? NauczycielID { get; set; }
+								public int? UczenID { get; set; }
+
+								public string Pytanie { get; set; }
+								public string Odpowiedz { get; set; }
+
+								public DateTime Data_pytania { get; set; }
+								public DateTime? Data_odpowiedzi { get; set; }
+
+								public virtual Nauczyciel Nauczyciel { get; set; }
+								public virtual Uczen Uczen { get; set; }
+				}
+}

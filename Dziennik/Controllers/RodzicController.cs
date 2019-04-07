@@ -466,11 +466,8 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(zapytanie);
-
-
-
-
         }
         protected override void Dispose(bool disposing)
         {

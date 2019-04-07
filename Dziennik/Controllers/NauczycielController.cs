@@ -348,7 +348,7 @@ namespace Dziennik.Controllers
                          select s;
             if (!String.IsNullOrEmpty(search))
             {
-                lekcje = lekcje.Where(s => (s.Nauczyciel.imie + " " + s.Nauczyciel.nazwisko).Contains(search));
+                lekcje = lekcje.Where(s => (s.Nauczyciel.Imie + " " + s.Nauczyciel.Nazwisko).Contains(search));
             }
 
             if (lekcje == null)
@@ -1240,32 +1240,9 @@ namespace Dziennik.Controllers
 
             }
 
+            var subject = "Zestawienie ocen " + uczen.imie + " " + uczen.nazwisko;
+												EmailHelper.Send(rodzic.Email, EmailHelper.APP_EMAIL, body, subject);
 
-
-
-
-            var message = new MailMessage();
-
-            message.To.Add(new MailAddress(rodzic.Email));
-
-            message.From = new MailAddress("mojagracv@gmail.com");
-            message.Subject = "Zestawienie ocen " + uczen.imie + " " + uczen.nazwisko;
-            message.Body = body;
-            message.IsBodyHtml = true;
-
-            using (var smtp = new SmtpClient())
-            {
-                var credential = new NetworkCredential
-                {
-                    UserName = "mojagracv@gmail.com",  // replace with valid value
-                    Password = "civilization96"  // replace with valid value
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(message);
-            }
             return RedirectToAction("Index");
 
         }
@@ -1292,8 +1269,8 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index", "Home");
             var id = Convert.ToInt32(Session["UserID"]);
             Nauczyciel nauczyciel = db.Nauczyciele.Find(id);
-            ViewBag.Imie = nauczyciel.imie;
-            ViewBag.Nazwisko = nauczyciel.nazwisko;
+            ViewBag.Imie = nauczyciel.Imie;
+            ViewBag.Nazwisko = nauczyciel.Nazwisko;
 
             return View(nauczyciel);
 
@@ -1311,8 +1288,8 @@ namespace Dziennik.Controllers
 
             // Update fields
             user.NauczycielID = userprofile.NauczycielID;
-            user.imie = userprofile.imie;
-            user.nazwisko = userprofile.nazwisko;
+            user.Imie = userprofile.Imie;
+            user.Nazwisko = userprofile.Nazwisko;
 
             db.Entry(user).State = EntityState.Modified;
 
@@ -1472,8 +1449,51 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Pytania", new { id = idTestu });
         }
-        #endregion
-        protected override void Dispose(bool disposing)
+								#endregion
+
+								#region Pytania uczniów
+								public ActionResult PytaniaDoNauczyciela()
+								{
+												if ((string)Session["Status"] != "Uczen")
+																return RedirectToAction("Index", "Home");
+
+												var userId = Convert.ToInt32(Session["UserID"]);
+												return View(db.Pytania_ucznia.Where(x => x.NauczycielID == userId).OrderByDescending(x => x.Data_pytania).ToList());
+								}
+
+								public ActionResult PytaniaDoNauczycielaOdpowiedz()
+								{
+												if ((string)Session["Status"] != "Uczen")
+																return RedirectToAction("Index", "Home");
+
+												return View();
+								}
+
+								[HttpPost]
+								[ValidateAntiForgeryToken]
+								public ActionResult PytaniaDoNauczycielaOdpowiedz([Bind(Include = "Odpowiedz")] Pytanie_ucznia pytanie)
+								{
+												if ((string)Session["Status"] != "Rodzic")
+																return RedirectToAction("Index", "Home");
+
+												if (ModelState.IsValid)
+												{
+																var userId = Convert.ToInt32(Session["UserID"]);
+																pytanie.Data_odpowiedzi = DateTime.Now;
+																pytanie.UczenID = userId;
+																db.Pytania_ucznia.Add(pytanie);
+																db.SaveChanges();
+
+																var uczen = db.Uczniowie.Find(userId);
+																var nauczyciel = db.Nauczyciele.Find(pytanie.NauczycielID);
+																return RedirectToAction("PytaniaDoNauczyciela");
+												}
+
+												return View(pytanie);
+								}
+
+								#endregion
+								protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

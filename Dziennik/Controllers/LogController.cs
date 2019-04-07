@@ -50,12 +50,12 @@ namespace Dziennik.Controllers
                             uczen.nazwisko.ToString(), "Uczen", rememberme);
                     return RedirectToAction("Zalogowany");
                 }
-                var nauczyciel = db.Nauczyciele.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
+                var nauczyciel = db.Nauczyciele.Where(a => a.Login.Equals(login) && a.Haslo.Equals(password)).FirstOrDefault();
                 if (nauczyciel != null)
                 {
                     SetSessionAndCookies(
-                            nauczyciel.NauczycielID.ToString(), nauczyciel.login.ToString(), nauczyciel.imie.ToString(),
-                            nauczyciel.nazwisko.ToString(), "Nauczyciel", rememberme);
+                            nauczyciel.NauczycielID.ToString(), nauczyciel.Login.ToString(), nauczyciel.Imie.ToString(),
+                            nauczyciel.Nazwisko.ToString(), "Nauczyciel", rememberme);
                     return RedirectToAction("Pytania_rodzicow","Nauczyciel");
                 }
                 ViewBag.message = "Błędny login lub hasło";
