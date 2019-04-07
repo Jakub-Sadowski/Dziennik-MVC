@@ -215,7 +215,7 @@ namespace Dziennik.DAL
          .WillCascadeOnDelete(true);
         }
 
-
+        public System.Data.Entity.DbSet<Dziennik.Models.Donos> Donos { get; set; }
     }
 
 

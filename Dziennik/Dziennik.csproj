@@ -171,6 +171,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\API\ChatMessage.cs" />
+    <Compile Include="Controllers\DonosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlasaController.cs" />
     <Compile Include="Controllers\LekcjaController.cs" />
@@ -275,9 +276,14 @@
     <Compile Include="Migrations\201901231730285_aaaaaaaaa.Designer.cs">
       <DependentUpon>201901231730285_aaaaaaaaa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904071431529_donos.cs" />
+    <Compile Include="Migrations\201904071431529_donos.Designer.cs">
+      <DependentUpon>201904071431529_donos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\Donos.cs" />
     <Compile Include="Models\Zapytanie.cs" />
     <Compile Include="Models\Klasa.cs" />
     <Compile Include="Models\Nauczyciel.cs" />
@@ -305,7 +311,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Dziennik.dll" />
-    <Content Include="bin\Dziennik.pdb" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -472,6 +477,9 @@
     <Content Include="Views\Nauczyciel\Odpowiedz_pytanie.cshtml" />
     <Content Include="Views\Rodzic\DodawanieZapytania.cshtml" />
     <Content Include="Views\Rodzic\EdytowanieNieobecnosci.cshtml" />
+    <Content Include="Views\Donos\Create.cshtml" />
+    <Content Include="Views\Donos\Delete.cshtml" />
+    <Content Include="Views\Donos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -555,6 +563,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901231730285_aaaaaaaaa.resx">
       <DependentUpon>201901231730285_aaaaaaaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904071431529_donos.resx">
+      <DependentUpon>201904071431529_donos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
