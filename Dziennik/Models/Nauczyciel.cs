@@ -11,7 +11,7 @@ namespace Dziennik.Models
     public class Nauczyciel
     {
         public int? NauczycielID { get; set; }
-        
+        public string Email { get; set; }
         public string imie { get; set; }
         public string nazwisko { get; set; }
         public string login { get; set; }

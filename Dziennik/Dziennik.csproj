@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201904071431529_donos.Designer.cs">
       <DependentUpon>201904071431529_donos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904071506147_donosyv2-DI2018-70.cs" />
+    <Compile Include="Migrations\201904071506147_donosyv2-DI2018-70.Designer.cs">
+      <DependentUpon>201904071506147_donosyv2-DI2018-70.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -566,6 +570,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904071431529_donos.resx">
       <DependentUpon>201904071431529_donos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904071506147_donosyv2-DI2018-70.resx">
+      <DependentUpon>201904071506147_donosyv2-DI2018-70.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
