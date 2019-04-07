@@ -48,7 +48,7 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NauczycielID,imie,nazwisko,login,haslo")] Nauczyciel nauczyciel)
+        public ActionResult Create([Bind(Include = "NauczycielID,Imie,Nazwisko,Login,Haslo")] Nauczyciel nauczyciel)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NauczycielID,imie,nazwisko,login,haslo")] Nauczyciel nauczyciel)
+        public ActionResult Edit([Bind(Include = "NauczycielID,Imie,Nazwisko,Login,Haslo")] Nauczyciel nauczyciel)
         {
             if (ModelState.IsValid)
             {
@@ -337,9 +337,9 @@ namespace Dziennik.Controllers
             //                select s;
             //if (!String.IsNullOrEmpty(search))
             //{
-            //    nauczyciele = nauczyciele.Where(s => (s.imie + " " + s.nazwisko).Contains(search));
+            //    nauczyciele = nauczyciele.Where(s => (s.Imie + " " + s.Nazwisko).Contains(search));
             //}
-            //nauczyciele = nauczyciele.OrderByDescending(s => s.nazwisko);
+            //nauczyciele = nauczyciele.OrderByDescending(s => s.Nazwisko);
 
 
             //return View(nauczyciele.ToList());
@@ -1017,8 +1017,8 @@ namespace Dziennik.Controllers
             }
 
             var uwagi = db.Uwagi.Where(s => s.UczenID == id);
-            ViewBag.imie = db.Uczniowie.Find(id).imie;
-            ViewBag.nazwisko = db.Uczniowie.Find(id).nazwisko;
+            ViewBag.Imie = db.Uczniowie.Find(id).Imie;
+            ViewBag.Nazwisko = db.Uczniowie.Find(id).Nazwisko;
             ViewBag.id = id;
             return View(uwagi);
 
@@ -1240,7 +1240,7 @@ namespace Dziennik.Controllers
 
             }
 
-            var subject = "Zestawienie ocen " + uczen.imie + " " + uczen.nazwisko;
+            var subject = "Zestawienie ocen " + uczen.Imie + " " + uczen.Nazwisko;
 												EmailHelper.Send(rodzic.Email, EmailHelper.APP_EMAIL, body, subject);
 
             return RedirectToAction("Index");
@@ -1277,7 +1277,7 @@ namespace Dziennik.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EdycjaProfilu([Bind(Include = "NauczycielID, imie, nazwisko")]Nauczyciel userprofile)
+        public ActionResult EdycjaProfilu([Bind(Include = "NauczycielID, Imie, Nazwisko")]Nauczyciel userprofile)
         {
             //XDDDDDDDDDDDDDDDDDDDDD
             // if (ModelState.IsValid)

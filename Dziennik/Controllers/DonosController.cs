@@ -45,8 +45,8 @@ namespace Dziennik.Controllers
         {
             if ((string)Session["Status"] != "Uczen")
                 return RedirectToAction("Index", "Home");
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie");
-            //ViewBag.RodzicID = new SelectList(db.Rodzics, "ID", "imie");
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie");
+            //ViewBag.RodzicID = new SelectList(db.Rodzics, "ID", "Imie");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", donos.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", donos.NauczycielID);
             donos.data_pytania = DateTime.Now;
             var user = Session["UserID"];
             string ide = user.ToString();
@@ -111,7 +111,7 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", donos.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", donos.NauczycielID);
             return View(donos);
         }*/
 
@@ -128,8 +128,8 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciels, "NauczycielID", "imie", donos.NauczycielID);
-            ViewBag.RodzicID = new SelectList(db.Rodzics, "ID", "imie", donos.RodzicID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciels, "NauczycielID", "Imie", donos.NauczycielID);
+            ViewBag.RodzicID = new SelectList(db.Rodzics, "ID", "Imie", donos.RodzicID);
             return View(donos);
         }
         */

@@ -24,9 +24,9 @@ namespace Dziennik.Controllers
                            select s;
             if (!String.IsNullOrEmpty(search))
             {
-                admini = admini.Where(s => (s.imie+" "+s.nazwisko).Contains(search));
+                admini = admini.Where(s => (s.Imie+" "+s.Nazwisko).Contains(search));
             }
-            admini = admini.OrderByDescending(s => s.nazwisko);
+            admini = admini.OrderByDescending(s => s.Nazwisko);
             return View(admini.ToList());
         }
         
@@ -57,15 +57,15 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
+        public ActionResult Create([Bind(Include = "ID,Imie,Nazwisko,Login,Haslo")] Administrator administrator)
 		{
 			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
-			List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
+			List<Administrator> admin = db.Administratorzy.Where(a => a.Login == administrator.Login).ToList();
             if(admin.Count != 0)
             {
-                ModelState.AddModelError("", "Podany login istnieje w bazie.");
+                ModelState.AddModelError("", "Podany Login istnieje w bazie.");
             }
             else  
 
@@ -100,15 +100,15 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo")] Administrator administrator)
+        public ActionResult Edit([Bind(Include = "ID,Imie,Nazwisko,Login,Haslo")] Administrator administrator)
 		{
 			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
-			List<Administrator> admin = db.Administratorzy.Where(a => a.login == administrator.login).ToList();
+			List<Administrator> admin = db.Administratorzy.Where(a => a.Login == administrator.Login).ToList();
             if (admin.Count != 0)
             {
-                ModelState.AddModelError("", "Podany login istnieje w bazie.");
+                ModelState.AddModelError("", "Podany Login istnieje w bazie.");
             }
             else
             if (ModelState.IsValid)
@@ -175,7 +175,7 @@ namespace Dziennik.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Zmien_login(Administrator admin)
+        public ActionResult Zmien_Login(Administrator admin)
         {
             int liczba;
             if ((string)Session["Status"] != "Admin" || Int32.Parse((string)Session["UserID"]) != admin.ID)
@@ -186,7 +186,7 @@ namespace Dziennik.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            if (db.Administratorzy.Where(a => a.login == admin.login).Count() > 0 && db.Administratorzy.Find(admin.ID).login != admin.login)
+            if (db.Administratorzy.Where(a => a.Login == admin.Login).Count() > 0 && db.Administratorzy.Find(admin.ID).Login != admin.Login)
                 liczba = 1;
 
             else

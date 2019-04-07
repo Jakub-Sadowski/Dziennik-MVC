@@ -23,10 +23,10 @@ namespace Dziennik.Controllers
                             select s;
             if (!String.IsNullOrEmpty(search))
             {
-                rodzice = rodzice.Where(s => s.nazwisko.Contains(search)
-                                       || s.imie.Contains(search));
+                rodzice = rodzice.Where(s => s.Nazwisko.Contains(search)
+                                       || s.Imie.Contains(search));
             }
-            rodzice = rodzice.OrderByDescending(s => s.nazwisko);
+            rodzice = rodzice.OrderByDescending(s => s.Nazwisko);
             return View(rodzice.ToList());
         }
 
@@ -57,15 +57,15 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo")] Rodzic rodzic)
+        public ActionResult Create([Bind(Include = "ID,Imie,Nazwisko,Login,Haslo")] Rodzic rodzic)
         {
 			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
-			List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
+			List<Rodzic> rodzice = db.Rodzice.Where(a => a.Login == rodzic.Login).ToList();
             if (rodzice.Count != 0)
             {
-                ModelState.AddModelError("", "Podany login istnieje w bazie.");
+                ModelState.AddModelError("", "Podany Login istnieje w bazie.");
             }
             if (ModelState.IsValid)
             {
@@ -97,15 +97,15 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo")] Rodzic rodzic)
+        public ActionResult Edit([Bind(Include = "ID,Imie,Nazwisko,Login,Haslo")] Rodzic rodzic)
         {
 			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
-			List<Rodzic> rodzice = db.Rodzice.Where(a => a.login == rodzic.login).ToList();
+			List<Rodzic> rodzice = db.Rodzice.Where(a => a.Login == rodzic.Login).ToList();
             if (rodzice.Count != 0)
             {
-                ModelState.AddModelError("", "Podany login istnieje w bazie.");
+                ModelState.AddModelError("", "Podany Login istnieje w bazie.");
             }
             if (ModelState.IsValid)
             {
@@ -189,8 +189,8 @@ namespace Dziennik.Controllers
                     return RedirectToAction("Index", "Home");
                 else
                 {
-                    ViewBag.imie = dzieci[0].imie;
-                    ViewBag.nazwisko = dzieci[0].nazwisko;
+                    ViewBag.Imie = dzieci[0].Imie;
+                    ViewBag.Nazwisko = dzieci[0].Nazwisko;
                     int id_dziecka = dzieci[0].ID;
                     var oceny = db.Oceny.Where(s => s.UczenID == id_dziecka).ToList();
                     return View(oceny);
@@ -202,8 +202,8 @@ namespace Dziennik.Controllers
                 Uczen uczen = db.Uczniowie.Find(id);
                 if(uczen == null)
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                ViewBag.imie = uczen.imie;
-                ViewBag.nazwisko = uczen.nazwisko;
+                ViewBag.Imie = uczen.Imie;
+                ViewBag.Nazwisko = uczen.Nazwisko;
                 var oceny = db.Oceny.Where(s => s.UczenID == id).ToList();
                 return View(oceny);
             }
@@ -230,8 +230,8 @@ namespace Dziennik.Controllers
                     return RedirectToAction("Index", "Home");
                 else
                 {
-                    ViewBag.imie = dzieci[0].imie;
-                    ViewBag.nazwisko = dzieci[0].nazwisko;
+                    ViewBag.Imie = dzieci[0].Imie;
+                    ViewBag.Nazwisko = dzieci[0].Nazwisko;
                     int id_dziecka = dzieci[0].ID;
                     var model = new Absencja();
 
@@ -246,8 +246,8 @@ namespace Dziennik.Controllers
                 Uczen uczen = db.Uczniowie.Find(id);
                 if (uczen == null)
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                ViewBag.imie = uczen.imie;
-                ViewBag.nazwisko = uczen.nazwisko;
+                ViewBag.Imie = uczen.Imie;
+                ViewBag.Nazwisko = uczen.Nazwisko;
                 var model = new Absencja();
                 model.Nieobecnosci = GetNieobecnosciModel(uczen.ID);
                 model.Spoznienia = GetSpoznieniaModel(uczen.ID);
@@ -298,8 +298,8 @@ namespace Dziennik.Controllers
                     return RedirectToAction("Index", "Home");
                 else
                 {
-                    ViewBag.imie = dzieci[0].imie;
-                    ViewBag.nazwisko = dzieci[0].nazwisko;
+                    ViewBag.Imie = dzieci[0].Imie;
+                    ViewBag.Nazwisko = dzieci[0].Nazwisko;
                     int id_dziecka = dzieci[0].ID;
                     var lekcje = db.Lekcja
                      .Where(l => l.KlasaID == klasa.KlasaID)
@@ -312,8 +312,8 @@ namespace Dziennik.Controllers
                 Uczen uczen = db.Uczniowie.Find(id);
                 if (uczen == null)
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                ViewBag.imie = uczen.imie;
-                ViewBag.nazwisko = uczen.nazwisko;
+                ViewBag.Imie = uczen.Imie;
+                ViewBag.Nazwisko = uczen.Nazwisko;
                 var lekcje = db.Lekcja
                     .Where(l => l.KlasaID == klasa.KlasaID)
                     .ToList();
@@ -344,8 +344,8 @@ namespace Dziennik.Controllers
                     return RedirectToAction("Index", "Home");
                 else
                 {
-                    ViewBag.imie = dzieci[0].imie;
-                    ViewBag.nazwisko = dzieci[0].nazwisko;
+                    ViewBag.Imie = dzieci[0].Imie;
+                    ViewBag.Nazwisko = dzieci[0].Nazwisko;
                     int id_dziecka = dzieci[0].ID;
                     var uwagi_dziecka = from s in db.Uwagi
                                 select s;
@@ -358,8 +358,8 @@ namespace Dziennik.Controllers
                 Uczen uczen = db.Uczniowie.Find(id);
                 if (uczen == null)
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                ViewBag.imie = uczen.imie;
-                ViewBag.nazwisko = uczen.nazwisko;
+                ViewBag.Imie = uczen.Imie;
+                ViewBag.Nazwisko = uczen.Nazwisko;
                 var uwagi = from s in db.Uwagi
                             select s;
                 uwagi = uwagi.Where(s => s.Uczen.RodzicID == id_rodzica);
@@ -387,8 +387,8 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index", "Home");
             var id = Convert.ToInt32(Session["UserID"]);
             Rodzic rodzic = db.Rodzice.Find(id);
-            ViewBag.Imie = rodzic.imie;
-            ViewBag.Nazwisko = rodzic.nazwisko;
+            ViewBag.Imie = rodzic.Imie;
+            ViewBag.Nazwisko = rodzic.Nazwisko;
             ViewBag.Email = rodzic.Email;
 
             return View(rodzic);
@@ -405,7 +405,7 @@ namespace Dziennik.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EdycjaProfilu([Bind(Include = "ID, imie, nazwisko, Email")]Rodzic userprofile)
+        public ActionResult EdycjaProfilu([Bind(Include = "ID, Imie, Nazwisko, Email")]Rodzic userprofile)
         {
             //XDDDDDDDDDDDDDDDDDDDDD
             // if (ModelState.IsValid)
@@ -416,8 +416,8 @@ namespace Dziennik.Controllers
 
             // Update fields
                 user.ID = userprofile.ID;
-                user.imie = userprofile.imie;
-                user.nazwisko = userprofile.nazwisko;
+                user.Imie = userprofile.Imie;
+                user.Nazwisko = userprofile.Nazwisko;
                 user.Email = userprofile.Email;
                 
                 db.Entry(user).State = EntityState.Modified;
@@ -441,7 +441,7 @@ namespace Dziennik.Controllers
            // ViewBag.NauczycielID = new SelectList(new List<SelectListItem>
             //    {
              //       new SelectListItem { Text = "ID", Value = ((int)n.NauczycielID).ToString()},
-              //      new SelectListItem { Text = "Imie", Value = n.imie},
+              //      new SelectListItem { Text = "Imie", Value = n.Imie},
              //   }, "Value", "Text");
             return View();
 

@@ -93,7 +93,7 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", ogloszenie.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", ogloszenie.NauczycielID);
 
             return View(ogloszenie);
         }
@@ -112,7 +112,7 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", ogloszenie.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", ogloszenie.NauczycielID);
             return View(ogloszenie);
         }
 

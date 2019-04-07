@@ -289,6 +289,10 @@
     <Compile Include="Migrations\201904071559450_pytania-uczniow.Designer.cs">
       <DependentUpon>201904071559450_pytania-uczniow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904071628171_nazwy.cs" />
+    <Compile Include="Migrations\201904071628171_nazwy.Designer.cs">
+      <DependentUpon>201904071628171_nazwy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -588,6 +592,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904071559450_pytania-uczniow.resx">
       <DependentUpon>201904071559450_pytania-uczniow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904071628171_nazwy.resx">
+      <DependentUpon>201904071628171_nazwy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

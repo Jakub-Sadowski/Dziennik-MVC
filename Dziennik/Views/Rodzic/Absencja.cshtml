@@ -6,7 +6,7 @@
     ViewBag.Title = "Absencja";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Absencja ucznia: @ViewBag.imie @ViewBag.nazwisko</h2>
+<h2>Absencja ucznia: @ViewBag.Imie @ViewBag.Nazwisko</h2>
 <h2>Nieobecności</h2>
 @Html.Partial("_Nieobecnosci", Model.Nieobecnosci)
 
@@ -27,7 +27,7 @@
             {
 
 
-                <option value="@item.ID">@item.imie @item.nazwisko</option>
+                <option value="@item.ID">@item.Imie @item.Nazwisko</option>
 
 
             }

@@ -44,7 +44,7 @@ namespace Dziennik.Controllers
 				return RedirectToAction("Index", "Home");
 
 			ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie");
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie");
             ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa");
             return View();
         }
@@ -64,7 +64,7 @@ namespace Dziennik.Controllers
             }
 
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", lekcja.KlasaID);
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", lekcja.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", lekcja.NauczycielID);
             ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", lekcja.PrzedmiotID);
             return View(lekcja);
         }
@@ -84,7 +84,7 @@ namespace Dziennik.Controllers
                 return HttpNotFound();
             }
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", lekcja.KlasaID);
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", lekcja.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", lekcja.NauczycielID);
             ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", lekcja.PrzedmiotID);
             return View(lekcja);
         }
@@ -103,7 +103,7 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa", lekcja.KlasaID);
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", lekcja.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", lekcja.NauczycielID);
             ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", lekcja.PrzedmiotID);
             return View(lekcja);
         }

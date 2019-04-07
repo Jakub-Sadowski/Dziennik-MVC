@@ -31,10 +31,10 @@ namespace Dziennik.Migrations
                 .Index(t => t.NauczycielID)
                 .Index(t => t.RodzicID);
             
-            AlterColumn("dbo.Nauczyciel", "imie", c => c.String());
-            AlterColumn("dbo.Nauczyciel", "nazwisko", c => c.String());
-            AlterColumn("dbo.Nauczyciel", "login", c => c.String());
-            AlterColumn("dbo.Nauczyciel", "haslo", c => c.String());
+            AlterColumn("dbo.Nauczyciel", "Imie", c => c.String());
+            AlterColumn("dbo.Nauczyciel", "Nazwisko", c => c.String());
+            AlterColumn("dbo.Nauczyciel", "Login", c => c.String());
+            AlterColumn("dbo.Nauczyciel", "Haslo", c => c.String());
             DropTable("dbo.Wiadomosc");
         }
         
@@ -60,10 +60,10 @@ namespace Dziennik.Migrations
             DropForeignKey("dbo.Zapytanie", "NauczycielID", "dbo.Nauczyciel");
             DropIndex("dbo.Zapytanie", new[] { "RodzicID" });
             DropIndex("dbo.Zapytanie", new[] { "NauczycielID" });
-            AlterColumn("dbo.Nauczyciel", "haslo", c => c.String(nullable: false));
-            AlterColumn("dbo.Nauczyciel", "login", c => c.String(nullable: false));
-            AlterColumn("dbo.Nauczyciel", "nazwisko", c => c.String(nullable: false));
-            AlterColumn("dbo.Nauczyciel", "imie", c => c.String(nullable: false));
+            AlterColumn("dbo.Nauczyciel", "Haslo", c => c.String(nullable: false));
+            AlterColumn("dbo.Nauczyciel", "Login", c => c.String(nullable: false));
+            AlterColumn("dbo.Nauczyciel", "Nazwisko", c => c.String(nullable: false));
+            AlterColumn("dbo.Nauczyciel", "Imie", c => c.String(nullable: false));
             DropTable("dbo.Zapytanie");
             CreateIndex("dbo.Wiadomosc", "Uczen_ID");
             CreateIndex("dbo.Wiadomosc", "Rodzic_ID");

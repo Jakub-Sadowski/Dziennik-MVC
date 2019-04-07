@@ -22,35 +22,35 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string login, string password, bool rememberme)
+        public ActionResult Login(string Login, string password, bool rememberme)
         {
             if (ModelState.IsValid)
             {
-                var admin = db.Administratorzy.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
+                var admin = db.Administratorzy.Where(a => a.Login.Equals(Login) && a.Haslo.Equals(password)).FirstOrDefault();
                 if (admin != null)
                 {
                     SetSessionAndCookies(
-                        admin.ID.ToString(), admin.login.ToString(), admin.imie.ToString(),
-                        admin.nazwisko.ToString(), "Admin", rememberme);
+                        admin.ID.ToString(), admin.Login.ToString(), admin.Imie.ToString(),
+                        admin.Nazwisko.ToString(), "Admin", rememberme);
                     return RedirectToAction("Zalogowany");
                 }
-                var rodzic = db.Rodzice.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
+                var rodzic = db.Rodzice.Where(a => a.Login.Equals(Login) && a.Haslo.Equals(password)).FirstOrDefault();
                 if (rodzic != null)
                 {
                     SetSessionAndCookies(
-                            rodzic.ID.ToString(), rodzic.login.ToString(), rodzic.imie.ToString(),
-                            rodzic.nazwisko.ToString(), "Rodzic", rememberme);
+                            rodzic.ID.ToString(), rodzic.Login.ToString(), rodzic.Imie.ToString(),
+                            rodzic.Nazwisko.ToString(), "Rodzic", rememberme);
                     return RedirectToAction("Zalogowany");
                 }
-                var uczen = db.Uczniowie.Where(a => a.login.Equals(login) && a.haslo.Equals(password)).FirstOrDefault();
+                var uczen = db.Uczniowie.Where(a => a.Login.Equals(Login) && a.Haslo.Equals(password)).FirstOrDefault();
                 if (uczen != null)
                 {
                     SetSessionAndCookies(
-                            uczen.ID.ToString(), uczen.login.ToString(), uczen.imie.ToString(),
-                            uczen.nazwisko.ToString(), "Uczen", rememberme);
+                            uczen.ID.ToString(), uczen.Login.ToString(), uczen.Imie.ToString(),
+                            uczen.Nazwisko.ToString(), "Uczen", rememberme);
                     return RedirectToAction("Zalogowany");
                 }
-                var nauczyciel = db.Nauczyciele.Where(a => a.Login.Equals(login) && a.Haslo.Equals(password)).FirstOrDefault();
+                var nauczyciel = db.Nauczyciele.Where(a => a.Login.Equals(Login) && a.Haslo.Equals(password)).FirstOrDefault();
                 if (nauczyciel != null)
                 {
                     SetSessionAndCookies(
@@ -58,7 +58,7 @@ namespace Dziennik.Controllers
                             nauczyciel.Nazwisko.ToString(), "Nauczyciel", rememberme);
                     return RedirectToAction("Pytania_rodzicow","Nauczyciel");
                 }
-                ViewBag.message = "Błędny login lub hasło";
+                ViewBag.message = "Błędny Login lub hasło";
             }
 
             

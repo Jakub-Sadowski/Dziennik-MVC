@@ -66,7 +66,7 @@ namespace Dziennik.Controllers
             }
 
             ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "imie", ocena.UczenID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "Imie", ocena.UczenID);
             return View(ocena);
         }
 
@@ -82,9 +82,9 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", ocena.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", ocena.NauczycielID);
             ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "imie", ocena.UczenID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "Imie", ocena.UczenID);
             return View(ocena);
         }
 
@@ -101,9 +101,9 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", ocena.NauczycielID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", ocena.NauczycielID);
             ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa", ocena.PrzedmiotID);
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "imie", ocena.UczenID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "Imie", ocena.UczenID);
             return View(ocena);
         }
 

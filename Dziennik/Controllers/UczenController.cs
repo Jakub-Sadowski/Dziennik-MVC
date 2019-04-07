@@ -25,9 +25,9 @@ namespace Dziennik.Controllers
 																												select s;
 												if (!String.IsNullOrEmpty(search))
 												{
-																uczniowie = uczniowie.Where(s => (s.imie + " " + s.nazwisko).Contains(search));
+																uczniowie = uczniowie.Where(s => (s.Imie + " " + s.Nazwisko).Contains(search));
 												}
-												uczniowie = uczniowie.OrderByDescending(s => s.nazwisko);
+												uczniowie = uczniowie.OrderByDescending(s => s.Nazwisko);
 												return View(uczniowie.ToList());
 								}
 
@@ -60,15 +60,15 @@ namespace Dziennik.Controllers
 
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
+								public ActionResult Create([Bind(Include = "ID,Imie,Nazwisko,Login,Haslo,KlasaID,RodzicID")] Uczen uczen)
 								{
 												if ((string)Session["Status"] != "Admin")
 																return RedirectToAction("Index", "Home");
 
-												List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
+												List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.Login == uczen.Login).ToList();
 												if (uczeniowie.Count != 0)
 												{
-																ModelState.AddModelError("", "Podany login istnieje w bazie.");
+																ModelState.AddModelError("", "Podany Login istnieje w bazie.");
 												}
 
 												if (ModelState.IsValid)
@@ -104,15 +104,15 @@ namespace Dziennik.Controllers
 
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
+								public ActionResult Edit([Bind(Include = "ID,Imie,Nazwisko,Login,Haslo,KlasaID,RodzicID")] Uczen uczen)
 								{
 												if ((string)Session["Status"] != "Admin")
 																return RedirectToAction("Index", "Home");
 
-												List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
+												List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.Login == uczen.Login).ToList();
 												if (uczeniowie.Count != 0)
 												{
-																ModelState.AddModelError("", "Podany login istnieje w bazie.");
+																ModelState.AddModelError("", "Podany Login istnieje w bazie.");
 												}
 
 												if (ModelState.IsValid)
@@ -363,8 +363,8 @@ namespace Dziennik.Controllers
 																return RedirectToAction("Index", "Home");
 												var id = Convert.ToInt32(Session["UserID"]);
 												Uczen rodzic = db.Uczniowie.Find(id);
-												ViewBag.Imie = rodzic.imie;
-												ViewBag.Nazwisko = rodzic.nazwisko;
+												ViewBag.Imie = rodzic.Imie;
+												ViewBag.Nazwisko = rodzic.Nazwisko;
 
 												return View();
 												/*
@@ -380,7 +380,7 @@ namespace Dziennik.Controllers
 								}
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult EdycjaProfilu([Bind(Include = "ID, imie, nazwisko")]Uczen userprofile)
+								public ActionResult EdycjaProfilu([Bind(Include = "ID, Imie, Nazwisko")]Uczen userprofile)
 								{
 												//XDDDDDDDDDDDDDDDDDDDDD
 												// if (ModelState.IsValid)
@@ -391,8 +391,8 @@ namespace Dziennik.Controllers
 
 												// Update fields
 												user.ID = userprofile.ID;
-												user.imie = userprofile.imie;
-												user.nazwisko = userprofile.nazwisko;
+												user.Imie = userprofile.Imie;
+												user.Nazwisko = userprofile.Nazwisko;
 
 												db.Entry(user).State = EntityState.Modified;
 
@@ -946,7 +946,7 @@ namespace Dziennik.Controllers
 												if ((string)Session["Status"] != "Uczen")
 																return RedirectToAction("Index", "Home");
 
-												ViewBag.Nauczyciel = db.Nauczyciele.ToList();
+												ViewBag.Nauczyciele = new SelectList(db.Nauczyciele, "NauczycielID", "FullName");
 												return View();
 								}
 
