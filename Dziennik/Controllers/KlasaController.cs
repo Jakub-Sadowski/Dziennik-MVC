@@ -45,7 +45,7 @@ namespace Dziennik.Controllers
 			if ((string)Session["Status"] != "Admin")
 				return RedirectToAction("Index", "Home");
 
-			ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie");
+			ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie");
             return View();
         }
 
@@ -69,7 +69,7 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
+            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", klasa.WychowawcaID);
             return View(klasa);
         }
 
@@ -87,7 +87,7 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
+            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", klasa.WychowawcaID);
             return View(klasa);
         }
 
@@ -104,7 +104,7 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", klasa.WychowawcaID);
+            ViewBag.WychowawcaID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", klasa.WychowawcaID);
             return View(klasa);
         }
 

@@ -5,7 +5,7 @@
 }
 
 
-<input type="text" name="Textbox2" id="haslo" value="@Model.haslo" hidden="hidden" /><br />
+<input type="text" name="Textbox2" id="haslo" value="@Model.Haslo" hidden="hidden" /><br />
 
 @if (ViewBag.control == 1)
 {
@@ -38,26 +38,26 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div id="home" class="container tab-pane active ">
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <label class="text-muted">Imię i nazwisko</label>
-
-                        <h4><label>@Model.FullName </label></h4>
-
-                    </li>
-
-                    <li class="list-group-item">
-                        <label class="text-muted">Status konta</label>
-
-                        <h4><label>@Session["Status"] </label></h4>
+                        <label class="text-muted small">Imię i nazwisko</label>
+                        <br />
+                        <label>@Model.FullName </label>
 
                     </li>
 
                     <li class="list-group-item">
-                        <label class="text-muted">Nazwa użytkownika</label>
+                        <label class="text-muted small">Status konta</label>
+                        <br />
+                        <label>@Session["Status"] </label>
 
-                        <h4><label>@Model.login </label></h4>
+                    </li>
+
+                    <li class="list-group-item">
+                        <label class="text-muted small">Nazwa użytkownika</label>
+                        <br />
+                        <label>@Model.Login </label>
 
                     </li>
 
@@ -69,32 +69,34 @@
                 @using (Html.BeginForm("Zmien_login", "Administrator", FormMethod.Post, new { @id = "myform" }))
                 {
 
-                    @Html.AntiForgeryToken()
+                @Html.AntiForgeryToken()
 
-                    @Html.HiddenFor(model => model.ID)
-                    @Html.HiddenFor(model => model.imie)
-                    @Html.HiddenFor(model => model.nazwisko)
-                    @Html.HiddenFor(model => model.haslo)
-                    <div class="row">
-                        <label class=" text-muted col-md-2">Login</label>
-                        @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control", @id = "field2" } })
-                        @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.Imie)
+                @Html.HiddenFor(model => model.Nazwisko)
+                @Html.HiddenFor(model => model.Haslo)
+               
+                <div class="row">
+                    <label class=" text-muted col-md-2">Login</label>
+                    @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @id = "field2" } })
+                    @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
 
-                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <label class="text-muted col-md-2">Powtórz login</label>
+                    <input class="form-control" id="field1" name="field1">
                     <br />
-                    <div class="row">
+                    <div class="errorTxt1" style="color:red;"></div>
+                </div>
+                <br /><br />
 
-                        <label class="text-muted col-md-2">Powtórz login</label>
-                        <input class="form-control" id="field1" name="field1">
-                        <div class="errorTxt1" style="color:red;"></div>
-                    </div>
-                    <br /><br />
-
-                    <div class="row">
-                        <button type="submit" class="btn btn-primary col">
-                            Submit
-                        </button>
-                    </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary col">
+                        Zatwierdź
+                    </button>
+                </div>
                 }
 
             </div>
@@ -110,9 +112,9 @@
                     @Html.AntiForgeryToken()
 
                     @Html.HiddenFor(model => model.ID)
-                    @Html.HiddenFor(model => model.imie)
-                    @Html.HiddenFor(model => model.nazwisko)
-                    @Html.HiddenFor(model => model.login)
+                    @Html.HiddenFor(model => model.Imie)
+                    @Html.HiddenFor(model => model.Nazwisko)
+                    @Html.HiddenFor(model => model.Login)
                 <div class="row">
                     <label class=" text-muted col-md-2">Aktualne hasło</label>
 
@@ -125,7 +127,7 @@
                     <div class="row">
 
                         <label class="text-muted col-md-2">Nowe hasło</label>
-                        @Html.EditorFor(model => model.haslo, new { htmlAttributes = new { @class = "form-control", @id = "pas2", @type = "password" } })
+                        @Html.EditorFor(model => model.Haslo, new { htmlAttributes = new { @class = "form-control", @id = "pas2", @type = "password" } })
                         
                     </div>
 
@@ -134,6 +136,7 @@
 
                         <label class="text-muted col-md-2">Powtórz hasło</label>
                         <input class="form-control" type="password" id="pas3" name="pas3">
+                        <br />
                         <div class="errorTxt" style="color:red;"></div>
 
                     </div>
@@ -141,7 +144,7 @@
 
                     <div class="row">
                         <button type="submit" class="btn btn-primary col">
-                            Submit
+                            Zatwierdź
                         </button>
                     </div>
                 }

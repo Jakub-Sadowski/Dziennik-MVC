@@ -19,7 +19,6 @@
 										<span class="icon-bar"></span>
 
 								</button>
-								@Html.ActionLink("Dziennik", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 						</div>
 						<div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
@@ -47,6 +46,7 @@
                                     <li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Uczen")</li>
                                     <li>@Html.ActionLink("Rozkład nauczycieli", "RozkladNauczycieli", "Nauczyciel")</li>
                                     <li>@Html.ActionLink("Zawiadom Nauczyciela", "Index", "Donos")</li>
+                                    <li>@Html.ActionLink("Pytania do nauczyciela", "PytaniaDoNauczyciela", "Uczen")</li>
 
 
 
@@ -74,6 +74,7 @@
                                     <li>@Html.ActionLink("Obecności", "LekcjeNauczyciela", "Nauczyciel")</li>
                                     <li>@Html.ActionLink("Klasa wychowawcy", "Wychowankowie", "Nauczyciel")</li>
                                     <li>@Html.ActionLink("Pytania", "Pytania_rodzicow", "Nauczyciel")</li>
+																																				<li>@Html.ActionLink("Pytania uczniów", "PytaniaDoNauczyciela", "Nauczyciel")</li>
 
 
 

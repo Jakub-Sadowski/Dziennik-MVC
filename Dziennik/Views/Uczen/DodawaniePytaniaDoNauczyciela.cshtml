@@ -1,0 +1,54 @@
+﻿@model Dziennik.ViewModels.Pytanie_uczniaVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Pytanie do nauczyciela</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nauczyciele.First().NauczycielID, "NauczycielID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Pytanie_ucznia.NauczycielID, new SelectList(Model.Nauczyciele, "NauczycielID", "FullName"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nauczyciele.First().NauczycielID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+								<div class="form-group">
+            @Html.LabelFor(model => model.Przedmioty.First().ID, "PrzedmiotID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Pytanie_ucznia.PrzedmiotID, new SelectList(Model.Przedmioty, "ID", "nazwa"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Przedmioty.First().ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pytanie_ucznia.Pytanie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pytanie_ucznia.Pytanie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pytanie_ucznia.Pytanie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapytaj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Wróć", "PytaniaDoNauczyciela")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

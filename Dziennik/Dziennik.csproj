@@ -170,7 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdministratorController.cs" />
-    <Compile Include="Controllers\API\ChatMessage.cs" />
+    <Compile Include="Controllers\API\Notification.cs" />
     <Compile Include="Controllers\DonosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlasaController.cs" />
@@ -190,6 +190,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FileHandler.cs" />
     <Compile Include="Helpers\CookieEncryption.cs" />
     <Compile Include="Migrations\201812160915074_filePath.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Donos.cs" />
+    <Compile Include="Models\Pytanie_ucznia.cs" />
     <Compile Include="Models\Zapytanie.cs" />
     <Compile Include="Models\Klasa.cs" />
     <Compile Include="Models\Nauczyciel.cs" />
@@ -316,6 +318,7 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Pytanie_uczniaVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Dziennik.dll" />
@@ -488,6 +491,10 @@
     <Content Include="Views\Donos\Create.cshtml" />
     <Content Include="Views\Donos\Delete.cshtml" />
     <Content Include="Views\Donos\Index.cshtml" />
+    <Content Include="Views\Administrator\Profil.cshtml" />
+    <Content Include="Views\Rodzic\Profil.cshtml" />
+    <Content Include="Views\Nauczyciel\Profil.cshtml" />
+    <Content Include="Views\Uczen\Profil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

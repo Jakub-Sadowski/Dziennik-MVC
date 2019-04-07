@@ -1,0 +1,264 @@
+﻿@using Dziennik.Models
+@model Dziennik.Models.Uczen
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<input type="text" name="Textbox2" id="haslo" value="@Model.Haslo" hidden="hidden" /><br />
+
+@if (ViewBag.control == 1)
+{
+    <div class="alert alert-danger">
+        <strong>Nie zmieniono loginu.</strong> Login istnieje w bazie.
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+<h2>Profil użytkownika</h2>
+
+<div class="container">
+
+    <br>
+    <!-- Nav pills -->
+    <ul class="nav nav-pills nav-stacked col-md-2" role="tablist">
+        <li class="nav-item active">
+            <a class="nav-link active" data-toggle="pill" href="#home">Informacje ogólne</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu1">Zmień login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu2">Zmień hasło</a>
+        </li>
+       
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="home" class="container tab-pane active ">
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label class="text-muted small">Imię i nazwisko</label>
+                        <br />
+                        <label>@Model.FullName </label>
+
+                    </li>
+
+                    <li class="list-group-item">
+                        <label class="text-muted small">Status konta</label>
+                        <br />
+                        <label>@Session["Status"] </label>
+
+                    </li>
+
+                    <li class="list-group-item">
+                        <label class="text-muted small">Nazwa użytkownika</label>
+                        <br />
+                        <label>@Model.Login </label>
+
+                    </li>
+
+                    
+                    <li class="list-group-item">
+                        <label class="text-muted small">Klasa</label>
+                        <br />
+                        <label>@Model.Klasa.nazwa </label>
+
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div id="menu1" class="container tab-pane d-xl-table-row fade">
+            <div class="col-md-10">
+                @using (Html.BeginForm("Zmien_login", "Uczen", FormMethod.Post, new { @id = "myform" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.Imie)
+                    @Html.HiddenFor(model => model.Nazwisko)
+                    @Html.HiddenFor(model => model.Haslo)
+                    @Html.HiddenFor(model => model.KlasaID)
+                    @Html.HiddenFor(model => model.RodzicID)
+
+                    <div class="row">
+                        <label class=" text-muted col-md-2">Login</label>
+                        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @id = "field2" } })
+                        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+
+                    </div>
+                    <br />
+                    <div class="row">
+
+                        <label class="text-muted col-md-2">Powtórz login</label>
+                        <input class="form-control" id="field1" name="field1">
+                        <br />
+                        <div class="errorTxt1" style="color:red;"></div>
+                    </div>
+                    <br /><br />
+
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col">
+                            Zatwierdź
+                        </button>
+                    </div>
+                }
+
+            </div>
+
+
+        </div>
+        <div id="menu2" class="container tab-pane fade">
+            <div class="col-md-10">
+                @using (Html.BeginForm("Zmien_haslo", "Uczen", FormMethod.Post, new { @id = "myform1" }))
+                {
+
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.Imie)
+                    @Html.HiddenFor(model => model.Nazwisko)
+                    @Html.HiddenFor(model => model.Login)
+                    @Html.HiddenFor(model => model.KlasaID)
+                    @Html.HiddenFor(model => model.RodzicID)
+                    <div class="row">
+                        <label class=" text-muted col-md-2">Aktualne hasło</label>
+
+                        <input class="form-control" type="password" id="pas1" name="pas1">
+
+
+
+                    </div>
+                    <br />
+                    <div class="row">
+
+                        <label class="text-muted col-md-2">Nowe hasło</label>
+                        @Html.EditorFor(model => model.Haslo, new { htmlAttributes = new { @class = "form-control", @id = "pas2", @type = "password" } })
+
+                    </div>
+
+                    <br />
+                    <div class="row">
+
+                        <label class="text-muted col-md-2">Powtórz hasło</label>
+                        <input class="form-control" type="password" id="pas3" name="pas3">
+                        <br />
+                        <div class="errorTxt" style="color:red;"></div>
+
+                    </div>
+                    <br /><br />
+
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col">
+                            Zatwierdź
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>
+        
+
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $("#pas2").val('');
+
+     });
+
+
+    $('form[id="myform"]').validate({
+        rules: {
+            field1: {
+                equalTo: '#field2'
+
+            }
+
+        },
+
+
+        messages: {
+            field1: {
+                equalTo: 'Wprowadzone loginy są różne'
+
+            }
+        },
+        errorElement: 'div',
+        errorLabelContainer: '.errorTxt1',
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+
+
+    $('form[id="myform1"]').validate({
+        rules: {
+            pas1: {
+                equalTo: '#haslo'
+
+            },
+
+             pas3: {
+                 equalTo: '#pas2',
+                 required: true,
+                 minlength: 8
+            }
+
+        },
+
+
+        messages: {
+            pas1: {
+                equalTo: 'Wprowadzono nieprawidłowe hasło'
+
+            },
+
+
+            pas3: {
+                equalTo: 'Wprowadzone hasła są różne.',
+                required: 'Wprowadź hasło',
+                minlength: 'Hasło za krótkie. Minimum 8 znaków.'
+
+
+            }
+        },
+        errorElement: 'div',
+        errorLabelContainer: '.errorTxt',
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+</script>
+
+
+
