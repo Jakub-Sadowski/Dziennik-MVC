@@ -44,8 +44,7 @@
             @Html.DisplayFor(modelItem => item.Data_odpowiedzi)
         </td>
         <td>
-            @Html.ActionLink("Szczegóły", "PytanieDoNauczyciela", new { id=item.ID }, new { @class = "btn btn-default" }) |
-            @Html.ActionLink("Usuń", "PytanieDoNauczycielaDelete", new { id=item.ID }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Odpowiedz", "PytanieDoNauczycielaOdpowiedz", new { id=item.ID }, new { @class = "btn btn-default" })
         </td>
     </tr>
 }

@@ -1,12 +1,14 @@
 ﻿using Dziennik.DAL;
 using Dziennik.Helpers;
 using Dziennik.Models;
+using Dziennik.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Dziennik.Controllers
@@ -946,32 +948,37 @@ namespace Dziennik.Controllers
 												if ((string)Session["Status"] != "Uczen")
 																return RedirectToAction("Index", "Home");
 
-												ViewBag.Nauczyciele = new SelectList(db.Nauczyciele, "NauczycielID", "FullName");
-												return View();
+												ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName");
+												return View(new Pytanie_uczniaVM(null, db.Nauczyciele, db.Przedmioty));
 								}
 
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult DodawaniePytaniaDoNauczyciela([Bind(Include = "NauczycielID, Pytanie")] Pytanie_ucznia pytanie)
+								public async Task<ActionResult> DodawaniePytaniaDoNauczyciela([Bind(Include = "ID,NauczycielID,UczenID,PrzedmiotID,Pytanie")] Pytanie_ucznia pytanie_ucznia)
 								{
-												if ((string)Session["Status"] != "Rodzic")
+												if ((string)Session["Status"] != "Uczen")
 																return RedirectToAction("Index", "Home");
 
 												if (ModelState.IsValid)
 												{
 																var userId = Convert.ToInt32(Session["UserID"]);
-																pytanie.Data_pytania = DateTime.Now;
-																pytanie.UczenID= userId;
-																db.Pytania_ucznia.Add(pytanie);
+																pytanie_ucznia.Data_pytania = DateTime.Now;
+																pytanie_ucznia.UczenID= userId;
+																db.Pytania_ucznia.Add(pytanie_ucznia);
 																db.SaveChanges();
 
-																var uczen = db.Uczniowie.Find(userId);
-																var nauczyciel = db.Nauczyciele.Find(pytanie.NauczycielID);
-																EmailHelper.Send(nauczyciel.Email,EmailHelper.APP_EMAIL,$"Uczen {uczen.FullName} zadał pytanie.\n{pytanie.Pytanie}","Pytanie od ucznia");
+																var u = db.Uczniowie.Find(userId);
+																var n = db.Nauczyciele.Find(pytanie_ucznia.NauczycielID);
+																string subject;
+																if (pytanie_ucznia.PrzedmiotID == null || pytanie_ucznia.PrzedmiotID < 1)
+																				subject = "Ogólne";
+																else
+																				subject = db.Przedmioty.Find(pytanie_ucznia.PrzedmiotID).nazwa;
+																await EmailHelper.Send(n.Email,EmailHelper.APP_EMAIL,$"Uczen {u.FullName} zadał pytanie.\n{pytanie_ucznia.Pytanie}", $"Pytanie - {subject}");
 																return RedirectToAction("PytaniaDoNauczyciela");
 												}
 
-												return View(pytanie);
+												return View(new Pytanie_uczniaVM(pytanie_ucznia, db.Nauczyciele, db.Przedmioty));
 								}
 
 								public ActionResult PytanieDoNauczyciela(int? id)
@@ -1002,9 +1009,9 @@ namespace Dziennik.Controllers
 												return View(pytanie_ucznia);
 								}
 
-								[HttpPost, ActionName("Delete")]
+								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult PytanieDoNauczycielaDeleteConfirmed(int id)
+								public ActionResult PytanieDoNauczycielaDelete(int id)
 								{
 												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
 												db.Pytania_ucznia.Remove(pytanie_ucznia);

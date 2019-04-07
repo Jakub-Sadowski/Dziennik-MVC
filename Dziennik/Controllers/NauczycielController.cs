@@ -48,7 +48,7 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NauczycielID,Imie,Nazwisko,Login,Haslo")] Nauczyciel nauczyciel)
+        public ActionResult Create([Bind(Include = "NauczycielID,Imie,Nazwisko,Login,Haslo,Email")] Nauczyciel nauczyciel)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NauczycielID,Imie,Nazwisko,Login,Haslo")] Nauczyciel nauczyciel)
+        public ActionResult Edit([Bind(Include = "NauczycielID,Imie,Nazwisko,Login,Haslo,Email")] Nauczyciel nauczyciel)
         {
             if (ModelState.IsValid)
             {
@@ -1454,42 +1454,47 @@ namespace Dziennik.Controllers
 								#region Pytania uczniów
 								public ActionResult PytaniaDoNauczyciela()
 								{
-												if ((string)Session["Status"] != "Uczen")
+												if ((string)Session["Status"] != "Nauczyciel")
 																return RedirectToAction("Index", "Home");
 
 												var userId = Convert.ToInt32(Session["UserID"]);
 												return View(db.Pytania_ucznia.Where(x => x.NauczycielID == userId).OrderByDescending(x => x.Data_pytania).ToList());
 								}
 
-								public ActionResult PytaniaDoNauczycielaOdpowiedz()
+								public ActionResult PytaniaDoNauczycielaOdpowiedz(int? id)
 								{
-												if ((string)Session["Status"] != "Uczen")
+												if ((string)Session["Status"] != "Nauczyciel")
 																return RedirectToAction("Index", "Home");
 
-												return View();
+												if (id == null)
+												{
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+												}
+												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
+												if (pytanie_ucznia == null)
+												{
+																return HttpNotFound();
+												}
+												return View(pytanie_ucznia);
 								}
 
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult PytaniaDoNauczycielaOdpowiedz([Bind(Include = "Odpowiedz")] Pytanie_ucznia pytanie)
+								public ActionResult PytanieDoNauczycielaOdpowiedz([Bind(Include = "ID,NauczycielID,UczenID,Pytanie,Odpowiedz,Data_pytania,Data_odpowiedzi")] Pytanie_ucznia pytanie_ucznia)
 								{
-												if ((string)Session["Status"] != "Rodzic")
+												if ((string)Session["Status"] != "Nauczyciel")
 																return RedirectToAction("Index", "Home");
 
 												if (ModelState.IsValid)
 												{
-																var userId = Convert.ToInt32(Session["UserID"]);
-																pytanie.Data_odpowiedzi = DateTime.Now;
-																pytanie.UczenID = userId;
-																db.Pytania_ucznia.Add(pytanie);
+																pytanie_ucznia.Data_odpowiedzi = DateTime.Now;
+																db.Entry(pytanie_ucznia).State = EntityState.Modified;
 																db.SaveChanges();
 
-																var uczen = db.Uczniowie.Find(userId);
-																var nauczyciel = db.Nauczyciele.Find(pytanie.NauczycielID);
 																return RedirectToAction("PytaniaDoNauczyciela");
 												}
 
-												return View(pytanie);
+												return View(pytanie_ucznia);
 								}
 
 								#endregion

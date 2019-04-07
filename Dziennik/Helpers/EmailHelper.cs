@@ -10,8 +10,8 @@ namespace Dziennik.Helpers
 {
 				public static class EmailHelper
 				{
-								public static readonly string APP_EMAIL = "mojagracv@gmail.com";
-								public static async void Send(string emailTo, string emailFrom, string body, string subject, bool htmlBody = true)
+								public static readonly string APP_EMAIL = "dziennik@PZ.cos";
+								public static async Task Send(string emailTo, string emailFrom, string body, string subject, bool htmlBody = true)
 								{
 												var message = new MailMessage();
 

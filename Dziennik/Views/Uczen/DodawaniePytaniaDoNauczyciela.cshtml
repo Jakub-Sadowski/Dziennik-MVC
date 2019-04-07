@@ -1,4 +1,4 @@
-﻿@model Dziennik.Models.Pytanie_ucznia
+﻿@model Dziennik.ViewModels.Pytanie_uczniaVM
 
 @{
     ViewBag.Title = "Create";
@@ -14,22 +14,26 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.NauczycielID, "NauczycielID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Nauczyciele.First().NauczycielID, "NauczycielID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Nauczyciele", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NauczycielID, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(m => m.Pytanie_ucznia.NauczycielID, new SelectList(Model.Nauczyciele, "NauczycielID", "FullName"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nauczyciele.First().NauczycielID, "", new { @class = "text-danger" })
             </div>
         </div>
 
 								<div class="form-group">
-										@Html.HiddenFor(x => x.UczenID)
-								</div>
+            @Html.LabelFor(model => model.Przedmioty.First().ID, "PrzedmiotID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Pytanie_ucznia.PrzedmiotID, new SelectList(Model.Przedmioty, "ID", "nazwa"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Przedmioty.First().ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Pytanie, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Pytanie_ucznia.Pytanie, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pytanie, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pytanie, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Pytanie_ucznia.Pytanie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pytanie_ucznia.Pytanie, "", new { @class = "text-danger" })
             </div>
         </div>
 
