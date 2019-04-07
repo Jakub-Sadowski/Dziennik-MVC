@@ -284,6 +284,10 @@
     <Compile Include="Migrations\201904071526020_abc.Designer.cs">
       <DependentUpon>201904071526020_abc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904071533360_abc1.cs" />
+    <Compile Include="Migrations\201904071533360_abc1.Designer.cs">
+      <DependentUpon>201904071533360_abc1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -573,6 +577,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904071526020_abc.resx">
       <DependentUpon>201904071526020_abc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904071533360_abc1.resx">
+      <DependentUpon>201904071533360_abc1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

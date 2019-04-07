@@ -86,7 +86,7 @@
 
                         <label class="text-muted col-md-2">Powtórz login</label>
                         <input class="form-control" id="field1" name="field1">
-
+                        <div class="errorTxt1" style="color:red;"></div>
                     </div>
                     <br /><br />
 
@@ -113,17 +113,20 @@
                     @Html.HiddenFor(model => model.imie)
                     @Html.HiddenFor(model => model.nazwisko)
                     @Html.HiddenFor(model => model.login)
-                    <div class="row">
-                        <label class=" text-muted col-md-2">Aktualne hasło</label>
+                <div class="row">
+                    <label class=" text-muted col-md-2">Aktualne hasło</label>
 
-                        <input class="form-control" type="password" id="pas1" name="pas1">
+                    <input class="form-control" type="password" id="pas1" name="pas1">
+                    
 
-                    </div>
+
+                </div>
                     <br />
                     <div class="row">
 
                         <label class="text-muted col-md-2">Nowe hasło</label>
                         @Html.EditorFor(model => model.haslo, new { htmlAttributes = new { @class = "form-control", @id = "pas2", @type = "password" } })
+                        
                     </div>
 
                     <br />
@@ -131,6 +134,7 @@
 
                         <label class="text-muted col-md-2">Powtórz hasło</label>
                         <input class="form-control" type="password" id="pas3" name="pas3">
+                        <div class="errorTxt" style="color:red;"></div>
 
                     </div>
                     <br /><br />
@@ -152,9 +156,8 @@
 <script>
     $(document).ready(function () {
     $("#pas2").val('');
-                var upl = toString(@Model.haslo);
 
-    
+     });
 
 
     $('form[id="myform"]').validate({
@@ -169,10 +172,12 @@
 
         messages: {
             field1: {
-                equalTo: 'Loginy są różne!'
+                equalTo: 'Wprowadzone loginy są różne'
 
             }
         },
+        errorElement: 'div',
+        errorLabelContainer: '.errorTxt1',
         submitHandler: function (form) {
             form.submit();
         }
@@ -185,6 +190,12 @@
             pas1: {
                 equalTo: '#haslo'
 
+            },
+            
+             pas3: {
+                 equalTo: '#pas2',
+                 required: true,
+                 minlength: 8
             }
 
         },
@@ -194,12 +205,23 @@
             pas1: {
                 equalTo: 'Wprowadzono nieprawidłowe hasło'
 
+            },
+
+          
+            pas3: {
+                equalTo: 'Wprowadzone hasła są różne.',
+                required: 'Wprowadź hasło',
+                minlength: 'Hasło za krótkie. Minimum 8 znaków.'
+                
+
             }
         },
+        errorElement: 'div',
+        errorLabelContainer: '.errorTxt',
         submitHandler: function (form1) {
             form.submit();
         }
         });
-    });
+   
 </script>
 

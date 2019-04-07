@@ -207,6 +207,35 @@ namespace Dziennik.Controllers
         }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Zmien_haslo(Administrator admin)
+        {
+            
+            if ((string)Session["Status"] != "Admin" || Int32.Parse((string)Session["UserID"]) != admin.ID)
+                return RedirectToAction("Index", "Home");
+
+            if (admin == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+          
+                if (ModelState.IsValid)
+                {
+
+                    db.Administratorzy.AddOrUpdate(admin);
+                    db.SaveChanges();
+
+                }
+
+            
+
+            return RedirectToAction("Profil", "Administrator", new { id = admin.ID });
+
+        }
+
+
 
 
         protected override void Dispose(bool disposing)
