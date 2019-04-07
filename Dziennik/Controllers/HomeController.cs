@@ -18,32 +18,21 @@ namespace Dziennik.Controllers
 
         public ActionResult Profil()
         {
-
-      
-
                 int id = Int32.Parse((string)Session["UserID"]);
 
-
-                if(Session["Status"] == "Admin")
+                if((string)Session["Status"] == "Admin")
                     return RedirectToAction("Profil", "Administrator",new {id = id });
                 else
-                if (Session["Status"] == "Uczen")
+                if ((string)Session["Status"] == "Uczen")
                     return RedirectToAction("Profil", "Uczen", new { id = id });
                 else
-                if (Session["Status"] == "Nauczyciel")
+                if ((string)Session["Status"] == "Nauczyciel")
                     return RedirectToAction("Profil", "Nauczyciel", new { id = id });
-
                 else
-                if (Session["Status"] == "Rodzic")
+                if ((string)Session["Status"] == "Rodzic")
                     return RedirectToAction("Profil", "Rodzic", new { id = id });
                 else
                     return RedirectToAction("Index", "Home");
-
-
-
-
-
-
         }
 
     }
