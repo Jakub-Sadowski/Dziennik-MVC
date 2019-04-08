@@ -61,6 +61,7 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index", "Home");
             if (ModelState.IsValid)
             {
+                donos.data_pytania = DateTime.Now;
                 db.Donos.Add(donos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
