@@ -14,7 +14,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Nauczyciele.First().NauczycielID, "NauczycielID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Nauczyciele.First().NauczycielID, "ID Nauczyciela", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.Pytanie_ucznia.NauczycielID, new SelectList(Model.Nauczyciele, "NauczycielID", "FullName"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Nauczyciele.First().NauczycielID, "", new { @class = "text-danger" })
@@ -22,7 +22,7 @@
         </div>
 
 								<div class="form-group">
-            @Html.LabelFor(model => model.Przedmioty.First().ID, "PrzedmiotID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Przedmioty.First().ID, "ID Przedmiotu", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.Pytanie_ucznia.PrzedmiotID, new SelectList(Model.Przedmioty, "ID", "nazwa"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Przedmioty.First().ID, "", new { @class = "text-danger" })
