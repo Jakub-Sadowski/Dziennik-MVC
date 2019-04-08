@@ -930,6 +930,19 @@
             <param name="spanId">Span id.</param>
             <returns>valid Request-Id.</returns>
         </member>
+        <member name="M:Microsoft.ApplicationInsights.Common.Internal.StringUtilities.GetRootId(System.String)">
+            <summary>
+            Gets root id (string between '|' and the first dot) from the hierarchical Id.
+            </summary>
+            <param name="hierarchicalId">Id to extract root from.</param>
+            <returns>Root operation id.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.Common.Internal.StringUtilities.GenerateId(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Converts byte array to hex lower case string.
+            </summary>
+            <returns>Array encoded as hex string</returns>
+        </member>
         <member name="T:Microsoft.ApplicationInsights.Common.PropertyFetcher">
             <summary>
             Efficient implementation of fetching properties of anonymous types with reflection.
@@ -1041,6 +1054,84 @@
             <param name="maxItems">Maximum allowed number comma separated values in the header</param>
             <returns>List of comma separated values in the given header.</returns>
         </member>
+        <member name="T:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions">
+            <summary>
+            Extends Activity to support W3C distributed tracing standard.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.GenerateW3CContext(System.Diagnostics.Activity)">
+            <summary>
+            Generate new W3C context.
+            </summary>
+            <param name="activity">Activity to generate W3C context on.</param>
+            <returns>The same Activity for chaining.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.IsW3CActivity(System.Diagnostics.Activity)">
+            <summary>
+            Checks if current Activity has W3C properties on it.
+            </summary>
+            <param name="activity">Activity to check.</param>
+            <returns>True if Activity has W3C properties, false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.UpdateContextOnActivity(System.Diagnostics.Activity)">
+            <summary>
+            Updates context on the Activity based on the W3C Context in the parent Activity tree.
+            </summary>
+            <param name="activity">Activity to update W3C context on.</param>
+            <returns>The same Activity for chaining.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.GetTraceparent(System.Diagnostics.Activity)">
+            <summary>
+            Gets traceparent header value for the Activity or null if there is no W3C context on it.
+            </summary>
+            <param name="activity">Activity to read W3C context from.</param>
+            <returns>traceparent header value.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.SetTraceparent(System.Diagnostics.Activity,System.String)">
+            <summary>
+            Initializes W3C context on the Activity from traceparent header value.
+            </summary>
+            <param name="activity">Activity to set W3C context on.</param>
+            <param name="value">Valid traceparent header like 00-0af7651916cd43dd8448eb211c80319c-b9c7c989f97918e1-01.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.GetTracestate(System.Diagnostics.Activity)">
+            <summary>
+            Gets tracestate header value from the Activity.
+            </summary>
+            <param name="activity">Activity to get tracestate from.</param>
+            <returns>tracestate header value.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.SetTracestate(System.Diagnostics.Activity,System.String)">
+            <summary>
+            Sets tracestate header value on the Activity.
+            </summary>
+            <param name="activity">Activity to set tracestate on.</param>
+            <param name="value">tracestate header value.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.GetTraceId(System.Diagnostics.Activity)">
+            <summary>
+            Gets TraceId from the Activity.
+            Use carefully: if may cause iteration over all tags!
+            </summary>
+            <param name="activity">Activity to get traceId from.</param>
+            <returns>TraceId value or null if it does not exist.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.GetSpanId(System.Diagnostics.Activity)">
+            <summary>
+            Gets SpanId from the Activity.
+            Use carefully: if may cause iteration over all tags!
+            </summary>
+            <param name="activity">Activity to get spanId from.</param>
+            <returns>SpanId value or null if it does not exist.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3CActivityExtensions.GetParentSpanId(System.Diagnostics.Activity)">
+            <summary>
+            Gets ParentSpanId from the Activity.
+            Use carefully: if may cause iteration over all tags!
+            </summary>
+            <param name="activity">Activity to get ParentSpanId from.</param>
+            <returns>ParentSpanId value or null if it does not exist.</returns>
+        </member>
         <member name="T:Microsoft.ApplicationInsights.W3C.Internal.W3CConstants">
             <summary>
             W3C constants.
@@ -1130,6 +1221,17 @@
             <summary>
             Legacy root Id tag name.
             </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.W3C.Internal.W3COperationCorrelationTelemetryInitializer">
+            <summary>
+            Telemetry Initializer that sets correlation ids for W3C.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.W3C.Internal.W3COperationCorrelationTelemetryInitializer.Initialize(Microsoft.ApplicationInsights.Channel.ITelemetry)">
+            <summary>
+            Initializes telemetry item.
+            </summary>
+            <param name="telemetry">Telemetry item.</param>
         </member>
         <member name="T:System.Web.HttpContextBaseExtension">
             <summary>
