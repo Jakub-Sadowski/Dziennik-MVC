@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Dziennik.Models.Pytanie_ucznia>
+
+@{
+				ViewBag.Title = "Index";
+}
+
+<h2>Pytania do nauczyciela</h2>
+
+<p>
+    @Html.ActionLink("Zadaj pytanie", "DodawaniePytaniaDoNauczyciela", null, new {@class="btn btn-default"})
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Nauczyciel.FullName)</th>
+        <th>@Html.DisplayNameFor(model => model.Przedmiot)</th>
+        <th>@Html.DisplayNameFor(model => model.Pytanie)</th>
+        <th>@Html.DisplayNameFor(model => model.Odpowiedz)</th>
+        <th>@Html.DisplayNameFor(model => model.Data_pytania)</th>
+        <th>@Html.DisplayNameFor(model => model.Data_odpowiedzi)</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Nauczyciel.FullName)</td>
+        <td>@Html.DisplayFor(modelItem => item.Przedmiot.nazwa)</td>
+        <td>@Html.DisplayFor(modelItem => item.Pytanie)</td>
+        <td>@Html.DisplayFor(modelItem => item.Odpowiedz)</td>
+        <td>@Html.DisplayFor(modelItem => item.Data_pytania)</td>
+        <td>@Html.DisplayFor(modelItem => item.Data_odpowiedzi)</td>
+        <td>
+            @Html.ActionLink("Szczegóły", "PytanieDoNauczyciela", new { id=item.ID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Usuń", "PytanieDoNauczycielaDelete", new { id=item.ID }, new { @class = "btn btn-default" })
+        </td>
+    </tr>
+}
+
+</table>

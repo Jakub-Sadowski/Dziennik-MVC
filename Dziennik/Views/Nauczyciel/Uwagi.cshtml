@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Uwagi @ViewBag.imie @ViewBag.nazwisko</h2>
+<h2>Uwagi @ViewBag.Imie @ViewBag.Nazwisko</h2>
 
 <p>
     @Html.ActionLink("Dodaj nową", "Nowa_uwaga", new { id = ViewBag.id })
@@ -13,10 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nauczyciel.imie)
+            @Html.DisplayNameFor(model => model.Nauczyciel.Imie)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Uczen.imie)
+            @Html.DisplayNameFor(model => model.Uczen.Imie)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.naglowek)
@@ -34,10 +34,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nauczyciel.imie)
+                @Html.DisplayFor(modelItem => item.Nauczyciel.Imie)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Uczen.imie)
+                @Html.DisplayFor(modelItem => item.Uczen.Imie)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.naglowek)

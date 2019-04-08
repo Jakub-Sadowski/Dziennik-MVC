@@ -36,8 +36,8 @@ namespace Dziennik.Controllers
         // GET: Uwaga/Create
         public ActionResult Create()
         {
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie");
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "imie");
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie");
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "Imie");
             return View();
         }
 
@@ -55,8 +55,8 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", uwaga.NauczycielID);
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "imie", uwaga.UczenID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", uwaga.NauczycielID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "Imie", uwaga.UczenID);
             return View(uwaga);
         }
 
@@ -72,8 +72,8 @@ namespace Dziennik.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", uwaga.NauczycielID);
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "imie", uwaga.UczenID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", uwaga.NauczycielID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "Imie", uwaga.UczenID);
             return View(uwaga);
         }
 
@@ -90,8 +90,8 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "imie", uwaga.NauczycielID);
-            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "imie", uwaga.UczenID);
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", uwaga.NauczycielID);
+            ViewBag.UczenID = new SelectList(db.Uczniowie, "ID", "Imie", uwaga.UczenID);
             return View(uwaga);
         }
 

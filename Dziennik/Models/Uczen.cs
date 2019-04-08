@@ -9,16 +9,16 @@ namespace Dziennik.Models
         public int ID { get; set; }
         
         [Required]
-        public string imie { get; set; }
+        public string Imie { get; set; }
 
         [Required]
-        public string nazwisko { get; set; }
+        public string Nazwisko { get; set; }
 
         [Required]
-        public string login { get; set; }
+        public string Login { get; set; }
 
         [Required]
-        public string haslo { get; set; }
+        public string Haslo { get; set; }
 
         public int? KlasaID { get; set; }
         public int? RodzicID { get; set; }
@@ -36,7 +36,7 @@ namespace Dziennik.Models
         {
             get
             {
-                return imie + " " + nazwisko;
+                return Imie + " " + Nazwisko;
             }
         }
 

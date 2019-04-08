@@ -1,0 +1,34 @@
+﻿@model Dziennik.Models.Pytanie_ucznia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+		<h4>Pytanie do nauczyciela</h4>
+    <hr />
+    <dl class="dl-horizontal">
+								<dt>@Html.DisplayNameFor(model => model.Nauczyciel.FullName)</dt>
+        <dd>@Html.DisplayFor(model => model.Nauczyciel.FullName)</dd>
+
+								<dt>@Html.DisplayNameFor(model => model.Przedmiot)</dt>
+        <dd>@Html.DisplayFor(model => model.Przedmiot.nazwa)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Pytanie)</dt>
+        <dd>@Html.DisplayFor(model => model.Pytanie)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Odpowiedz)</dt>
+        <dd>@Html.DisplayFor(model => model.Odpowiedz)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Data_pytania)</dt>
+        <dd>@Html.DisplayFor(model => model.Data_pytania)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Data_odpowiedzi)</dt>
+        <dd>@Html.DisplayFor(model => model.Data_odpowiedzi)</dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Wróć", "PytaniaDoNauczyciela")
+</p>

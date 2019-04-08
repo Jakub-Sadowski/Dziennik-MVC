@@ -1,12 +1,14 @@
 ﻿using Dziennik.DAL;
 using Dziennik.Helpers;
 using Dziennik.Models;
+using Dziennik.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Dziennik.Controllers
@@ -25,9 +27,9 @@ namespace Dziennik.Controllers
 																												select s;
 												if (!String.IsNullOrEmpty(search))
 												{
-																uczniowie = uczniowie.Where(s => (s.imie + " " + s.nazwisko).Contains(search));
+																uczniowie = uczniowie.Where(s => (s.Imie + " " + s.Nazwisko).Contains(search));
 												}
-												uczniowie = uczniowie.OrderByDescending(s => s.nazwisko);
+												uczniowie = uczniowie.OrderByDescending(s => s.Nazwisko);
 												return View(uczniowie.ToList());
 								}
 
@@ -60,15 +62,15 @@ namespace Dziennik.Controllers
 
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult Create([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
+								public ActionResult Create([Bind(Include = "ID,Imie,Nazwisko,Login,Haslo,KlasaID,RodzicID")] Uczen uczen)
 								{
 												if ((string)Session["Status"] != "Admin")
 																return RedirectToAction("Index", "Home");
 
-												List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
+												List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.Login == uczen.Login).ToList();
 												if (uczeniowie.Count != 0)
 												{
-																ModelState.AddModelError("", "Podany login istnieje w bazie.");
+																ModelState.AddModelError("", "Podany Login istnieje w bazie.");
 												}
 
 												if (ModelState.IsValid)
@@ -104,15 +106,15 @@ namespace Dziennik.Controllers
 
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult Edit([Bind(Include = "ID,imie,nazwisko,login,haslo,KlasaID,RodzicID")] Uczen uczen)
+								public ActionResult Edit([Bind(Include = "ID,Imie,Nazwisko,Login,Haslo,KlasaID,RodzicID")] Uczen uczen)
 								{
 												if ((string)Session["Status"] != "Admin")
 																return RedirectToAction("Index", "Home");
 
-												List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.login == uczen.login).ToList();
+												List<Uczen> uczeniowie = db.Uczniowie.Where(a => a.Login == uczen.Login).ToList();
 												if (uczeniowie.Count != 0)
 												{
-																ModelState.AddModelError("", "Podany login istnieje w bazie.");
+																ModelState.AddModelError("", "Podany Login istnieje w bazie.");
 												}
 
 												if (ModelState.IsValid)
@@ -363,8 +365,8 @@ namespace Dziennik.Controllers
 																return RedirectToAction("Index", "Home");
 												var id = Convert.ToInt32(Session["UserID"]);
 												Uczen rodzic = db.Uczniowie.Find(id);
-												ViewBag.Imie = rodzic.imie;
-												ViewBag.Nazwisko = rodzic.nazwisko;
+												ViewBag.Imie = rodzic.Imie;
+												ViewBag.Nazwisko = rodzic.Nazwisko;
 
 												return View();
 												/*
@@ -380,7 +382,7 @@ namespace Dziennik.Controllers
 								}
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult EdycjaProfilu([Bind(Include = "ID, imie, nazwisko")]Uczen userprofile)
+								public ActionResult EdycjaProfilu([Bind(Include = "ID, Imie, Nazwisko")]Uczen userprofile)
 								{
 												//XDDDDDDDDDDDDDDDDDDDDD
 												// if (ModelState.IsValid)
@@ -391,8 +393,8 @@ namespace Dziennik.Controllers
 
 												// Update fields
 												user.ID = userprofile.ID;
-												user.imie = userprofile.imie;
-												user.nazwisko = userprofile.nazwisko;
+												user.Imie = userprofile.Imie;
+												user.Nazwisko = userprofile.Nazwisko;
 
 												db.Entry(user).State = EntityState.Modified;
 
@@ -930,6 +932,93 @@ namespace Dziennik.Controllers
 
 												return View(lekcje);
 								}
+
+								#region Pytanie do nauczyciela
+								public ActionResult PytaniaDoNauczyciela()
+								{
+												if ((string)Session["Status"] != "Uczen")
+																return RedirectToAction("Index", "Home");
+
+												var userId = Convert.ToInt32(Session["UserID"]);
+												return View(db.Pytania_ucznia.Where(x => x.UczenID == userId).OrderByDescending(x => x.Data_pytania).ToList());
+								}
+
+								public ActionResult DodawaniePytaniaDoNauczyciela()
+								{
+												if ((string)Session["Status"] != "Uczen")
+																return RedirectToAction("Index", "Home");
+
+												ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName");
+												return View(new Pytanie_uczniaVM(null, db.Nauczyciele, db.Przedmioty));
+								}
+
+								[HttpPost]
+								[ValidateAntiForgeryToken]
+								public async Task<ActionResult> DodawaniePytaniaDoNauczyciela([Bind(Include = "ID,NauczycielID,UczenID,PrzedmiotID,Pytanie")] Pytanie_ucznia pytanie_ucznia)
+								{
+												if ((string)Session["Status"] != "Uczen")
+																return RedirectToAction("Index", "Home");
+
+												if (ModelState.IsValid)
+												{
+																var userId = Convert.ToInt32(Session["UserID"]);
+																pytanie_ucznia.Data_pytania = DateTime.Now;
+																pytanie_ucznia.UczenID= userId;
+																db.Pytania_ucznia.Add(pytanie_ucznia);
+																db.SaveChanges();
+
+																var u = db.Uczniowie.Find(userId);
+																var n = db.Nauczyciele.Find(pytanie_ucznia.NauczycielID);
+																string subject;
+																if (pytanie_ucznia.PrzedmiotID == null || pytanie_ucznia.PrzedmiotID < 1)
+																				subject = "Ogólne";
+																else
+																				subject = db.Przedmioty.Find(pytanie_ucznia.PrzedmiotID).nazwa;
+																await EmailHelper.Send(n.Email,EmailHelper.APP_EMAIL,$"Uczen {u.FullName} zadał pytanie.\n{pytanie_ucznia.Pytanie}", $"Pytanie - {subject}");
+																return RedirectToAction("PytaniaDoNauczyciela");
+												}
+
+												return View(new Pytanie_uczniaVM(pytanie_ucznia, db.Nauczyciele, db.Przedmioty));
+								}
+
+								public ActionResult PytanieDoNauczyciela(int? id)
+								{
+												if (id == null)
+												{
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+												}
+												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
+												if (pytanie_ucznia == null)
+												{
+																return HttpNotFound();
+												}
+												return View(pytanie_ucznia);
+								}
+
+								public ActionResult PytanieDoNauczycielaDelete(int? id)
+								{
+												if (id == null)
+												{
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+												}
+												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
+												if (pytanie_ucznia == null)
+												{
+																return HttpNotFound();
+												}
+												return View(pytanie_ucznia);
+								}
+
+								[HttpPost]
+								[ValidateAntiForgeryToken]
+								public ActionResult PytanieDoNauczycielaDelete(int id)
+								{
+												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
+												db.Pytania_ucznia.Remove(pytanie_ucznia);
+												db.SaveChanges();
+												return RedirectToAction("PytaniaDoNauczyciela");
+								}
+								#endregion
 
 								protected override void Dispose(bool disposing)
 								{

@@ -13,13 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nauczyciel.imie)
+            @Html.DisplayNameFor(model => model.Nauczyciel.Imie)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Przedmiot.nazwa)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Uczen.imie)
+            @Html.DisplayNameFor(model => model.Uczen.Imie)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ocena)
@@ -39,13 +39,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Nauczyciel.imie)
+            @Html.DisplayFor(modelItem => item.Nauczyciel.Imie)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Przedmiot.nazwa)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Uczen.imie)
+            @Html.DisplayFor(modelItem => item.Uczen.Imie)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ocena)

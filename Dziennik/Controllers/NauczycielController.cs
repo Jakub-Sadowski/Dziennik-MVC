@@ -48,7 +48,7 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NauczycielID,imie,nazwisko,login,haslo")] Nauczyciel nauczyciel)
+        public ActionResult Create([Bind(Include = "NauczycielID,Imie,Nazwisko,Login,Haslo,Email")] Nauczyciel nauczyciel)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace Dziennik.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NauczycielID,imie,nazwisko,login,haslo")] Nauczyciel nauczyciel)
+        public ActionResult Edit([Bind(Include = "NauczycielID,Imie,Nazwisko,Login,Haslo,Email")] Nauczyciel nauczyciel)
         {
             if (ModelState.IsValid)
             {
@@ -337,9 +337,9 @@ namespace Dziennik.Controllers
             //                select s;
             //if (!String.IsNullOrEmpty(search))
             //{
-            //    nauczyciele = nauczyciele.Where(s => (s.imie + " " + s.nazwisko).Contains(search));
+            //    nauczyciele = nauczyciele.Where(s => (s.Imie + " " + s.Nazwisko).Contains(search));
             //}
-            //nauczyciele = nauczyciele.OrderByDescending(s => s.nazwisko);
+            //nauczyciele = nauczyciele.OrderByDescending(s => s.Nazwisko);
 
 
             //return View(nauczyciele.ToList());
@@ -348,7 +348,7 @@ namespace Dziennik.Controllers
                          select s;
             if (!String.IsNullOrEmpty(search))
             {
-                lekcje = lekcje.Where(s => (s.Nauczyciel.imie + " " + s.Nauczyciel.nazwisko).Contains(search));
+                lekcje = lekcje.Where(s => (s.Nauczyciel.Imie + " " + s.Nauczyciel.Nazwisko).Contains(search));
             }
 
             if (lekcje == null)
@@ -1017,8 +1017,8 @@ namespace Dziennik.Controllers
             }
 
             var uwagi = db.Uwagi.Where(s => s.UczenID == id);
-            ViewBag.imie = db.Uczniowie.Find(id).imie;
-            ViewBag.nazwisko = db.Uczniowie.Find(id).nazwisko;
+            ViewBag.Imie = db.Uczniowie.Find(id).Imie;
+            ViewBag.Nazwisko = db.Uczniowie.Find(id).Nazwisko;
             ViewBag.id = id;
             return View(uwagi);
 
@@ -1240,32 +1240,9 @@ namespace Dziennik.Controllers
 
             }
 
+            var subject = "Zestawienie ocen " + uczen.Imie + " " + uczen.Nazwisko;
+												EmailHelper.Send(rodzic.Email, EmailHelper.APP_EMAIL, body, subject);
 
-
-
-
-            var message = new MailMessage();
-
-            message.To.Add(new MailAddress(rodzic.Email));
-
-            message.From = new MailAddress("mojagracv@gmail.com");
-            message.Subject = "Zestawienie ocen " + uczen.imie + " " + uczen.nazwisko;
-            message.Body = body;
-            message.IsBodyHtml = true;
-
-            using (var smtp = new SmtpClient())
-            {
-                var credential = new NetworkCredential
-                {
-                    UserName = "mojagracv@gmail.com",  // replace with valid value
-                    Password = "civilization96"  // replace with valid value
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(message);
-            }
             return RedirectToAction("Index");
 
         }
@@ -1292,15 +1269,15 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index", "Home");
             var id = Convert.ToInt32(Session["UserID"]);
             Nauczyciel nauczyciel = db.Nauczyciele.Find(id);
-            ViewBag.Imie = nauczyciel.imie;
-            ViewBag.Nazwisko = nauczyciel.nazwisko;
+            ViewBag.Imie = nauczyciel.Imie;
+            ViewBag.Nazwisko = nauczyciel.Nazwisko;
 
             return View(nauczyciel);
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EdycjaProfilu([Bind(Include = "NauczycielID, imie, nazwisko")]Nauczyciel userprofile)
+        public ActionResult EdycjaProfilu([Bind(Include = "NauczycielID, Imie, Nazwisko")]Nauczyciel userprofile)
         {
             //XDDDDDDDDDDDDDDDDDDDDD
             // if (ModelState.IsValid)
@@ -1311,8 +1288,8 @@ namespace Dziennik.Controllers
 
             // Update fields
             user.NauczycielID = userprofile.NauczycielID;
-            user.imie = userprofile.imie;
-            user.nazwisko = userprofile.nazwisko;
+            user.Imie = userprofile.Imie;
+            user.Nazwisko = userprofile.Nazwisko;
 
             db.Entry(user).State = EntityState.Modified;
 
@@ -1472,8 +1449,56 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Pytania", new { id = idTestu });
         }
-        #endregion
-        protected override void Dispose(bool disposing)
+								#endregion
+
+								#region Pytania uczniów
+								public ActionResult PytaniaDoNauczyciela()
+								{
+												if ((string)Session["Status"] != "Nauczyciel")
+																return RedirectToAction("Index", "Home");
+
+												var userId = Convert.ToInt32(Session["UserID"]);
+												return View(db.Pytania_ucznia.Where(x => x.NauczycielID == userId).OrderByDescending(x => x.Data_pytania).ToList());
+								}
+
+								public ActionResult PytanieDoNauczycielaOdpowiedz(int? id)
+								{
+												if ((string)Session["Status"] != "Nauczyciel")
+																return RedirectToAction("Index", "Home");
+
+												if (id == null)
+												{
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+												}
+												Pytanie_ucznia pytanie_ucznia = db.Pytania_ucznia.Find(id);
+												if (pytanie_ucznia == null)
+												{
+																return HttpNotFound();
+												}
+												return View(pytanie_ucznia);
+								}
+
+								[HttpPost]
+								[ValidateAntiForgeryToken]
+								public ActionResult PytanieDoNauczycielaOdpowiedz([Bind(Include = "ID,NauczycielID,UczenID,PrzedmiotID,Pytanie,Odpowiedz,Data_pytania,Data_odpowiedzi")] Pytanie_ucznia pytanie_ucznia)
+								{
+												if ((string)Session["Status"] != "Nauczyciel")
+																return RedirectToAction("Index", "Home");
+
+												if (ModelState.IsValid)
+												{
+																pytanie_ucznia.Data_odpowiedzi = DateTime.Now;
+																db.Entry(pytanie_ucznia).State = EntityState.Modified;
+																db.SaveChanges();
+
+																return RedirectToAction("PytaniaDoNauczyciela");
+												}
+
+												return View(pytanie_ucznia);
+								}
+
+								#endregion
+								protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
