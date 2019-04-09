@@ -974,7 +974,7 @@ namespace Dziennik.Controllers
 																				subject = "Ogólne";
 																else
 																				subject = db.Przedmioty.Find(pytanie_ucznia.PrzedmiotID).nazwa;
-																await EmailHelper.Send(n.Email,EmailHelper.APP_EMAIL,$"Uczen {u.FullName} zadał pytanie.\n{pytanie_ucznia.Pytanie}", $"Pytanie - {subject}");
+																await EmailHelper.Send(n.Email,EmailHelper.APP_EMAIL,$"<pre>Uczen {u.FullName} zadał pytanie.\n{pytanie_ucznia.Pytanie}</pre>", $"Pytanie - {subject}");
 																return RedirectToAction("PytaniaDoNauczyciela");
 												}
 
