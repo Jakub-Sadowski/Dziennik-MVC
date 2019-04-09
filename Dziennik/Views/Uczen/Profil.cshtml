@@ -1,4 +1,5 @@
-﻿@model Dziennik.Models.Administrator
+﻿@using Dziennik.Models
+@model Dziennik.Models.Uczen
 @{
     ViewBag.Title = "Profil";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -33,6 +34,7 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#menu2">Zmień hasło</a>
         </li>
+       
     </ul>
 
     <!-- Tab panes -->
@@ -61,42 +63,53 @@
 
                     </li>
 
+                    
+                    <li class="list-group-item">
+                        <label class="text-muted small">Klasa</label>
+                        <br />
+                        <label>@Model.Klasa.nazwa </label>
+
+
+                    </li>
+
                 </ul>
             </div>
         </div>
         <div id="menu1" class="container tab-pane d-xl-table-row fade">
             <div class="col-md-10">
-                @using (Html.BeginForm("Zmien_login", "Administrator", FormMethod.Post, new { @id = "myform" }))
+                @using (Html.BeginForm("Zmien_login", "Uczen", FormMethod.Post, new { @id = "myform" }))
                 {
 
-                @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
-                @Html.HiddenFor(model => model.ID)
-                @Html.HiddenFor(model => model.Imie)
-                @Html.HiddenFor(model => model.Nazwisko)
-                @Html.HiddenFor(model => model.Haslo)
-               
-                <div class="row">
-                    <label class=" text-muted col-md-2">Login</label>
-                    @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @id = "field2" } })
-                    @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.Imie)
+                    @Html.HiddenFor(model => model.Nazwisko)
+                    @Html.HiddenFor(model => model.Haslo)
+                    @Html.HiddenFor(model => model.KlasaID)
+                    @Html.HiddenFor(model => model.RodzicID)
 
-                </div>
-                <br />
-                <div class="row">
+                    <div class="row">
+                        <label class=" text-muted col-md-2">Login</label>
+                        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @id = "field2" } })
+                        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
 
-                    <label class="text-muted col-md-2">Powtórz login</label>
-                    <input class="form-control" id="field1" name="field1">
+                    </div>
                     <br />
-                    <div class="errorTxt1" style="color:red;"></div>
-                </div>
-                <br /><br />
+                    <div class="row">
 
-                <div class="row">
-                    <button type="submit" class="btn btn-primary col">
-                        Zatwierdź
-                    </button>
-                </div>
+                        <label class="text-muted col-md-2">Powtórz login</label>
+                        <input class="form-control" id="field1" name="field1">
+                        <br />
+                        <div class="errorTxt1" style="color:red;"></div>
+                    </div>
+                    <br /><br />
+
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col">
+                            Zatwierdź
+                        </button>
+                    </div>
                 }
 
             </div>
@@ -105,7 +118,7 @@
         </div>
         <div id="menu2" class="container tab-pane fade">
             <div class="col-md-10">
-                @using (Html.BeginForm("Zmien_haslo", "Administrator", FormMethod.Post, new { @id = "myform1" }))
+                @using (Html.BeginForm("Zmien_haslo", "Uczen", FormMethod.Post, new { @id = "myform1" }))
                 {
 
 
@@ -115,20 +128,22 @@
                     @Html.HiddenFor(model => model.Imie)
                     @Html.HiddenFor(model => model.Nazwisko)
                     @Html.HiddenFor(model => model.Login)
-                <div class="row">
-                    <label class=" text-muted col-md-2">Aktualne hasło</label>
+                    @Html.HiddenFor(model => model.KlasaID)
+                    @Html.HiddenFor(model => model.RodzicID)
+                    <div class="row">
+                        <label class=" text-muted col-md-2">Aktualne hasło</label>
 
-                    <input class="form-control" type="password" id="pas1" name="pas1">
-                    
+                        <input class="form-control" type="password" id="pas1" name="pas1">
 
 
-                </div>
+
+                    </div>
                     <br />
                     <div class="row">
 
                         <label class="text-muted col-md-2">Nowe hasło</label>
                         @Html.EditorFor(model => model.Haslo, new { htmlAttributes = new { @class = "form-control", @id = "pas2", @type = "password" } })
-                        
+
                     </div>
 
                     <br />
@@ -151,6 +166,9 @@
 
             </div>
         </div>
+        
+
+
     </div>
 </div>
 
@@ -194,7 +212,7 @@
                 equalTo: '#haslo'
 
             },
-            
+
              pas3: {
                  equalTo: '#pas2',
                  required: true,
@@ -210,21 +228,37 @@
 
             },
 
-          
+
             pas3: {
                 equalTo: 'Wprowadzone hasła są różne.',
                 required: 'Wprowadź hasło',
                 minlength: 'Hasło za krótkie. Minimum 8 znaków.'
-                
+
 
             }
         },
         errorElement: 'div',
         errorLabelContainer: '.errorTxt',
-        submitHandler: function (form1) {
+        submitHandler: function (form) {
             form.submit();
         }
-        });
-   
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
 </script>
+
+
 

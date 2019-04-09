@@ -186,7 +186,10 @@ namespace Dziennik.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            if (db.Administratorzy.Where(a => a.Login == admin.Login).Count() > 0 && db.Administratorzy.Find(admin.ID).Login != admin.Login)
+            if (db.Administratorzy.Where(a => a.Login == admin.Login).Count()
+                + db.Uczniowie.Where(a => a.Login == admin.Login).Count()
+                + db.Rodzice.Where(a => a.Login == admin.Login).Count()
+                + db.Nauczyciele.Where(a => a.Login == admin.Login).Count() > 0 && db.Administratorzy.Find(admin.ID).Login != admin.Login)
                 liczba = 1;
 
             else
@@ -203,6 +206,35 @@ namespace Dziennik.Controllers
             } 
 
             return RedirectToAction("Profil", "Administrator", new { id = admin.ID, liczba = liczba });
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Zmien_haslo(Administrator admin)
+        {
+            
+            if ((string)Session["Status"] != "Admin" || Int32.Parse((string)Session["UserID"]) != admin.ID)
+                return RedirectToAction("Index", "Home");
+
+            if (admin == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+          
+                if (ModelState.IsValid)
+                {
+
+                    db.Administratorzy.AddOrUpdate(admin);
+                    db.SaveChanges();
+
+                }
+
+            
+
+            return RedirectToAction("Profil", "Administrator", new { id = admin.ID });
 
         }
 

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -1018,9 +1019,104 @@ namespace Dziennik.Controllers
 												db.SaveChanges();
 												return RedirectToAction("PytaniaDoNauczyciela");
 								}
-								#endregion
+        #endregion
 
-								protected override void Dispose(bool disposing)
+
+        public ActionResult Profil(int? id, int? liczba)
+        {
+            ViewBag.control = liczba;
+            if ((string)Session["Status"] != "Uczen" || Int32.Parse((string)Session["UserID"]) != id)
+                return RedirectToAction("Index", "Home");
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Uczen uczen = db.Uczniowie.Find(id);
+            if (uczen == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            return View(uczen);
+
+
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Zmien_Login(Uczen uczen)
+        {
+            int liczba;
+            if ((string)Session["Status"] != "Uczen" || Int32.Parse((string)Session["UserID"]) != uczen.ID)
+                return RedirectToAction("Index", "Home", new { id = "elo" });
+
+            if (uczen== null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (db.Administratorzy.Where(a => a.Login == uczen.Login).Count()
+                + db.Uczniowie.Where(a => a.Login == uczen.Login).Count()
+                + db.Rodzice.Where(a => a.Login == uczen.Login).Count()
+                + db.Nauczyciele.Where(a => a.Login == uczen.Login).Count()
+
+                > 0 && db.Uczniowie.Find(uczen.ID).Login != uczen.Login)
+                liczba = 1;
+
+            else
+            {
+                liczba = 0;
+                if (ModelState.IsValid)
+                {
+
+                    db.Uczniowie.AddOrUpdate(uczen);
+                    db.SaveChanges();
+
+                }
+
+            }
+
+            return RedirectToAction("Profil", "Uczen", new { id = uczen.ID, liczba = liczba });
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Zmien_haslo(Uczen uczen)
+        {
+
+            if ((string)Session["Status"] != "Uczen" || Int32.Parse((string)Session["UserID"]) != uczen.ID)
+                return RedirectToAction("Index", "Home");
+
+            if (uczen == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            if (ModelState.IsValid)
+            {
+
+                db.Uczniowie.AddOrUpdate(uczen);
+                db.SaveChanges();
+
+            }
+
+
+
+            return RedirectToAction("Profil", "Uczen", new { id = uczen.ID });
+
+        }
+
+
+
+
+        protected override void Dispose(bool disposing)
 								{
 												if (disposing)
 												{
