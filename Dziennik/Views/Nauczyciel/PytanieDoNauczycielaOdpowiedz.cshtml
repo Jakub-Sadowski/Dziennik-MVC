@@ -18,13 +18,35 @@
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.UczenID)
         @Html.HiddenFor(model => model.NauczycielID)
+        @Html.HiddenFor(model => model.PrzedmiotID)
         @Html.HiddenFor(model => model.Data_pytania)
         @Html.HiddenFor(model => model.Pytanie)
+
+								<div class="form-group">
+            @Html.LabelFor(model => model.Uczen, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Uczen.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+								<div class="form-group">
+            @Html.LabelFor(model => model.Przedmiot, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Przedmiot.nazwa, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Pytanie, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.Pytanie, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+								<div class="form-group">
+            @Html.LabelFor(model => model.Data_pytania, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Data_pytania, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 

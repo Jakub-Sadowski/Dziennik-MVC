@@ -1426,7 +1426,7 @@ namespace Dziennik.Controllers
 												return View(db.Pytania_ucznia.Where(x => x.NauczycielID == userId).OrderByDescending(x => x.Data_pytania).ToList());
 								}
 
-								public ActionResult PytaniaDoNauczycielaOdpowiedz(int? id)
+								public ActionResult PytanieDoNauczycielaOdpowiedz(int? id)
 								{
 												if ((string)Session["Status"] != "Nauczyciel")
 																return RedirectToAction("Index", "Home");
@@ -1445,7 +1445,7 @@ namespace Dziennik.Controllers
 
 								[HttpPost]
 								[ValidateAntiForgeryToken]
-								public ActionResult PytanieDoNauczycielaOdpowiedz([Bind(Include = "ID,NauczycielID,UczenID,Pytanie,Odpowiedz,Data_pytania,Data_odpowiedzi")] Pytanie_ucznia pytanie_ucznia)
+								public ActionResult PytanieDoNauczycielaOdpowiedz([Bind(Include = "ID,NauczycielID,UczenID,PrzedmiotID,Pytanie,Odpowiedz,Data_pytania,Data_odpowiedzi")] Pytanie_ucznia pytanie_ucznia)
 								{
 												if ((string)Session["Status"] != "Nauczyciel")
 																return RedirectToAction("Index", "Home");

@@ -21,7 +21,9 @@ namespace Dziennik.Models
 								[Display(Name = "Odpowiedź")]
 								public string Odpowiedz { get; set; }
 
+								[Display(Name = "Zadano")]
 								public DateTime Data_pytania { get; set; }
+								[Display(Name = "Odpowiedziano")]
 								public DateTime? Data_odpowiedzi { get; set; }
 
 								public virtual Nauczyciel Nauczyciel { get; set; }
