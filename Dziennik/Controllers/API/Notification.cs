@@ -7,6 +7,7 @@ namespace Dziennik.Controllers.API
 				{
 								public string Message { get; set; }
 								public string Title { get; set; }
+								public string OnClickLink { get; set; }
 								public int ID { get; set; }
 
 								public Notification(Ogloszenie ogloszenie)

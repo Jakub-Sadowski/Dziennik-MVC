@@ -67,7 +67,9 @@ namespace Dziennik.Controllers
                 db.SaveChanges();
 
 																var notiContrl = new NotificationsController();
-																await notiContrl.PostNotificationAsync(new Notification(ogloszenie));
+																var noti = new Notification(ogloszenie);
+																noti.OnClickLink = Url.Content("~");
+																await notiContrl.PostNotificationAsync(noti);
 
 
 																return RedirectToAction("Index");

@@ -1,8 +1,12 @@
-﻿function spawnNotification(body, title) {
+﻿function spawnNotification(body, title, OnClickLink) {
 		var options = {
 				body: body
 		};
-		var n = new Notification(title, options);
+		var n = new Notification(title, options)
+		n.onclick = function (event) {
+				event.preventDefault();
+				window.location.href = OnClickLink;
+		};
 }
 
 function subscribe() {
@@ -13,7 +17,7 @@ function subscribe() {
 		source.onmessage = function (e) {
 				var data = JSON.parse(e.data);
 				console.log(data);
-				spawnNotification(data.Message, data.Title);
+				spawnNotification(data.Message, data.Title), data.OnClickLink;
 		};
 }
 if (Notification.permission === "granted") {
