@@ -11,14 +11,13 @@ namespace Dziennik.Controllers
     {
         private Context db = new Context();
 
-        // GET: Oceny
-        public ActionResult Index()
+								#region
+								public ActionResult Index()
         {
             var oceny = db.Oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot).Include(o => o.Uczen);
             return View(oceny.ToList());
         }
 
-        // GET: Oceny/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -33,7 +32,6 @@ namespace Dziennik.Controllers
             return View(ocena);
         }
 
-        // GET: Oceny/Create
         public ActionResult Create()
         {
             if ((string)Session["Status"] != "Nauczyciel") 
@@ -45,9 +43,6 @@ namespace Dziennik.Controllers
             return View();
         }
 
-        // POST: Oceny/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
@@ -70,7 +65,6 @@ namespace Dziennik.Controllers
             return View(ocena);
         }
 
-        // GET: Oceny/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,9 +82,6 @@ namespace Dziennik.Controllers
             return View(ocena);
         }
 
-        // POST: Oceny/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,ocena,waga,data,tresc,PrzedmiotID,NauczycielID,UczenID")] Ocena ocena)
@@ -107,7 +98,6 @@ namespace Dziennik.Controllers
             return View(ocena);
         }
 
-        // GET: Oceny/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -122,7 +112,6 @@ namespace Dziennik.Controllers
             return View(ocena);
         }
 
-        // POST: Oceny/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -132,8 +121,18 @@ namespace Dziennik.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+								#endregion
 
-        protected override void Dispose(bool disposing)
+								public ActionResult Historia(int? id)
+								{
+												if (id == null)
+												{
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+												}
+												return View(db.OcenyHistoria.Where(x => x.OcenaID == id).OrderByDescending(x => x.dataEdycji).ToList());
+								}
+
+								protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

@@ -533,9 +533,6 @@ namespace Dziennik.Controllers
             return View();
         }
 
-        // POST: Ocena/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult TworzenieOceny(FormCollection collection)
@@ -584,9 +581,6 @@ namespace Dziennik.Controllers
             return View(ocena);
         }
 
-        // POST: Oceny/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EdytowanieOceny(FormCollection collection)
@@ -595,20 +589,20 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Index", "Home");
 
             Ocena ocena1 = db.Oceny.Find(TempData["idoceny"]);
+												var staraOcena = new OcenaHistoria(ocena1, Int32.Parse((string)Session["UserID"]));
             double ocenka = Convert.ToDouble(collection["ocena"]);
 
             int wage = Convert.ToInt32(collection["waga"]);
-            string trusc = collection["tresc"];
+            string tresc = collection["tresc"];
 
             ocena1.ocena = ocenka;
             ocena1.waga = wage;
-            ocena1.tresc = trusc;
+            ocena1.tresc = tresc;
             ViewBag.NauczycielID = Session["UserID"];
-            ocena1.IdEdytujacego = Int32.Parse(ViewBag.NauczycielID);
-            ocena1.dataEdycji = DateTime.Now;
             db.Entry(ocena1).State = EntityState.Modified;
+												db.OcenyHistoria.Add(staraOcena);
             db.SaveChanges();
-            return RedirectToAction("Przedmioty");
+            return RedirectToAction("Oceny");
 
         }
 

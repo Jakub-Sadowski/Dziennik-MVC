@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Oceny</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nauczyciel.Imie)
@@ -60,9 +60,10 @@
             @Html.DisplayFor(modelItem => item.tresc)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Zmień", "Edit", new { id=item.ID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Historia", "Historia", new { id=item.ID }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.ID }, new { @class = "btn btn-default" })
         </td>
     </tr>
 }

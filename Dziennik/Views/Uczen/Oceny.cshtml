@@ -8,7 +8,7 @@
 <h2>Oceny</h2>
 
 
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             Nauczyciel
@@ -52,6 +52,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.tresc)
             </td>
+												<td>
+														@Html.ActionLink("Historia", "Historia", "Oceny", new { id = item.ID }, new { @class = "btn btn-default" }) 
+												</td>
             
         </tr>
     }

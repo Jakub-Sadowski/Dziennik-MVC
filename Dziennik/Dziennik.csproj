@@ -289,10 +289,15 @@
     <Compile Include="Migrations\201904071533360_abc1.Designer.cs">
       <DependentUpon>201904071533360_abc1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904130747038_ocenaHistoria.cs" />
+    <Compile Include="Migrations\201904130747038_ocenaHistoria.Designer.cs">
+      <DependentUpon>201904130747038_ocenaHistoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Donos.cs" />
+    <Compile Include="Models\OcenaHistoria.cs" />
     <Compile Include="Models\Pytanie_ucznia.cs" />
     <Compile Include="Models\Zapytanie.cs" />
     <Compile Include="Models\Klasa.cs" />
@@ -495,6 +500,7 @@
     <Content Include="Views\Rodzic\Profil.cshtml" />
     <Content Include="Views\Nauczyciel\Profil.cshtml" />
     <Content Include="Views\Uczen\Profil.cshtml" />
+    <Content Include="Views\Oceny\Historia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -587,6 +593,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904071533360_abc1.resx">
       <DependentUpon>201904071533360_abc1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904130747038_ocenaHistoria.resx">
+      <DependentUpon>201904130747038_ocenaHistoria.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

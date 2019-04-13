@@ -7,7 +7,7 @@
 <h2>Oceny</h2>
 
 <p>
-    @Html.ActionLink("Create New", "TworzenieOceny")
+    @Html.ActionLink("Wstaw nową", "TworzenieOceny", new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <tr>
@@ -60,8 +60,9 @@
                 @Html.DisplayFor(modelItem => item.tresc)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EdytowanieOceny", new { id = item.ID })
-                @Html.ActionLink("Delete", "UsuwanieOceny", new { id = item.ID })
+                @Html.ActionLink("Zmień", "EdytowanieOceny", new { id = item.ID }, new { @class = "btn btn-default" }) 
+																@Html.ActionLink("Historia", "Historia","Oceny", new { id=item.ID }, new { @class = "btn btn-default" }) 
+                @Html.ActionLink("Usuń", "UsuwanieOceny", new { id = item.ID }, new { @class = "btn btn-default" })
             </td>
         </tr>
     }
