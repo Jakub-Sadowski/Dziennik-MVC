@@ -170,8 +170,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdministratorController.cs" />
-    <Compile Include="Controllers\DonosController.cs" />
     <Compile Include="Controllers\API\Notification.cs" />
+    <Compile Include="Controllers\DonosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlasaController.cs" />
     <Compile Include="Controllers\LekcjaController.cs" />
@@ -190,9 +190,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FileHandler.cs" />
     <Compile Include="Helpers\CookieEncryption.cs" />
-    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Migrations\201812160915074_filePath.cs" />
     <Compile Include="Migrations\201812160915074_filePath.Designer.cs">
       <DependentUpon>201812160915074_filePath.cs</DependentUpon>
@@ -285,22 +285,19 @@
     <Compile Include="Migrations\201904071526020_abc.Designer.cs">
       <DependentUpon>201904071526020_abc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904071559450_pytania-uczniow.cs" />
-    <Compile Include="Migrations\201904071559450_pytania-uczniow.Designer.cs">
-      <DependentUpon>201904071559450_pytania-uczniow.cs</DependentUpon>
+    <Compile Include="Migrations\201904071533360_abc1.cs" />
+    <Compile Include="Migrations\201904071533360_abc1.Designer.cs">
+      <DependentUpon>201904071533360_abc1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904071628171_nazwy.cs" />
-    <Compile Include="Migrations\201904071628171_nazwy.Designer.cs">
-      <DependentUpon>201904071628171_nazwy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904071935426_pyt-ucznia-przedmiot.cs" />
-    <Compile Include="Migrations\201904071935426_pyt-ucznia-przedmiot.Designer.cs">
-      <DependentUpon>201904071935426_pyt-ucznia-przedmiot.cs</DependentUpon>
+    <Compile Include="Migrations\201904130747038_ocenaHistoria.cs" />
+    <Compile Include="Migrations\201904130747038_ocenaHistoria.Designer.cs">
+      <DependentUpon>201904130747038_ocenaHistoria.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Donos.cs" />
+    <Compile Include="Models\OcenaHistoria.cs" />
     <Compile Include="Models\Pytanie_ucznia.cs" />
     <Compile Include="Models\Zapytanie.cs" />
     <Compile Include="Models\Klasa.cs" />
@@ -499,12 +496,11 @@
     <Content Include="Views\Donos\Create.cshtml" />
     <Content Include="Views\Donos\Delete.cshtml" />
     <Content Include="Views\Donos\Index.cshtml" />
-    <Content Include="Views\Nauczyciel\PytanieDoNauczycielaOdpowiedz.cshtml" />
-    <Content Include="Views\Nauczyciel\PytaniaDoNauczyciela.cshtml" />
-    <Content Include="Views\Uczen\DodawaniePytaniaDoNauczyciela.cshtml" />
-    <Content Include="Views\Uczen\PytaniaDoNauczyciela.cshtml" />
-    <Content Include="Views\Uczen\PytanieDoNauczyciela.cshtml" />
-    <Content Include="Views\Uczen\PytanieDoNauczycielaDelete.cshtml" />
+    <Content Include="Views\Administrator\Profil.cshtml" />
+    <Content Include="Views\Rodzic\Profil.cshtml" />
+    <Content Include="Views\Nauczyciel\Profil.cshtml" />
+    <Content Include="Views\Uczen\Profil.cshtml" />
+    <Content Include="Views\Oceny\Historia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -595,14 +591,11 @@
     <EmbeddedResource Include="Migrations\201904071526020_abc.resx">
       <DependentUpon>201904071526020_abc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904071559450_pytania-uczniow.resx">
-      <DependentUpon>201904071559450_pytania-uczniow.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904071533360_abc1.resx">
+      <DependentUpon>201904071533360_abc1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904071628171_nazwy.resx">
-      <DependentUpon>201904071628171_nazwy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904071935426_pyt-ucznia-przedmiot.resx">
-      <DependentUpon>201904071935426_pyt-ucznia-przedmiot.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904130747038_ocenaHistoria.resx">
+      <DependentUpon>201904130747038_ocenaHistoria.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

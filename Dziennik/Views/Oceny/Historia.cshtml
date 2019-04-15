@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Dziennik.Models.OcenaHistoria>
+
+@{
+		ViewBag.Title = "Index";
+		Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Historia zmian oceny</h2>
+
+<table class="table table-bordered">
+		<tr>
+				<th>
+						@Html.DisplayNameFor(model => model.Nauczyciel.Imie)
+				</th>
+				<th>
+						@Html.DisplayNameFor(model => model.Przedmiot.nazwa)
+				</th>
+				<th>
+						@Html.DisplayNameFor(model => model.Uczen.Imie)
+				</th>
+				<th>
+						@Html.DisplayNameFor(model => model.ocena)
+				</th>
+				<th>
+						@Html.DisplayNameFor(model => model.waga)
+				</th>
+				<th>@Html.DisplayNameFor(model => model.data)</th>
+				<th>@Html.DisplayNameFor(model => model.dataEdycji)</th>
+				<th>
+						@Html.DisplayNameFor(model => model.tresc)
+				</th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+				<tr>
+						<td>
+								@Html.DisplayFor(modelItem => item.Nauczyciel.Imie)
+						</td>
+						<td>
+								@Html.DisplayFor(modelItem => item.Przedmiot.nazwa)
+						</td>
+						<td>
+								@Html.DisplayFor(modelItem => item.Uczen.Imie)
+						</td>
+						<td>
+								@Html.DisplayFor(modelItem => item.ocena)
+						</td>
+						<td>
+								@Html.DisplayFor(modelItem => item.waga)
+						</td>
+						<td>@Html.DisplayFor(modelItem => item.data)</td>
+						<td>@Html.DisplayFor(modelItem => item.dataEdycji)</td>
+						<td>
+								@Html.DisplayFor(modelItem => item.tresc)
+						</td>
+				</tr>
+		}
+
+</table>

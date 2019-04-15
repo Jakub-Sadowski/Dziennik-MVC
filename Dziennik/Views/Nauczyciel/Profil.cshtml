@@ -1,0 +1,345 @@
+﻿@using Dziennik.Models
+@model Dziennik.Models.Nauczyciel
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<input type="text" name="Textbox2" id="haslo" value="@Model.Haslo" hidden="hidden" /><br />
+
+@if (ViewBag.control == 1)
+{
+    <div class="alert alert-danger">
+        <strong>Nie zmieniono loginu.</strong> Login istnieje w bazie.
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+<h2>Profil użytkownika</h2>
+
+<div class="container">
+
+    <br>
+    <!-- Nav pills -->
+    <ul class="nav nav-pills nav-stacked col-md-2" role="tablist">
+        <li class="nav-item active">
+            <a class="nav-link active" data-toggle="pill" href="#home">Informacje ogólne</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu1">Zmień login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu2">Zmień hasło</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu3">Zmień E-mail</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="home" class="container tab-pane active ">
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label class="text-muted small">Imię i nazwisko</label>
+                        <br />
+                        <label>@Model.FullName </label>
+
+                    </li>
+
+                    <li class="list-group-item">
+                        <label class="text-muted small">Status konta</label>
+                        <br />
+                        <label>@Session["Status"] </label>
+
+                    </li>
+
+                    <li class="list-group-item">
+                        <label class="text-muted small">Nazwa użytkownika</label>
+                        <br />
+                        <label>@Model.Login </label>
+
+                    </li>
+
+                    <li class="list-group-item">
+                        <label class="text-muted small">E-mail</label>
+                        <br />
+                        <label>@Model.Email </label>
+
+                    </li>
+                    <li class="list-group-item">
+                        <label class="text-muted small">Wychowawca klas</label>
+                        <br />
+                        <ul class="list-group">
+
+
+
+                            @foreach (Klasa u in Model.WychowywaneKlasy)
+                            {
+
+                                <li class="list-group-item"> <label>@u.nazwa</label></li>
+
+                            }
+
+                        </ul>
+
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div id="menu1" class="container tab-pane d-xl-table-row fade">
+            <div class="col-md-10">
+                @using (Html.BeginForm("Zmien_login", "Nauczyciel", FormMethod.Post, new { @id = "myform" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.NauczycielID)
+                    @Html.HiddenFor(model => model.Imie)
+                    @Html.HiddenFor(model => model.Nazwisko)
+                    @Html.HiddenFor(model => model.Haslo)
+                    @Html.HiddenFor(model => model.Email)
+                    
+                    <div class="row">
+                        <label class=" text-muted col-md-2">Login</label>
+                        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @id = "field2" } })
+                        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+
+                    </div>
+                    <br />
+                    <div class="row">
+
+                        <label class="text-muted col-md-2">Powtórz login</label>
+                        <input class="form-control" id="field1" name="field1">
+                        <br />
+                        <div class="errorTxt1" style="color:red;"></div>
+                    </div>
+                    <br /><br />
+
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col">
+                            Zatwierdź
+                        </button>
+                    </div>
+                }
+
+            </div>
+
+
+        </div>
+        <div id="menu2" class="container tab-pane fade">
+            <div class="col-md-10">
+                @using (Html.BeginForm("Zmien_haslo", "Nauczyciel", FormMethod.Post, new { @id = "myform1" }))
+                {
+
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.NauczycielID)
+                    @Html.HiddenFor(model => model.Imie)
+                    @Html.HiddenFor(model => model.Nazwisko)
+                    @Html.HiddenFor(model => model.Login)
+                    @Html.HiddenFor(model => model.Email)
+                    <div class="row">
+                        <label class=" text-muted col-md-2">Aktualne hasło</label>
+
+                        <input class="form-control" type="password" id="pas1" name="pas1">
+
+
+
+                    </div>
+                    <br />
+                    <div class="row">
+
+                        <label class="text-muted col-md-2">Nowe hasło</label>
+                        @Html.EditorFor(model => model.Haslo, new { htmlAttributes = new { @class = "form-control", @id = "pas2", @type = "password" } })
+
+                    </div>
+
+                    <br />
+                    <div class="row">
+
+                        <label class="text-muted col-md-2">Powtórz hasło</label>
+                        <input class="form-control" type="password" id="pas3" name="pas3">
+                        <br />
+                        <div class="errorTxt" style="color:red;"></div>
+
+                    </div>
+                    <br /><br />
+
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col">
+                            Zatwierdź
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div id="menu3" class="container tab-pane d-xl-table-row fade">
+            <div class="col-md-10">
+                @using (Html.BeginForm("Zmien_email", "Nauczyciel", FormMethod.Post, new { @id = "myform3" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.NauczycielID)
+                    @Html.HiddenFor(model => model.Imie)
+                    @Html.HiddenFor(model => model.Nazwisko)
+                    @Html.HiddenFor(model => model.Haslo)
+                    @Html.HiddenFor(model => model.Login)
+
+                    <div class="row">
+                        <label class=" text-muted col-md-2">E-mail</label>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "mail1", @name = "mail1" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                    </div>
+                    <br />
+                    <div class="row">
+
+                        <label class="text-muted col-md-2">Powtórz e-mail</label>
+                        <input class="form-control" id="mail2" name="mail2">
+                        <br />
+                        <div class="errorTxt2" style="color:red;"></div>
+                    </div>
+                    <br /><br />
+
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col">
+                            Zatwierdź
+                        </button>
+                    </div>
+                }
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $("#pas2").val('');
+
+     });
+
+
+    $('form[id="myform"]').validate({
+        rules: {
+            field1: {
+                equalTo: '#field2'
+
+            }
+
+        },
+
+
+        messages: {
+            field1: {
+                equalTo: 'Wprowadzone loginy są różne'
+
+            }
+        },
+        errorElement: 'div',
+        errorLabelContainer: '.errorTxt1',
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+
+
+    $('form[id="myform1"]').validate({
+        rules: {
+            pas1: {
+                equalTo: '#haslo'
+
+            },
+
+             pas3: {
+                 equalTo: '#pas2',
+                 required: true,
+                 minlength: 8
+            }
+
+        },
+
+
+        messages: {
+            pas1: {
+                equalTo: 'Wprowadzono nieprawidłowe hasło'
+
+            },
+
+
+            pas3: {
+                equalTo: 'Wprowadzone hasła są różne.',
+                required: 'Wprowadź hasło',
+                minlength: 'Hasło za krótkie. Minimum 8 znaków.'
+
+
+            }
+        },
+        errorElement: 'div',
+        errorLabelContainer: '.errorTxt',
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $('form[id="myform3"]').validate({
+        rules: {
+            mail2: {
+                equalTo: '#mail1',
+                required: true,
+                email: true
+
+            }
+
+        },
+
+
+        messages: {
+            mail2: {
+                equalTo: 'Wprowadzone e-maile są różne',
+                required: 'Wprowadź e-mail',
+                email: 'Wprowadź poprawny e-mail'
+
+            }
+        },
+        errorElement: 'div',
+        errorLabelContainer: '.errorTxt2',
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+</script>
+
+
+

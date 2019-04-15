@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dziennik.Models
@@ -32,7 +33,8 @@ namespace Dziennik.Models
         public virtual Klasa Klasa { get; set; }
         public virtual Rodzic Rodzic { get; set; }
 
-        public string FullName
+								[DisplayName("Uczeń")]
+								public string FullName
         {
             get
             {

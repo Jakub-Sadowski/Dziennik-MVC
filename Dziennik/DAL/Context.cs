@@ -20,6 +20,7 @@ namespace Dziennik.DAL
         public DbSet<Nieobecnosc> Nieobecnosci { get; set; }
 
         public DbSet<Ocena> Oceny { get; set; }
+        public DbSet<OcenaHistoria> OcenyHistoria { get; set; }
         public DbSet<Ogloszenie> Ogloszenia { get; set; }
         public DbSet<Ogloszenie_dla_rodzicow> Ogloszenia_dla_rodzicow { get; set; }
 
