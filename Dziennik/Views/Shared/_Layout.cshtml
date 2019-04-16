@@ -4,7 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -21,66 +20,63 @@
 								</button>
 						</div>
 						<div class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
-                                <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+								<ul class="nav navbar-nav">
+										<li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
 
-                                @if ((string)Session["Status"] == "Admin")
-                                {
+										@if ((string)Session["Status"] == "Admin")
+										{
 
-                                    <li>@Html.ActionLink("Administratorzy", "Index", "Administrator")</li>
-                                    <li>@Html.ActionLink("Nauczyciele", "Index", "Nauczyciel")</li>
-                                    <li>@Html.ActionLink("Uczniowie", "Index", "Uczen")</li>
-                                    <li>@Html.ActionLink("Rodzice", "Index", "Rodzic")</li>
-                                    <li>@Html.ActionLink("Klasy", "Index", "Klasa")</li>
-                                    <li>@Html.ActionLink("Przedmioty", "Index", "Przedmiot")</li>
-                                    <li>@Html.ActionLink("Lekcje", "Index", "Lekcja")</li>
-                                }
+												<li>@Html.ActionLink("Administratorzy", "Index", "Administrator")</li>
+												<li>@Html.ActionLink("Nauczyciele", "Index", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Uczniowie", "Index", "Uczen")</li>
+												<li>@Html.ActionLink("Rodzice", "Index", "Rodzic")</li>
+												<li>@Html.ActionLink("Klasy", "Index", "Klasa")</li>
+												<li>@Html.ActionLink("Przedmioty", "Index", "Przedmiot")</li>
+												<li>@Html.ActionLink("Lekcje", "Index", "Lekcja")</li>
+										}
 
-                                @if ((string)Session["Status"] == "Uczen")
-                                {
-                                    <li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>
-                                    <li>@Html.ActionLink("Oceny", "Oceny", "Uczen")</li>
-                                    <li>@Html.ActionLink("E-nauczanie", "Przedmioty", "Uczen")</li>
-                                    <li>@Html.ActionLink("Uwagi", "Uwagi", "Uczen")</li>
-                                    <li>@Html.ActionLink("Testy", "TestyUcznia", "Uczen")</li>
-                                    <li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Uczen")</li>
-                                    <li>@Html.ActionLink("Rozkład nauczycieli", "RozkladNauczycieli", "Nauczyciel")</li>
-                                    <li>@Html.ActionLink("Zawiadom Nauczyciela", "Index", "Donos")</li>
-                                    <li>@Html.ActionLink("Pytania do nauczyciela", "PytaniaDoNauczyciela", "Uczen")</li>
-
-
-
-                                }
-                                @if ((string)Session["Status"] == "Rodzic")
-                                {
-                                    <li>@Html.ActionLink("Absencja", "Absencja", "Rodzic")</li>
-                                    <li>@Html.ActionLink("Oceny", "Oceny", "Rodzic")</li>
-                                    <li>@Html.ActionLink("Uwagi", "Uwagi", "Rodzic")</li>
-                                    <li>@Html.ActionLink("Ogloszenia", "Ogloszenia", "Rodzic")</li>
-                                    <li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Rodzic")</li>
-                                    <li>@Html.ActionLink("Pytanie do nauczyciela", "DodawanieZapytania", "Rodzic")</li>
+										@if ((string)Session["Status"] == "Uczen")
+										{
+												<li>@Html.ActionLink("Absencja", "Absencja", "Uczen")</li>
+												<li>@Html.ActionLink("Oceny", "Oceny", "Uczen")</li>
+												<li>@Html.ActionLink("E-nauczanie", "Przedmioty", "Uczen")</li>
+												<li>@Html.ActionLink("Uwagi", "Uwagi", "Uczen")</li>
+												<li>@Html.ActionLink("Testy", "TestyUcznia", "Uczen")</li>
+												<li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Uczen")</li>
+												<li>@Html.ActionLink("Rozkład nauczycieli", "RozkladNauczycieli", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Zawiadom Nauczyciela", "Index", "Donos")</li>
+												<li>@Html.ActionLink("Pytania do nauczyciela", "PytaniaDoNauczyciela", "Uczen")</li>
 
 
 
-
-
-                                }
-
-                                @if ((string)Session["Status"] == "Nauczyciel")
-                                {
-
-                                    <li>@Html.ActionLink("Przedmioty", "Przedmioty", "Nauczyciel")</li>
-                                    <li>@Html.ActionLink("Ogłoszenia", "Index", "Ogloszenie")</li>
-                                    <li>@Html.ActionLink("Obecności", "LekcjeNauczyciela", "Nauczyciel")</li>
-                                    <li>@Html.ActionLink("Klasa wychowawcy", "Wychowankowie", "Nauczyciel")</li>
-                                    <li>@Html.ActionLink("Pytania", "Pytania_rodzicow", "Nauczyciel")</li>
-																																				<li>@Html.ActionLink("Pytania uczniów", "PytaniaDoNauczyciela", "Nauczyciel")</li>
+										}
+										@if ((string)Session["Status"] == "Rodzic")
+										{
+												<li>@Html.ActionLink("Absencja", "Absencja", "Rodzic")</li>
+												<li>@Html.ActionLink("Oceny", "Oceny", "Rodzic")</li>
+												<li>@Html.ActionLink("Uwagi", "Uwagi", "Rodzic")</li>
+												<li>@Html.ActionLink("Ogloszenia", "Ogloszenia", "Rodzic")</li>
+												<li>@Html.ActionLink("Plan Lekcji", "PlanLekcji", "Rodzic")</li>
+												<li>@Html.ActionLink("Pytanie do nauczyciela", "DodawanieZapytania", "Rodzic")</li>
 
 
 
-                                }
 
-                            </ul>
+
+										}
+
+										@if ((string)Session["Status"] == "Nauczyciel")
+										{
+
+												<li>@Html.ActionLink("Przedmioty", "Przedmioty", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Ogłoszenia", "Index", "Ogloszenie")</li>
+												<li>@Html.ActionLink("Obecności", "LekcjeNauczyciela", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Klasa wychowawcy", "Wychowankowie", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Pytania", "Pytania_rodzicow", "Nauczyciel")</li>
+												<li>@Html.ActionLink("Pytania uczniów", "PytaniaDoNauczyciela", "Nauczyciel")</li>
+										}
+
+								</ul>
 								<ul class="nav navbar-nav navbar-right">
 										@if (Session["UserName"] == null)
 										{
@@ -101,11 +97,23 @@
 				</div>
 		</div>
 		<div class="container body-content">
+								<br/>
+								<br/>
+								<br/>
+								<br/>
+								<br/>
 				@RenderBody()
 		</div>
 
 		@Scripts.Render("~/bundles/jquery")
-		@Scripts.Render("~/bundles/bootstrap")
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 		@Scripts.Render("~/Scripts/Notifications.js")
 		@RenderSection("scripts", required: false)
 </body>
