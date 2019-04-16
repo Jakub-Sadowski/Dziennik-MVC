@@ -146,7 +146,17 @@ namespace Dziennik.DAL
          .HasForeignKey(k => k.UczenID)
          .WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Lekcja>()
+												modelBuilder.Entity<OcenaHistoria>()
+												.HasRequired(o => o.Przedmiot)
+												.WithRequiredDependent()
+												.WillCascadeOnDelete(false);
+
+												modelBuilder.Entity<OcenaHistoria>()
+												.HasRequired(o => o.Uczen)
+												.WithRequiredDependent()
+												.WillCascadeOnDelete(false);
+
+												modelBuilder.Entity<Lekcja>()
          .HasOptional(o => o.Przedmiot)
          .WithMany(m => m.Lekcje)
          .HasForeignKey(k => k.PrzedmiotID)
