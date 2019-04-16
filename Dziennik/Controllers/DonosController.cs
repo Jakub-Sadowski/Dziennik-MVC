@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Dziennik.DAL;
@@ -55,7 +56,7 @@ namespace Dziennik.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,NauczycielID,RodzicID,pytanie,odpowiedz,data_pytania,data_odpowiedz")] Donos donos)
+        public async Task<ActionResult> Create([Bind(Include = "ID,NauczycielID,wiadomosc,data_pytania")] Donos donos)
         {
             if ((string)Session["Status"] != "Uczen")
                 return RedirectToAction("Index", "Home");
@@ -64,7 +65,8 @@ namespace Dziennik.Controllers
                 donos.data_pytania = DateTime.Now;
                 db.Donos.Add(donos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                //return RedirectToAction("Index");
             }
 
             ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie", donos.NauczycielID);
@@ -74,12 +76,12 @@ namespace Dziennik.Controllers
             int id = Convert.ToInt32(ide);
             donos.UczenID = id;
             donos.Uczen = db.Uczniowie.Find(id);
-
+            donos.Nauczyciel = db.Nauczyciele.Find(donos.NauczycielID);
             var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
             var message = new MailMessage();
             message.To.Add(new MailAddress(donos.Nauczyciel.Email));  // replace with valid value 
             message.From = new MailAddress("mojagracv@gmail.com");  // replace with valid value
-            message.Subject = "Wazna wiadomosc od "+donos.Uczen;
+            message.Subject = "Wazna wiadomosc od "+donos.Uczen.FullName;
             message.Body = string.Format(body, donos.Uczen.FullName,donos.data_pytania, donos.wiadomosc);
             message.IsBodyHtml = true;
 
@@ -94,10 +96,10 @@ namespace Dziennik.Controllers
                 smtp.Host = "smtp.gmail.com";
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
-                smtp.SendMailAsync(message);
+               await smtp.SendMailAsync(message);
               
             }
-            return View(donos);
+             return RedirectToAction("Index");
         }
 
         // GET: Donos/Edit/5
