@@ -18,10 +18,10 @@
 
 
 
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
-            Nauczyciel
+            @Html.DisplayNameFor(model => model.Nauczyciel.FullName)
         </th>
         <th>
             Przedmiot
@@ -62,6 +62,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.tresc)
             </td>
+												<td>@Html.ActionLink("Historia", "Historia", "Oceny", new { id = item.ID }, new { @class = "btn btn-default" }) </td>
 
         </tr>
     }
@@ -74,18 +75,18 @@
 
     <div class="form-group" align="center">
         <label for="sel1">Wybierz ucznia:</label>
-        <select class="form-control" name="data" onchange="submit();" style="text-align-last:center;">
-            <option value="">--Wybierz--</option>
+								<select class="form-control" name="data" onchange="submit();" style="text-align-last:center;">
+										<option value="">--Wybierz--</option>
 
-            @foreach (var item in (List<Uczen>)ViewBag.dzieci)
-            {
-
-
-                <option value="@item.ID">@item.Imie @item.Nazwisko</option>
+										@foreach (var item in (List<Uczen>)ViewBag.dzieci)
+										{
 
 
-            }
+												<option value="@item.ID">@item.Imie @item.Nazwisko</option>
 
+
+										}
+								</select>
 </div>
 }
 

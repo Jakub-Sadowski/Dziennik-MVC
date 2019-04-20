@@ -9,39 +9,27 @@
 
 <table class="table table-bordered">
 		<tr>
-				<th>
-						@Html.DisplayNameFor(model => model.Nauczyciel.Imie)
-				</th>
-				<th>
-						@Html.DisplayNameFor(model => model.Przedmiot.nazwa)
-				</th>
-				<th>
-						@Html.DisplayNameFor(model => model.Uczen.Imie)
-				</th>
-				<th>
-						@Html.DisplayNameFor(model => model.ocena)
-				</th>
-				<th>
-						@Html.DisplayNameFor(model => model.waga)
-				</th>
+				<th>@Html.DisplayNameFor(model => model.Nauczyciel.FullName)</th>
+				<th>@Html.DisplayNameFor(model => model.Przedmiot.nazwa)</th>
+				<th>@Html.DisplayNameFor(model => model.Uczen.FullName)</th>
+				<th>@Html.DisplayNameFor(model => model.ocena)</th>
+				<th>@Html.DisplayNameFor(model => model.waga)</th>
 				<th>@Html.DisplayNameFor(model => model.data)</th>
 				<th>@Html.DisplayNameFor(model => model.dataEdycji)</th>
-				<th>
-						@Html.DisplayNameFor(model => model.tresc)
-				</th>
+				<th>@Html.DisplayNameFor(model => model.tresc)</th>
 		</tr>
 
 		@foreach (var item in Model)
 		{
 				<tr>
 						<td>
-								@Html.DisplayFor(modelItem => item.Nauczyciel.Imie)
+								@Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
 						</td>
 						<td>
 								@Html.DisplayFor(modelItem => item.Przedmiot.nazwa)
 						</td>
 						<td>
-								@Html.DisplayFor(modelItem => item.Uczen.Imie)
+								@Html.DisplayFor(modelItem => item.Uczen.FullName)
 						</td>
 						<td>
 								@Html.DisplayFor(modelItem => item.ocena)

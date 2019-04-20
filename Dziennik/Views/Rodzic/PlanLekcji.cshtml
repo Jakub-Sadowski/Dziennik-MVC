@@ -7,7 +7,7 @@
 
 <h2>Plan Lekcji</h2>
 
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>@Html.DisplayNameFor(model => model.ID)</th>
         <th>@Html.DisplayNameFor(model => model.dzien)</th>
@@ -38,12 +38,9 @@
 
             @foreach (var item in (List<Uczen>)ViewBag.dzieci)
             {
-
-
                 <option value="@item.ID">@item.Imie @item.Nazwisko</option>
-
-
             }
+								</select>
 
 </div>
 }
