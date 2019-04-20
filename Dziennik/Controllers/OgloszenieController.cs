@@ -19,7 +19,8 @@ namespace Dziennik.Controllers
         {
             if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
-            var ogloszenia = db.Ogloszenia.Include(o => o.Nauczyciel);
+												int userID = Convert.ToInt32(Session["UserID"]);
+												var ogloszenia = db.Ogloszenia.Include(o => o.Nauczyciel).Where(x => x.NauczycielID == userID);
             return View(ogloszenia.ToList());
         }
 
