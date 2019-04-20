@@ -7,7 +7,7 @@
 }
 
 <h2>Uwagi ucznia: @ViewBag.Imie @ViewBag.Nazwisko</h2>
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
            Nauczyciel
@@ -49,17 +49,17 @@
 
     <div class="form-group" align="center">
         <label for="sel1">Wybierz ucznia:</label>
-        <select class="form-control" name="data" onchange="submit();" style="text-align-last:center;">
-            <option value="">--Wybierz--</option>
+								<select class="form-control" name="data" onchange="submit();" style="text-align-last:center;">
+										<option value="">--Wybierz--</option>
 
-            @foreach (var item in (List<Uczen>)ViewBag.dzieci)
-            {
-
-
-                <option value="@item.ID">@item.Imie @item.Nazwisko</option>
+										@foreach (var item in (List<Uczen>)ViewBag.dzieci)
+										{
 
 
-            }
+												<option value="@item.ID">@item.Imie @item.Nazwisko</option>
 
+
+										}
+								</select>
 </div>
 }
