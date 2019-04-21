@@ -558,18 +558,19 @@ namespace Dziennik.Controllers
 
 												if (ModelState.IsValid)
 												{
-																var staraOcena = new OcenaHistoria(o, Int32.Parse((string)Session["UserID"]));
+																var staraWartosc = db.Oceny.Find(o.ID);
+																var staraOcena = new OcenaHistoria(staraWartosc, Int32.Parse((string)Session["UserID"]));
+																db.Entry(staraWartosc).State = EntityState.Detached;
 																o.data = DateTime.Now;
 																db.Entry(o).State = EntityState.Modified;
 																db.OcenyHistoria.Add(staraOcena);
 																db.SaveChanges();
-																return RedirectToAction("Oceny");
+																return RedirectToAction("Index");
 												}
 
             ViewBag.NauczycielID = Session["UserID"];
             
-            return RedirectToAction("Oceny");
-
+            return View(o);
         }
 
         public ActionResult UsuwanieOceny(int? id)
