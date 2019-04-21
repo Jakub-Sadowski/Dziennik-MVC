@@ -11,7 +11,7 @@ namespace Dziennik.Controllers
     {
         private Context db = new Context();
 
-								#region
+								#region crud
 								public ActionResult Index()
         {
             var oceny = db.Oceny.Include(o => o.Nauczyciel).Include(o => o.Przedmiot).Include(o => o.Uczen);
@@ -129,6 +129,7 @@ namespace Dziennik.Controllers
 												{
 																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 												}
+												//return View();
 												return View(db.OcenyHistoria.Where(x => x.OcenaID == id).OrderByDescending(x => x.dataEdycji).ToList());
 								}
 

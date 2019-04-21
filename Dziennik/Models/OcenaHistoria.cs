@@ -30,7 +30,7 @@ namespace Dziennik.Models
 								public virtual Przedmiot Przedmiot { get; set; }
 								public virtual Ocena Ocena { get; set; }
 
-								public OcenaHistoria(){}
+								public OcenaHistoria() { }
 
 								public OcenaHistoria(Ocena ocena, int idEdytującego)
 								{

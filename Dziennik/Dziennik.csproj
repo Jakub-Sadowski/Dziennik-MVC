@@ -293,6 +293,14 @@
     <Compile Include="Migrations\201904160613158_jebanegowno.Designer.cs">
       <DependentUpon>201904160613158_jebanegowno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904210555151_remove-ocHist.cs" />
+    <Compile Include="Migrations\201904210555151_remove-ocHist.Designer.cs">
+      <DependentUpon>201904210555151_remove-ocHist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904210608319_add-ocHist.cs" />
+    <Compile Include="Migrations\201904210608319_add-ocHist.Designer.cs">
+      <DependentUpon>201904210608319_add-ocHist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
@@ -587,6 +595,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904160613158_jebanegowno.resx">
       <DependentUpon>201904160613158_jebanegowno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904210555151_remove-ocHist.resx">
+      <DependentUpon>201904210555151_remove-ocHist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904210608319_add-ocHist.resx">
+      <DependentUpon>201904210608319_add-ocHist.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

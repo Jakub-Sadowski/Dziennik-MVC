@@ -20,8 +20,8 @@ namespace Dziennik.DAL
         public DbSet<Nieobecnosc> Nieobecnosci { get; set; }
 
         public DbSet<Ocena> Oceny { get; set; }
-        public DbSet<OcenaHistoria> OcenyHistoria { get; set; }
-        public DbSet<Ogloszenie> Ogloszenia { get; set; }
+								public DbSet<OcenaHistoria> OcenyHistoria { get; set; }
+								public DbSet<Ogloszenie> Ogloszenia { get; set; }
         public DbSet<Ogloszenie_dla_rodzicow> Ogloszenia_dla_rodzicow { get; set; }
 
         public DbSet<Plik> Pliki { get; set; }
@@ -146,23 +146,23 @@ namespace Dziennik.DAL
          .HasForeignKey(k => k.UczenID)
          .WillCascadeOnDelete(true);
 
-												modelBuilder.Entity<OcenaHistoria>()
-												.HasRequired(o => o.Przedmiot)
-												.WithRequiredDependent()
-												.WillCascadeOnDelete(false);
+												//			modelBuilder.Entity<OcenaHistoria>()
+												//			.HasRequired(o => o.Przedmiot)
+												//			.WithRequiredDependent()
+												//			.WillCascadeOnDelete(false);
 
-												modelBuilder.Entity<OcenaHistoria>()
-												.HasRequired(o => o.Uczen)
-												.WithRequiredDependent()
-												.WillCascadeOnDelete(false);
+												//			modelBuilder.Entity<OcenaHistoria>()
+												//			.HasRequired(o => o.Uczen)
+												//			.WithRequiredDependent()
+												//			.WillCascadeOnDelete(false);
 
 												modelBuilder.Entity<Lekcja>()
-         .HasOptional(o => o.Przedmiot)
-         .WithMany(m => m.Lekcje)
-         .HasForeignKey(k => k.PrzedmiotID)
-         .WillCascadeOnDelete(true);
+									.HasOptional(o => o.Przedmiot)
+									.WithMany(m => m.Lekcje)
+									.HasForeignKey(k => k.PrzedmiotID)
+									.WillCascadeOnDelete(true);
 
-                      modelBuilder.Entity<Plik>()
+												modelBuilder.Entity<Plik>()
          .HasOptional(o => o.Przedmiot)
          .WithMany(m => m.Pliki)
          .HasForeignKey(k => k.PrzedmiotID)
