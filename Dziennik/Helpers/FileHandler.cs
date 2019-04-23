@@ -13,7 +13,7 @@ namespace Dziennik.Helpers
             var filename = AddGuid(postedFile.FileName);
             var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads"), filename);
             postedFile.SaveAs(path);
-            return path;
+            return filename;
         }
 
         public static void DeleteFile(string path)
@@ -31,6 +31,11 @@ namespace Dziennik.Helpers
             var fileName = Path.GetFileName(path);
             return RemoveGuid(fileName);
         }
+
+								public static string GetAbsolutePath(string filename)
+								{
+												return Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads"), filename);
+								}
 
         public static string RemoveGuid(string fileName)
         {

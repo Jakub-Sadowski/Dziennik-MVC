@@ -1,112 +1,122 @@
-﻿@model Dziennik.Models.Pytanie
+﻿@model Dziennik.ViewModels.PytanieVM
 
 
 <h2>@ViewBag.title</h2>
 
 <h4>Pozostały czas: <label id="timer"></label></h4>
 
+<div>
+		@foreach (var s in Model.Sounds)
+		{
+				<audio src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the audio element.</p></audio>
+				<audio src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the audio element.</p></audio>
+				<audio src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the audio element.</p></audio>
+				<audio src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the audio element.</p></audio>
+		}
+		@foreach (var s in Model.Videos)
+		{
+				<video src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the video element.</p></video>
+				<video src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the video element.</p></video>
+				<video src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the video element.</p></video>
+				<video src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the video element.</p></video>
+				<video src="@s.Path" controls><p>If you are reading this, it is because your browser does not support the video element.</p></video>
+		}
+		@foreach (var s in Model.Pictures)
+		{
+				<img src="@s.Path" />
+				<img src="@s.Path" />
+				<img src="@s.Path" />
+				<img src="@s.Path" />
+		}
+</div>
+
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    <input type="hidden" id="timerForm" name="pozostalyCzasTestu" />
-    <br />
-    <b>@Html.DisplayFor(model => model.tresc)</b>
-    <br />
-    <ul>
-        <li>
-            @if (ViewBag.cache == 1)
-            {
-                @Html.RadioButton("dec", "1", true)
+		@Html.AntiForgeryToken()
+		<input type="hidden" id="timerForm" name="pozostalyCzasTestu" />
+		<br />
+		<b>@Html.DisplayFor(model => model.tresc)</b>
 
-            }
-            else
-            {
-                @Html.RadioButton("dec", "1")
-            }
-            @Html.DisplayFor(model => Model.odpowiedz1)
-        </li>
-        <li>
-            @if (ViewBag.cache == 2)
-            {
+		<br />
+		<ul>
+				<li>
+						@if (ViewBag.cache == 1)
+						{
+								@Html.RadioButton("dec", "1", true)
+						}
+						else
+						{
+								@Html.RadioButton("dec", "1")
+						}
+						@Html.DisplayFor(model => Model.odpowiedz1)
+				</li>
+				<li>
+						@if (ViewBag.cache == 2)
+						{
+								@Html.RadioButton("dec", "2", true)
+						}
+						else
+						{
+								@Html.RadioButton("dec", "2")
+						}
+						@Html.DisplayFor(model => Model.odpowiedz2)
+				</li>
+				<li>
+						@if (ViewBag.cache == 3)
+						{
+								@Html.RadioButton("dec", "3", true)
+						}
+						else
+						{
+								@Html.RadioButton("dec", "3")
 
-                @Html.RadioButton("dec", "2", true)
-
-            }
-            else
-            {
-
-                @Html.RadioButton("dec", "2")
-            }
-            @Html.DisplayFor(model => Model.odpowiedz2)
-        </li>
-        <li>
-            @if (ViewBag.cache == 3)
-            {
-                @Html.RadioButton("dec", "3", true)
-            }
-            else
-            {
-                @Html.RadioButton("dec", "3")
-
-            }
-            @Html.DisplayFor(model => Model.odpowiedz3)
-        </li>
-        <li>
-            @if (ViewBag.cache == 4)
-            {
-
-
-                @Html.RadioButton("dec", "4", true)
-
-            }
-
-            else
-            {
-                @Html.RadioButton("dec", "4")
-            }
-            @Html.DisplayFor(model => Model.odpowiedz4)
-
-
-        </li>
-
-    </ul>
-    <br />
-    <br />
+						}
+						@Html.DisplayFor(model => Model.odpowiedz3)
+				</li>
+				<li>
+						@if (ViewBag.cache == 4)
+						{
+								@Html.RadioButton("dec", "4", true)
+						}
+						else
+						{
+								@Html.RadioButton("dec", "4")
+						}
+						@Html.DisplayFor(model => Model.odpowiedz4)
+				</li>
+		</ul>
+		<br />
+		<br />
 
 
 
 
-    <div class="btn-group" role="group" aria-label="Basic example">
+		<div class="btn-group" role="group" aria-label="Basic example">
 
-        @if (ViewBag.back)
-        {
-
-            <input type="submit" value="Wróć" class="btn btn-default" name="button" />
-        }
-        else
-        {
-            <input type="submit" value="Wróć" class="btn btn-default" name="button" disabled />
-
-
-        }
+				@if (ViewBag.back)
+				{
+						<input type="submit" value="Wróć" class="btn btn-default" name="button" />
+				}
+				else
+				{
+						<input type="submit" value="Wróć" class="btn btn-default" name="button" disabled />
+				}
 
 
+				<input id="zapisz-test" type="submit" value="Zapisz test" class="btn btn-default" name="button" />
 
-        <input id="zapisz-test" type="submit" value="Zapisz test" class="btn btn-default" name="button" />
+				@if (ViewBag.next)
+				{
+						<input type="submit" value="Dalej" class="btn btn-default" name="button" />
+				}
+				else
+				{
+						<input type="submit" value="Dalej" class="btn btn-default" name="button" disabled />
+				}
 
-        @if (ViewBag.next)
-        {
-            <input type="submit" value="Dalej" class="btn btn-default" name="button" />
-        }
-        else
-        {
-            <input type="submit" value="Dalej" class="btn btn-default" name="button" disabled />
-        }
-
-
-
-    </div>
+		</div>
 }
+
 
 <script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">

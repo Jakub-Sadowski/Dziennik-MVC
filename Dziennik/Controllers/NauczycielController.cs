@@ -1,6 +1,7 @@
 ﻿using Dziennik.DAL;
 using Dziennik.Helpers;
 using Dziennik.Models;
+using Dziennik.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -1321,7 +1322,10 @@ namespace Dziennik.Controllers
                 return HttpNotFound();
             }
             ViewBag.TestID = new SelectList(db.Testy, "ID", "ID", pytanie.TestID);
-            return View(pytanie);
+
+												var vm = new PytanieVM(pytanie);
+												vm.RemoveGuid();
+            return View(vm);
         }
 
         [HttpPost]
@@ -1371,7 +1375,7 @@ namespace Dziennik.Controllers
 																var pytanie = db.Pytania.Find(id);
 																pytanie.Multimedia.Add(multimedia);
 																db.SaveChanges();
-																return RedirectToAction("PytanieEdycja", new { id });
+																return RedirectToAction("PytanieEdytcja", new { id });
 												}
 
 												return View(multimedia);

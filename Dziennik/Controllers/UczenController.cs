@@ -696,7 +696,10 @@ namespace Dziennik.Controllers
 
 												ViewBag.title = "Pytanie 1 z " + pytania.Count();
 												ViewBag.time = (int)Session["pozostalyCzasTestu"];
-												return View(pytanie);
+
+												var vm = new PytanieVM(pytanie);
+												vm.SetPathsToBase64();
+												return View(vm);
 								}
 
 								[HttpPost, ActionName("Pytanie")]
@@ -737,7 +740,6 @@ namespace Dziennik.Controllers
 
 												switch (button)
 												{
-
 																case "Dalej":
 																				foreach (Pytanie a in pytania)
 																				{
@@ -750,7 +752,6 @@ namespace Dziennik.Controllers
 																								}
 																				}
 																				break;
-																//
 																case "Wróć":
 																				pytania.Reverse();
 																				foreach (Pytanie a in pytania)
@@ -764,7 +765,6 @@ namespace Dziennik.Controllers
 																								}
 																				}
 																				break;
-
 																case "Zapisz test":
 																				int wynik = 0;
 																				int max = 0;
@@ -797,7 +797,9 @@ namespace Dziennik.Controllers
 
 												ModelState.Clear();
 
-												return View(pytanie_next);
+												var vm = new PytanieVM(pytanie_next);
+												vm.SetPathsToBase64();
+												return View(vm);
 								}
 
 								public ActionResult Wynik()
