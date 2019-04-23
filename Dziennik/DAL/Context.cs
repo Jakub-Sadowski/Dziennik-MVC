@@ -29,7 +29,9 @@ namespace Dziennik.DAL
         public DbSet<Pytanie> Pytania { get; set; }
         public DbSet<Pytanie_ucznia> Pytania_ucznia { get; set; }
 
-        public DbSet<Rodzic> Rodzice { get; set; }
+								public DbSet<Multimedia> Multimedia { get; set; }
+
+								public DbSet<Rodzic> Rodzice { get; set; }
         public DbSet<Spoznienie> Spoznienia { get; set; }
 
         public DbSet<Test> Testy { get; set; }
@@ -225,6 +227,7 @@ namespace Dziennik.DAL
          .WithMany(m => m.Testy)
          .HasForeignKey(k => k.UczenID)
          .WillCascadeOnDelete(true);
+
         }
 
         public System.Data.Entity.DbSet<Dziennik.Models.Donos> Donos { get; set; }

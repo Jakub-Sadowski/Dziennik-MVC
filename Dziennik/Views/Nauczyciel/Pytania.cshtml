@@ -5,8 +5,8 @@
 }
 
 <h2>Pytania</h2>
-@Html.ActionLink("Dodaj nowy", "PytanieDodaj", new { id = (ViewContext.RouteData.Values["id"]) })
-<table class="table">
+@Html.ActionLink("Dodaj nowy", "PytanieDodaj", new { id = (ViewContext.RouteData.Values["id"]) }, new { @class = "btn btn-default" })
+<table class="table table-bordered">
   <tr>
     <th>@Html.DisplayNameFor(model => model.ID)</th>
     <th>@Html.DisplayNameFor(model => model.tresc)</th>
@@ -31,8 +31,8 @@
       <td>@Html.DisplayFor(model => item.odp)</td>
       <td>@Html.DisplayFor(model => item.punktacja)</td>
       <td>
-        @Html.ActionLink("Edytcja", "PytanieEdytcja", new { id = item.ID }) |
-        @Html.ActionLink("Usuń", "PytanieUsun", new { id = item.ID })
+        @Html.ActionLink("Edytcja", "PytanieEdytcja", new { id = item.ID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Usuń", "PytanieUsun", new { id = item.ID }, new { @class = "btn btn-default" })
       </td>
     </tr>
   }

@@ -5,8 +5,8 @@
 }
 
 <h2>Testy</h2>
-@Html.ActionLink("Dodaj nowy", "TestDodaj", new { id = (ViewContext.RouteData.Values["id"]) })
-<table class="table">
+@Html.ActionLink("Dodaj nowy", "TestDodaj", new { id = (ViewContext.RouteData.Values["id"]) }, new { @class = "btn btn-default" })
+<table class="table table-bordered">
   <tr>
     <th>@Html.DisplayNameFor(model => model.ID)</th>
     <th>@Html.DisplayNameFor(model => model.Przedmiot.nazwa)</th>
@@ -23,9 +23,9 @@
       <td>@Html.DisplayFor(modelItem => item.Nauczyciel.FullName)</td>
       <td>@Html.DisplayFor(model => item.czasTrwania)</td>
       <td>
-        @Html.ActionLink("Pytania", "Pytania", new { id = item.ID }) |
-        @Html.ActionLink("Edytcja", "TestEdytcja", new { id = item.ID }) |
-        @Html.ActionLink("Usuń", "TestUsun", new { id = item.ID }) 
+        @Html.ActionLink("Pytania", "Pytania", new { id = item.ID }, new { @class = "btn btn-default" }) 
+        @Html.ActionLink("Edytcja", "TestEdytcja", new { id = item.ID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Usuń", "TestUsun", new { id = item.ID }, new { @class = "btn btn-default" }) 
       </td>
     </tr>
   }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -11,7 +12,7 @@ namespace Dziennik.Models
         public int? PrzedmiotID { get; set; }
         public int? KlasaID { get; set; }
         public int? NauczycielID { get; set; }
-        public int czasTrwania { get; set; }
+								[DisplayName("Czas trwania")] public int czasTrwania { get; set; }
 
         public virtual Przedmiot Przedmiot { get; set; }
         public virtual Klasa Klasa { get; set; }

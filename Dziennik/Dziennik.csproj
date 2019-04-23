@@ -301,10 +301,15 @@
     <Compile Include="Migrations\201904210608319_add-ocHist.Designer.cs">
       <DependentUpon>201904210608319_add-ocHist.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904231424392_multimedia.cs" />
+    <Compile Include="Migrations\201904231424392_multimedia.Designer.cs">
+      <DependentUpon>201904231424392_multimedia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absencja.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Donos.cs" />
+    <Compile Include="Models\Multimedia.cs" />
     <Compile Include="Models\OcenaHistoria.cs" />
     <Compile Include="Models\Pytanie_ucznia.cs" />
     <Compile Include="Models\Zapytanie.cs" />
@@ -601,6 +606,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904210608319_add-ocHist.resx">
       <DependentUpon>201904210608319_add-ocHist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904231424392_multimedia.resx">
+      <DependentUpon>201904231424392_multimedia.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

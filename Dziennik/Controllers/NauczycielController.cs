@@ -1286,13 +1286,12 @@ namespace Dziennik.Controllers
             if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
 
-            ViewBag.TestID = new SelectList(db.Testy, "ID", "ID");
-            return View();
+            return View(new Pytanie() { TestID = id });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PytanieDodaj([Bind(Include = "ID,TestID,tresc,odpowiedz1,odpowiedz2,odpowiedz3,odpowiedz4,punktacja,odp")] Pytanie pytanie)
+        public ActionResult PytanieDodaj([Bind(Include = "TestID,tresc")] Pytanie pytanie)
         {
             if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
@@ -1304,7 +1303,6 @@ namespace Dziennik.Controllers
                 return RedirectToAction("Pytania", new { id = pytanie.TestID });
             }
 
-            ViewBag.TestID = new SelectList(db.Testy, "ID", "ID", pytanie.TestID);
             return View(pytanie);
         }
 
@@ -1343,6 +1341,42 @@ namespace Dziennik.Controllers
             return View(pytanie);
         }
 
+								public ActionResult PytanieDodajMultimedia(int? id)
+								{
+												if ((string)Session["Status"] != "Nauczyciel")
+																return RedirectToAction("Index", "Home");
+
+												if(!id.HasValue)
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+												var pytanie = db.Pytania.Find(id);
+
+												if(pytanie == null)
+																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+												return View();
+								}
+
+								[HttpPost]
+								public ActionResult PytanieDodajMultimedia([Bind(Include = "Type")] Multimedia multimedia, int? id, HttpPostedFileBase file)
+								{
+												if ((string)Session["Status"] != "Nauczyciel")
+																return RedirectToAction("Index", "Home");
+
+												if (ModelState.IsValid)
+												{
+																var path = FileHandler.SaveFile(file);
+																multimedia.Path = path;
+																db.Multimedia.Add(multimedia);
+																var pytanie = db.Pytania.Find(id);
+																pytanie.Multimedia.Add(multimedia);
+																db.SaveChanges();
+																return RedirectToAction("PytanieEdycja", new { id });
+												}
+
+												return View(multimedia);
+								}
+
         public ActionResult PytanieUsun(int? id)
         {
             if ((string)Session["Status"] != "Nauczyciel")
@@ -1371,6 +1405,10 @@ namespace Dziennik.Controllers
             var idTestu = pytanie.TestID;
             db.Pytania.Remove(pytanie);
             db.SaveChanges();
+												foreach (var m in pytanie.Multimedia)
+												{
+																FileHandler.DeleteFile(m.Path);
+												}
             return RedirectToAction("Pytania", new { id = idTestu });
         }
 								#endregion
