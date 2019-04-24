@@ -37,9 +37,9 @@ namespace Dziennik.ViewModels
 												this.odpowiedz4 = pytanie.odpowiedz4;
 												this.punktacja = pytanie.punktacja;
 												this.odp = pytanie.odp;
-												Sounds = pytanie.Multimedia.Where( x => x.Type == MultimediaType.Sound).ToList();
-												Pictures = pytanie.Multimedia.Where(x => x.Type == MultimediaType.Picture).ToList();
-												Videos = pytanie.Multimedia.Where(x => x.Type == MultimediaType.Video).ToList();
+												Sounds = pytanie.Multimedia.Where( x => x.Type == MultimediaType.Dźwięk).ToList();
+												Pictures = pytanie.Multimedia.Where(x => x.Type == MultimediaType.Obrazek).ToList();
+												Videos = pytanie.Multimedia.Where(x => x.Type == MultimediaType.Wideo).ToList();
 								}
 
 								/// <summary>

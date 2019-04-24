@@ -8,9 +8,9 @@ namespace Dziennik.Models
 {
 				public enum MultimediaType
 				{
-								Sound = 1,
-								Picture = 2,
-								Video = 3,
+								Dźwięk = 1,
+								Obrazek = 2,
+								Wideo = 3,
 				}
 				public class Multimedia
 				{
