@@ -184,7 +184,7 @@ namespace Dziennik.Controllers
 												var tk = db.Tresci_ksztalcenia.Find(id);
 												if (tk == null)
 																throw new ArgumentException();
-												var path = tk.plikSciezka;
+												var path = FileHandler.GetAbsolutePath(tk.plikSciezka);
 												byte[] fileBytes = System.IO.File.ReadAllBytes(path);
 												string fileName = FileHandler.GetFileName(path);
 												var mime = MimeMapping.GetMimeMapping(fileName);

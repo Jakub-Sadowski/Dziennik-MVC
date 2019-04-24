@@ -48,5 +48,14 @@ namespace Dziennik.Helpers
             var name = fileName.Substring(start, fileName.Length - start);
             return name;
         }
+
+								public static string  GetBase64(string filename)
+								{
+												var path = FileHandler.GetAbsolutePath(filename);
+												byte[] fileBytes = File.ReadAllBytes(path);
+												string fileName = FileHandler.GetFileName(path);
+												var mime = MimeMapping.GetMimeMapping(fileName);
+												return $"data:{mime};base64,{Convert.ToBase64String(fileBytes)}";
+								}
     }
 }

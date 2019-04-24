@@ -58,11 +58,11 @@ namespace Dziennik.ViewModels
 								public void SetPathsToBase64()
 								{
 												foreach (var m in Sounds)
-																m.Path = $"data:audio/wav;base64,{Convert.ToBase64String(File.ReadAllBytes(FileHandler.GetAbsolutePath(m.Path)))}";
+																m.Path = FileHandler.GetBase64(m.Path);
 												foreach (var m in Pictures)
-																m.Path = $"data:image/png;base64,{Convert.ToBase64String(File.ReadAllBytes(FileHandler.GetAbsolutePath(m.Path)))}";
+																m.Path = FileHandler.GetBase64(m.Path);
 												foreach (var m in Videos)
-																m.Path = $"data:video/mp4;base64,{Convert.ToBase64String(File.ReadAllBytes(FileHandler.GetAbsolutePath(m.Path)))}";
+																m.Path = FileHandler.GetBase64(m.Path);
 								}
 				}
 }
