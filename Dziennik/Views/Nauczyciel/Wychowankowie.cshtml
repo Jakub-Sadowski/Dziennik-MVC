@@ -1,47 +1,62 @@
-﻿@model IEnumerable<Dziennik.Models.Uczen>
+﻿@model Dziennik.ViewModels.WychowankowieVM
 @{
-    ViewBag.Title = "ListaUczniow";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "ListaUczniow";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Klasa @ViewBag.level @ViewBag.klasa</h2>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Wychowankowie", "Nauczyciel", FormMethod.Get))
 {
-    <p>
-        Szukaj osobę: @Html.TextBox("search")
-        <input type="submit" value="Szukaj" />
-    </p>
+
+  <div class="form-group" align="center">
+    <label for="sel1">Klasa: @Model.SelectedClassName</label>
+    <select class="form-control" name="klasaID" onchange="submit();" style="text-align-last:center;">
+      <option value="">--Wybierz--</option>
+
+      @foreach (var item in Model.Klasy)
+	  {
+        <option value="@item.KlasaID">@item.Name</option>
+	  }
+    </select>
+	@Html.ActionLink("Mail do rodziców wychowywanej klasy", "MailDoRodzicowWychowywanejKlasy", new { id = Request.QueryString["klasaID"] }, new { @class = "btn btn-default" })
+  </div>
 }
-<table class="table">
+
+
+@* fajnie jakbyś zrobil code behind do tego... *@
+@*@using (Html.BeginForm())
+{
+  <p>
+    Szukaj osobę: @Html.TextBox("search")
+    <input type="submit" value="Szukaj" />
+  </p>
+}*@
+
+<table class="table table-bordered">
+  <tr>
+
+    <th>
+      @Html.DisplayNameFor(model => model.Uczniowie.First().Imie)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.Uczniowie.First().Nazwisko)
+    </th>
+	<th/>
+
+  </tr>
+
+  @foreach (var item in Model.Uczniowie)
+  {
     <tr>
 
-        <th>
-            @Html.DisplayNameFor(model => model.Imie)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nazwisko)
-        </th>
+      <td>@Html.DisplayFor(modelItem => item.Imie)</td>
+	  <td>@Html.DisplayFor(modelItem => item.Nazwisko)</td>
 
+      <td>
+        @Html.ActionLink("Oceny", "Oceny_wszystkie", new { id = item.ID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Uwagi", "Uwagi", new { id = item.ID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Absencje", "Absencja_wszystkie", new { id = item.ID }, new { @class = "btn btn-default" })
+      </td>
     </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Imie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nazwisko)
-            </td>
-
-            <td>
-                @Html.ActionLink("Oceny", "Oceny_wszystkie", new { id = item.ID }) |
-                @Html.ActionLink("Uwagi", "Uwagi", new { id = item.ID }) |
-                @Html.ActionLink("Absencje", "Absencja_wszystkie", new { id = item.ID })
-            </td>
-        </tr>
-    }
+  }
 
 </table>

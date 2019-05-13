@@ -336,8 +336,10 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\MailDoRodzicowKlasyVM.cs" />
     <Compile Include="ViewModels\PytanieVM.cs" />
     <Compile Include="ViewModels\Pytanie_uczniaVM.cs" />
+    <Compile Include="ViewModels\WychowankowieVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Dziennik.dll" />
@@ -515,6 +517,7 @@
     <Content Include="Views\Uczen\Profil.cshtml" />
     <Content Include="Views\Oceny\Historia.cshtml" />
     <Content Include="Views\Nauczyciel\PytanieDodajMultimedia.cshtml" />
+    <Content Include="Views\Nauczyciel\MailDoRodzicowWychowywanejKlasy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

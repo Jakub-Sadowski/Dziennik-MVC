@@ -642,9 +642,8 @@ namespace Dziennik.Controllers
 																return RedirectToAction("Index", "Home");
 
 												if (id == null)
-												{
 																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-												}
+
 												var user = Session["UserID"];
 												string ide = user.ToString();
 												int id_ucznia = Convert.ToInt32(ide);
@@ -653,11 +652,6 @@ namespace Dziennik.Controllers
 
 												if (testy.Count() != 0)
 																return RedirectToAction("IstniejacyTest", "Uczen");
-
-
-
-
-
 
 												if ((string)Session["test"] != "start")
 												{
@@ -681,9 +675,8 @@ namespace Dziennik.Controllers
 																return RedirectToAction("Index", "Home");
 
 												if (Session["iter"] == null)
-												{
 																return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-												}
+
 												ViewBag.next = true;
 												ViewBag.back = true;
 												Pytanie pytanie = db.Pytania.Find(Session["iter"]);

@@ -10,6 +10,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -1085,29 +1086,47 @@ namespace Dziennik.Controllers
             return View(uwaga);
         }
 
-        public ActionResult Wychowankowie()
+        public ActionResult Wychowankowie(int? klasaId)
         {
             if ((string)Session["Status"] != "Nauczyciel")
-            {
                 return RedirectToAction("Index", "Home");
-            }
+
             var userId = Convert.ToInt32(Session["UserID"]);
-            var klasa = db.Klasy.Where(s => s.WychowawcaID == userId).ToList();
-            if (klasa.Count() == 0)
-                return RedirectToAction("Index", "Home");
+            var klasy = db.Klasy.Where(s => s.WychowawcaID == userId).ToList();
+            if (klasy.Count() == 0)
+                return View();
 
+			var uczniowie = db.Uczniowie.Where(u => u.KlasaID == klasaId).ToList();
+			var nazwa = klasy.Where(k => k.KlasaID == klasaId).SingleOrDefault()?.Name;
 
-            var uczniowie = from s in db.Uczniowie
-                            select s;
-            int? klasa_id = klasa[0].KlasaID;
-            uczniowie = uczniowie.Where(s => s.KlasaID == klasa_id);
-            ViewBag.klasa = klasa[0].nazwa;
-            ViewBag.level = klasa[0].level;
-            return View(uczniowie.ToList());
-
+            return View(new WychowankowieVM(klasy,uczniowie,nazwa));
         }
 
-        public ActionResult Oceny_wszystkie(int? id)
+		public ActionResult MailDoRodzicowWychowywanejKlasy(int? id)
+		{
+			if ((string)Session["Status"] != "Nauczyciel")
+				return RedirectToAction("Index", "Home");
+
+			if (id == null)
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+			return View(new MailDoRodzicowKlasyVM(id.Value,null));
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> MailDoRodzicowWychowywanejKlasy(MailDoRodzicowKlasyVM mailDoRodzicowKlasyVM)
+		{
+			if ((string)Session["Status"] != "Nauczyciel")
+				return RedirectToAction("Index", "Home");
+			foreach(var uczen in db.Uczniowie.Where(u => u.KlasaID == mailDoRodzicowKlasyVM.KlasaId))
+			{
+				foreach (var rodzic in db.Rodzice.Where(r => r.Uczniowie.Any(u => u.ID == uczen.ID)))
+					await EmailHelper.Send(rodzic.Email, EmailHelper.APP_EMAIL, mailDoRodzicowKlasyVM.Tresc, "Wiadomość do rodziców",false);
+			}
+			return RedirectToAction("Wychowankowie", new { klasaId = mailDoRodzicowKlasyVM.KlasaId });
+		}
+
+		public ActionResult Oceny_wszystkie(int? id)
         {
             if ((string)Session["Status"] != "Nauczyciel")
             {
