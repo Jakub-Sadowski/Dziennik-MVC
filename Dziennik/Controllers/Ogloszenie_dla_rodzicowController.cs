@@ -14,17 +14,16 @@ namespace Dziennik.Controllers
     {
         private Context db = new Context();
 
-        // GET: Ogloszenie_dla_rodzicow
         public ActionResult Index()
         {
             if ((string)Session["Status"] != "Nauczyciel")
                 return RedirectToAction("Index", "Home");
 
-            var ogloszenia_dla_rodzicow = db.Ogloszenia_dla_rodzicow.Include(o => o.klasa).Include(o => o.Nauczyciel);
+			var userId = Convert.ToInt32(Session["UserID"]);
+			var ogloszenia_dla_rodzicow = db.Ogloszenia_dla_rodzicow.Include(o => o.klasa).Include(o => o.Nauczyciel).Where(x => x.NauczycielID == userId);
             return View(ogloszenia_dla_rodzicow.ToList());
         }
 
-        // GET: Ogloszenie_dla_rodzicow/Details/5
         public ActionResult Details(int? id)
         {
             if ((string)Session["Status"] != "Nauczyciel" && (string)Session["Status"] != "Rodzic" )
@@ -43,7 +42,6 @@ namespace Dziennik.Controllers
             return View(ogloszenie_dla_rodzicow);
         }
 
-        // GET: Ogloszenie_dla_rodzicow/Create
         public ActionResult Create()
         {
             if ((string)Session["Status"] != "Nauczyciel")
@@ -54,9 +52,6 @@ namespace Dziennik.Controllers
             return View();
         }
 
-        // POST: Ogloszenie_dla_rodzicow/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<ActionResult> Create([Bind(Include = "ID,NauczycielID,KlasaID,naglowek,tresc,data")] Ogloszenie_dla_rodzicow ogloszenie_dla_rodzicow)
@@ -113,7 +108,6 @@ namespace Dziennik.Controllers
             return View(ogloszenie_dla_rodzicow);
         }
 
-        // GET: Ogloszenie_dla_rodzicow/Edit/5
         public ActionResult Edit(int? id)
         {
             if ((string)Session["Status"] != "Nauczyciel")
@@ -133,9 +127,6 @@ namespace Dziennik.Controllers
             return View(ogloszenie_dla_rodzicow);
         }
 
-        // POST: Ogloszenie_dla_rodzicow/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,NauczycielID,KlasaID,naglowek,tresc,data")] Ogloszenie_dla_rodzicow ogloszenie_dla_rodzicow)
@@ -156,7 +147,6 @@ namespace Dziennik.Controllers
             return View(ogloszenie_dla_rodzicow);
         }
 
-        // GET: Ogloszenie_dla_rodzicow/Delete/5
         public ActionResult Delete(int? id)
         {
             if ((string)Session["Status"] != "Nauczyciel")
@@ -174,7 +164,6 @@ namespace Dziennik.Controllers
             return View(ogloszenie_dla_rodzicow);
         }
 
-        // POST: Ogloszenie_dla_rodzicow/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

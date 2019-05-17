@@ -44,7 +44,7 @@ namespace Dziennik.Controllers
 				return RedirectToAction("Index", "Home");
 
 			ViewBag.KlasaID = new SelectList(db.Klasy, "KlasaID", "nazwa");
-            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "Imie");
+            ViewBag.NauczycielID = new SelectList(db.Nauczyciele, "NauczycielID", "FullName");
             ViewBag.PrzedmiotID = new SelectList(db.Przedmioty, "ID", "nazwa");
             return View();
         }
