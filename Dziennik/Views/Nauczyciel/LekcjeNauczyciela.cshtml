@@ -13,7 +13,7 @@
 <h2>Lekcje nauczyciela</h2>
 
 <br />
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Klasa.Name)
@@ -49,7 +49,7 @@
             </td>
             <td>
                
-                @Html.ActionLink("Wybierz", "LekcjaDoRaportu", new { id = item.ID }) 
+                @Html.ActionLink("Wybierz", "LekcjaDoRaportu", new { id = item.ID }, new { @class = "btn btn-default" }) 
                 
             </td>
         </tr>

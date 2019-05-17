@@ -1,56 +1,48 @@
 ﻿@model IEnumerable<Dziennik.Models.Ogloszenie>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = "Index";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Ogłoszenia</h2>
 <p>
-    @Html.ActionLink("Dla Rodziców", "Index", "Ogloszenie_dla_rodzicow")
+  @Html.ActionLink("Dla Rodziców", "Index", "Ogloszenie_dla_rodzicow",null, new { @class = "btn btn-default" })
 </p>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+  @Html.ActionLink("Dodaj", "Create",null, new { @class = "btn btn-default" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Imię i Nazwisko nauczyciela
-        </th>
-        <th>
-            Nagłówek
-        </th>
-        <th>
-            Treść
-        </th>
-        <th>
-            Data
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-bordered">
+  <tr>
+    <th>Nauczyciel</th>
+    <th>Nagłówek</th>
+    <th>Treść</th>
+    <th>Data</th>
+    <th></th>
+  </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.naglowek)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tresc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.data)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
+  @foreach (var item in Model)
+  {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.Nauczyciel.FullName)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.naglowek)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.tresc)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.data)
+      </td>
+      <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-default" })
+      </td>
+    </tr>
+  }
 
 </table>

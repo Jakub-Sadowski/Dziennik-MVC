@@ -82,8 +82,8 @@
     @Html.AntiForgeryToken()
 
   <div class="form-actions no-color">
-    <input type="submit" value="Usuń" class="btn btn-default" /> |
-    @Html.ActionLink("Powrót", "Pytania", new { id = Model.TestID })
+    <input type="submit" value="Usuń" class="btn btn-default" />
+    @Html.ActionLink("Powrót", "Pytania", new { id = Model.TestID }, new { @class = "btn btn-default" })
   </div>
   }
 </div>

@@ -5,28 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Ogłoszenia dla klas</h2>
+<h2>Ogłoszenia dla rodziców</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj", "Create",null, new { @class = "btn btn-default" })
 </p>
-<table class="table">
+<table class="table table-bordered">
     <tr>
-        <th>
-           Klasa
-        </th>
-        <th>
-            Nauczyciel
-        </th>
-        <th>
-            Nagłówek
-        </th>
-        <th>
-            Treść
-        </th>
-        <th>
-            Data
-        </th>
+        <th>Klasa</th>
+        <th>Nauczyciel</th>
+        <th>Nagłówek</th>
+        <th>Treść</th>
+        <th>Data</th>
         <th></th>
     </tr>
 
@@ -48,9 +38,9 @@
             @Html.DisplayFor(modelItem => item.data)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edycja", "Edit", new { id=item.ID }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Usuń", "Delete", new { id=item.ID }, new { @class = "btn btn-default" })
         </td>
     </tr>
 }

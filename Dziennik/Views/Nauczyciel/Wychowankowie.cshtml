@@ -1,7 +1,7 @@
 ﻿@model Dziennik.ViewModels.WychowankowieVM
 @{
-	ViewBag.Title = "ListaUczniow";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = "ListaUczniow";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm("Wychowankowie", "Nauczyciel", FormMethod.Get))
@@ -17,19 +17,19 @@
         <option value="@item.KlasaID">@item.Name</option>
 	  }
     </select>
-	@Html.ActionLink("Mail do rodziców wychowywanej klasy", "MailDoRodzicowWychowywanejKlasy", new { id = Request.QueryString["klasaID"] }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Mail do rodziców wychowywanej klasy", "MailDoRodzicowWychowywanejKlasy", new { id = Request.QueryString["klasaID"] }, new { @class = "btn btn-default" })
   </div>
 }
 
 
 @* fajnie jakbyś zrobil code behind do tego... *@
 @*@using (Html.BeginForm())
-{
-  <p>
-    Szukaj osobę: @Html.TextBox("search")
-    <input type="submit" value="Szukaj" />
-  </p>
-}*@
+  {
+	<p>
+	  Szukaj osobę: @Html.TextBox("search")
+	  <input type="submit" value="Szukaj" />
+	</p>
+  }*@
 
 <table class="table table-bordered">
   <tr>
@@ -40,7 +40,7 @@
     <th>
       @Html.DisplayNameFor(model => model.Uczniowie.First().Nazwisko)
     </th>
-	<th/>
+    <th />
 
   </tr>
 
@@ -49,7 +49,7 @@
     <tr>
 
       <td>@Html.DisplayFor(modelItem => item.Imie)</td>
-	  <td>@Html.DisplayFor(modelItem => item.Nazwisko)</td>
+      <td>@Html.DisplayFor(modelItem => item.Nazwisko)</td>
 
       <td>
         @Html.ActionLink("Oceny", "Oceny_wszystkie", new { id = item.ID }, new { @class = "btn btn-default" })

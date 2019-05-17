@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Usuń</h2>
 
 <h3>Czy jesteś pewien, że chcesz usunąc dane ogłoszenie?</h3>
 <div>
@@ -50,8 +50,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Usuń" class="btn btn-default" />
+            @Html.ActionLink("Wróć", "Index", null, new { @class = "btn btn-default" })
         </div>
     }
 </div>

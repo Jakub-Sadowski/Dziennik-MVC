@@ -8,7 +8,7 @@
 <h2>Pytania rodziców</h2>
 
 
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             Rodzic
@@ -38,7 +38,7 @@
        
 	   
 	   <td>
-            @Html.ActionLink("Odpowiedz", "Odpowiedz_pytanie", new { id=item.ID }) 
+            @Html.ActionLink("Odpowiedz", "Odpowiedz_pytanie", new { id=item.ID }, new { @class = "btn btn-default" }) 
             
         </td>
     </tr>
