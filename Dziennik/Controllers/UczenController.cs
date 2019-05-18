@@ -653,20 +653,15 @@ return View(spoznienie);
 			if (testy.Count() != 0)
 				return RedirectToAction("IstniejacyTest", "Uczen");
 
-			if ((string)Session["test"] != "start")
-			{
-				var pytania = db.Pytania.Where(s => s.TestID == id).ToArray();
-				Session["test"] = "start";
-				Session["testID"] = id;
-				Session["pozostalyCzasTestu"] = test.czasTrwania;
-				Session["iter"] = pytania[0].ID;
-				int[] cache = new int[pytania.Count()];
-				Session["cache"] = cache;
+			var pytania = db.Pytania.Where(s => s.TestID == id).ToArray();
+			Session["test"] = "start";
+			Session["testID"] = id;
+			Session["pozostalyCzasTestu"] = test.czasTrwania;
+			Session["iter"] = pytania[0].ID;
+			int[] cache = new int[pytania.Count()];
+			Session["cache"] = cache;
 
-				return RedirectToAction("Pytanie", "Uczen");
-			}
-
-			return View();
+			return RedirectToAction("Pytanie", "Uczen");
 		}
 
 		public ActionResult Pytanie()
